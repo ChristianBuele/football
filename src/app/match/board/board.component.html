@@ -1,0 +1,33 @@
+<div *ngIf="matchData; else noMatch">
+    <div class="flex bg-blue-900 w-5 h-3rem justify-content-around flex-wrap">
+        <div class="font-bold flex align-items-center">
+            <p-image src="assets/logos/intercomunidades.jpg" alt="Image" width="50"></p-image>
+            Intercomunidades
+        </div>
+        <div class="font-bold flex align-items-center justify-content-center">
+            Sede: Portul
+        </div>
+        <div class=" font-bold flex align-items-center justify-content-center">
+            Fecha: 3 Senior
+        </div>
+    </div>
+    <div class="flex bg-blue-50 w-5 justify-content-around flex-wrap">
+        <div class="font-bold flex align-items-center justify-content-center text-50 text-5xl">
+            {{matchData.teams[0].name}}
+        </div>
+        <div class="font-bold flex align-items-center justify-content-center text-5xl">
+            <div class="bg-blue-500 mx-2">{{scoreLocal}}</div>
+            <div class="bg-blue-500 mx-2">{{scoreVisit}}</div>
+        </div>
+        <div class="font-bold flex align-items-center justify-content-center text-50 text-5xl">
+            {{matchData.teams[1].name}}
+        </div>
+    </div>
+    <div class="flex bg-blue-50 w-2 bg-blue-500 justify-content-around mx-2">
+        <div class="font-bold align-items-center justify-content-center text-4xl ">
+            {{secondsElapsed | minutesSeconds }}
+        </div>
+    </div>
+</div>
+
+<ng-template #noMatch>Content to render when condition is false.</ng-template>

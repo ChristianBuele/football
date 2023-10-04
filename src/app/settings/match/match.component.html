@@ -1,0 +1,50 @@
+<p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+<form [formGroup]="scoreForm" (submit)="saveData()">
+    <p-card header="Control Partido"  [style]="{ width: '100vp' }">
+
+        <div class="flex justify-content-center flex-wrap">
+            <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
+                <h1>{{ scoreForm.controls['time'].value | minutesSeconds }}</h1>
+                <p-inputNumber inputId="integeronly" formControlName="time" *ngIf="edit"></p-inputNumber>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-6">
+                <div class="text-center p-3 border-round-sm font-bold">
+                    {{matchData.teams[0].name}}
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-center p-3 border-round-sm font-bold">
+                    {{matchData.teams[1].name}}
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-center p-3 border-round-sm  font-bold">
+                    <p-inputNumber formControlName="scoreLocal" [showButtons]="true" buttonLayout="vertical"
+                        spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
+                        incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                        decrementButtonIcon="pi pi-minus" [min]="0" (onInput)="saveData()"></p-inputNumber>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-center p-3 border-round-sm  font-bold">
+                    <p-inputNumber formControlName="scoreVisit" [showButtons]="true" buttonLayout="vertical"
+                        spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
+                        incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                        decrementButtonIcon="pi pi-minus" [min]="0" (onInput)="saveData()"></p-inputNumber>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-content-center flex-wrap">
+            <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
+                <p-button label="Play" icon="pi pi-play" styleClass="p-button-success" (onClick)="startTimer()" [disabled]="isRunning"></p-button>
+                <p-button label="Pause" icon="pi pi-pause" styleClass="p-button-secondary"
+                    [style]="{ 'margin-left': '.5em' }" (onClick)="pauseTimer()" [disabled]="!isRunning"></p-button>
+                <p-button label="Stop" icon="pi pi-stop" styleClass="p-button-help"
+                    [style]="{ 'margin-left': '.5em' }" (onClick)="stopTimer()" [disabled]="!isRunning"></p-button>
+           
+            </div>
+        </div>
+    </p-card>
+</form>

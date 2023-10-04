@@ -1,0 +1,129 @@
+<p-table #dt1 [value]="teams" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['name']">
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                (click)="clear(dt1)"></button>
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                    placeholder="Search keyword" />
+            </span>
+            <button type="button" pButton pRipple icon="pi pi-plus" class="ml-2" pTooltip="Nuevo Equipo"
+                tooltipPosition="bottom" (click)="showHideDialog(true)"></button>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="min-width:15rem">ID Equipo</th>
+            <th style="min-width:15rem">Nombre</th>
+            <th style="min-width:15rem">Color</th>
+            <th>Jugadores</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-team>
+        <tr>
+            <td>{{team.id}}</td>
+            <td>{{team.name}}</td>
+            <td><p-colorPicker [ngModel]="team.color" [disabled]="true"></p-colorPicker></td>
+            <td><p-button icon="pi pi-eye" styleClass="p-button-success" (onClick)="openTeamPlayers(team)"></p-button></td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No customers found.</td>
+        </tr>
+    </ng-template>
+     <ng-template pTemplate="footer">
+            
+            <p-button icon="pi pi-save" type="submit" label="Guardar" styleClass="p-button-text"
+                [loading]="loading"></p-button>
+        </ng-template>
+</p-table>
+
+<form [formGroup]="teamsForm" (submit)="saveTeam()">
+    <p-dialog header="Nuevo Equipo" [(visible)]="showDialog" styleClass="p-fluid" [breakpoints]="{ '960px': '75vw' }"
+        [style]="{ width: '50vw' }" [modal]="true">
+        <ng-template pTemplate="content">
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" pInputText id="name" required autofocus formControlName="name" />
+                <small class="p-error" *ngIf="teamsForm.controls.name.errors && teamsForm.controls.name.touched">Name is
+                    required.</small>
+            </div>
+            <div class="field">
+                <label for="color">Color:</label>
+                <p-colorPicker required autofocus formControlName="color"></p-colorPicker>
+                <small class="p-error" *ngIf="teamsForm.controls.color.errors && teamsForm.controls.color.touched">Color
+                    is required.</small>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            
+            <p-button icon="pi pi-save" type="submit" label="Guardar" styleClass="p-button-text"
+                [loading]="loading"></p-button>
+        </ng-template>
+    </p-dialog>
+</form>
+
+<p-dialog [visible]="showDialogPlayers" [header]="selectedTeam.name " *ngIf="selectedTeam" styleClass="p-fluid" [breakpoints]="{ '960px': '75vw' }"
+[style]="{ width: '50vw' }" [modal]="true">
+<p-table [value]="players">
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button type="button" pButton pRipple icon="pi pi-plus" class="ml-2" pTooltip="Nuevo Jugador"
+                tooltipPosition="bottom" (click)="showHideDialogPlayers(true)"></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="min-width:15rem">Id Jugador</th>
+            <th style="min-width:15rem"> Nombre</th>
+            <th style="min-width:15rem">Número</th>
+            <th>Titular</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-player>
+        <tr>
+            <td>{{player.id}}</td>
+            <td>{{player.name}}</td>
+            <td>{{player.number}}</td>
+            <td>{{player.titular ?'Si':'No'}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+</p-dialog>
+
+<form [formGroup]="playerForm" (submit)="savePlayer()">
+    <p-dialog [visible]="showDialogNewPlayer" header="Nuevo Jugador"  styleClass="p-fluid" [breakpoints]="{ '960px': '75vw' }"
+    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [modal]="true">
+    <ng-template pTemplate="content">
+        
+        <div class="field">
+            <label for="name">Nombre</label>
+                <input type="text" pInputText id="namePlayer" required autofocus formControlName="name" />
+                <small class="p-error" *ngIf="playerForm.controls.name.errors && playerForm.controls.name.touched">Nombre is
+                    required.</small>
+        </div>
+            <div class="field">
+                <label for="numero">Número</label>
+                <p-inputNumber  formControlName="number" inputId="sf"></p-inputNumber>
+                <small class="p-error" *ngIf="playerForm.controls.number.errors && playerForm.controls.number.touched">Número is
+                    required.</small>
+            </div>
+            <div class="field">
+                <p-checkbox formControlName="titular" label="Titular" ></p-checkbox>
+                <small class="p-error" *ngIf="playerForm.controls.titular.errors && playerForm.controls.titular.touched">Titular is
+                    required.</small>
+        </div>  
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-save" type="submit" label="Guardar" styleClass="p-button-text"
+            [loading]="loading"></p-button>
+    </ng-template>
+    </p-dialog>
+</form>
+

@@ -1,0 +1,65 @@
+
+<p-table #dt1 [value]="matches" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['local.name','visit.name']">
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                (click)="clear(dt1)"></button>
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                    placeholder="Search keyword" />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr><th style="min-width:15rem">
+            ID Partido
+        </th>
+            <th style="min-width:15rem">
+                Local
+            </th>
+            <th style="min-width:15rem">
+                Color
+            </th>
+            <th style="min-width:15rem">
+                Visita
+            </th>
+            <th style="min-width:15rem">
+                Color
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-matchTeam>
+        <tr>
+            <td>
+                {{matchTeam.teamMatch.id}}
+            </td>
+            <td>
+                {{matchTeam.local.name}}
+            </td>
+            <td>
+                <p-colorPicker ngModel="matchTeam.local.color" ></p-colorPicker>
+            </td>
+            <td>
+                {{matchTeam.visit.name}}
+            </td>
+            <td>
+                <p-colorPicker ngModel="matchTeam.visit.color" ></p-colorPicker>
+            </td>
+            <td>
+                <p-button icon="pi pi-play" styleClass="p-button-success" (onClick)="startMatch(matchTeam.teamMatch.id)"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>
