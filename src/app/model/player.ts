@@ -9,3 +9,4 @@ export interface Player {
     titular:boolean;
     idTeam:number
 }
+

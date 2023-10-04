@@ -21,8 +21,8 @@ export class SocketServiceService {
 
 
   }
-  getSocketData(matchId:number): Observable<any> {
-    this.socket.on('MatchScore'+matchId.toString(), (res:any) => {
+  getSocketData(channel:string): Observable<any> {
+    this.socket.on(channel, (res:any) => {
       this.observer.next(res);
     });
     return this.getSocketDataObservable();

@@ -1,1 +1,6 @@
-<p>targets works!</p>
+<div class="w-2 h-2rem text-center bg-blue-900 slide-down-animation" style="display: flex;" *ngIf="targetPlayer.show">
+    <div style="flex: 15%; " [style.background-color]="targetPlayer.color"></div>
+    <div style="flex: 85%; align-items: center; justify-content: center;" class="ml-2 font-bold text-xl" >
+    #{{targetPlayer.number}}: {{targetPlayer.name}}
+    </div>
+</div>

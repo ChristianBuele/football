@@ -1,50 +1,126 @@
-<p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
-<form [formGroup]="scoreForm" (submit)="saveData()">
-    <p-card header="Control Partido"  [style]="{ width: '100vp' }">
+<div class="card" *ngIf="matchData; else noMatchData">
+    <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+            <ng-template pTemplate="header">
+                <i class="pi pi-desktop mr-2"></i>
+                <span>Tablero</span>
+            </ng-template>
+            <form [formGroup]="scoreForm" (submit)="saveData()">
+                <p-card header="Control Partido" [style]="{ width: '100vp' }">
 
-        <div class="flex justify-content-center flex-wrap">
-            <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
-                <h1>{{ scoreForm.controls['time'].value | minutesSeconds }}</h1>
-                <p-inputNumber inputId="integeronly" formControlName="time" *ngIf="edit"></p-inputNumber>
+                    <div class="flex justify-content-center flex-wrap">
+                        <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
+                            <h1>{{ scoreForm.controls['time'].value | minutesSeconds }}</h1>
+                            <i class="pi pi-pencil ml-2" (click)="editTime()"></i>
+                            <p-inputNumber inputId="integeronly" formControlName="time" *ngIf="edit"  placeholder="Ingrese el tiempo en segundos"></p-inputNumber>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="text-center p-3 border-round-sm font-bold">
+                                {{matchData.teams[0].name}}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-3 border-round-sm font-bold">
+                                {{matchData.teams[1].name}}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-3 border-round-sm  font-bold">
+                                <p-inputNumber formControlName="scoreLocal" [showButtons]="true" buttonLayout="vertical"
+                                    spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
+                                    incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                                    decrementButtonIcon="pi pi-minus" [min]="0" (onInput)="saveData()"></p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-3 border-round-sm  font-bold">
+                                <p-inputNumber formControlName="scoreVisit" [showButtons]="true" buttonLayout="vertical"
+                                    spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
+                                    incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                                    decrementButtonIcon="pi pi-minus" [min]="0" (onInput)="saveData()"></p-inputNumber>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-content-center flex-wrap">
+                        <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
+                            <p-button label="Play" icon="pi pi-play" styleClass="p-button-success"
+                                (onClick)="startTimer()" [disabled]="isRunning"></p-button>
+                            <p-button label="Pause" icon="pi pi-pause" styleClass="p-button-secondary"
+                                [style]="{ 'margin-left': '.5em' }" (onClick)="pauseTimer()"
+                                [disabled]="!isRunning"></p-button>
+                            <p-button label="Stop" icon="pi pi-stop" styleClass="p-button-help"
+                                [style]="{ 'margin-left': '.5em' }" (onClick)="stopTimer()"
+                                [disabled]="!isRunning"></p-button>
+
+                        </div>
+                    </div>
+                </p-card>
+            </form>
+        </p-tabPanel>
+        <p-tabPanel header="Tarjetas">
+            <ng-template pTemplate="header">
+                <i class="pi pi-file mr-2"></i>
+                <span>Tarjetas</span>
+            </ng-template>
+            <p-card header="Advanced Card" >
+                <p-dropdown [options]="matchData.teams"  placeholder="Seleccione un equipo" [(ngModel)]="selectedTeam" (onChange)="getPlayers()" optionLabel="name"></p-dropdown>
+                <p-table [value]="players" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Número</th>
+                            <th>Acción</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-player>
+                        <tr>
+                            <td>{{ player.name}}</td>
+                            <td>{{ player.number }}</td>
+                            <td>
+                                <p-button label="Mostrar" icon="pi pi-eye" styleClass="p-button-warning"
+                                [style]="{ 'margin-left': '.5em' }" (onClick)="showTarget(true,player)" ></p-button>
+                                <p-button label="Mostrar" icon="pi pi-eye" styleClass="p-button-danger"
+                                [style]="{ 'margin-left': '.5em' }" (onClick)="showTarget(false,player)">
+                                </p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-card>
+        </p-tabPanel>
+        <p-tabPanel header="Header III">
+            <ng-template pTemplate="header">
+                <i class="pi pi-replay mr-2"></i>
+                <span>Cambios</span>
+            </ng-template>
+            <p-dropdown placeholder="Elija el equipo" [options]="matchData.teams" optionLabel="name" (onChange)="getPlayers()"  [(ngModel)]="selectedTeam" ></p-dropdown>
+            <p-divider></p-divider>
+            <div class="field p-fluid">  
+                <label for="inventoryStatus">Entra</label>
+                <p-dropdown placeholder="Seleccione jugador" [options]="players" optionLabel="name" inputId="float-label" [(ngModel)]="entra"></p-dropdown>
+                <label for="inventoryStatus">Sale</label>
+                <p-dropdown placeholder="Seleccione jugador" [options]="players" optionLabel="name" inputId="float-label2" [(ngModel)]="sale"></p-dropdown>
             </div>
-        </div>
-        <div class="grid">
-            <div class="col-6">
-                <div class="text-center p-3 border-round-sm font-bold">
-                    {{matchData.teams[0].name}}
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="text-center p-3 border-round-sm font-bold">
-                    {{matchData.teams[1].name}}
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="text-center p-3 border-round-sm  font-bold">
-                    <p-inputNumber formControlName="scoreLocal" [showButtons]="true" buttonLayout="vertical"
-                        spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
-                        incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                        decrementButtonIcon="pi pi-minus" [min]="0" (onInput)="saveData()"></p-inputNumber>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="text-center p-3 border-round-sm  font-bold">
-                    <p-inputNumber formControlName="scoreVisit" [showButtons]="true" buttonLayout="vertical"
-                        spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
-                        incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                        decrementButtonIcon="pi pi-minus" [min]="0" (onInput)="saveData()"></p-inputNumber>
-                </div>
-            </div>
-        </div>
-        <div class="flex justify-content-center flex-wrap">
-            <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
-                <p-button label="Play" icon="pi pi-play" styleClass="p-button-success" (onClick)="startTimer()" [disabled]="isRunning"></p-button>
-                <p-button label="Pause" icon="pi pi-pause" styleClass="p-button-secondary"
-                    [style]="{ 'margin-left': '.5em' }" (onClick)="pauseTimer()" [disabled]="!isRunning"></p-button>
-                <p-button label="Stop" icon="pi pi-stop" styleClass="p-button-help"
-                    [style]="{ 'margin-left': '.5em' }" (onClick)="stopTimer()" [disabled]="!isRunning"></p-button>
+            <p-button label="Registrar Cambio" icon="pi pi-save" (onClick)="cambio()"></p-button>
            
-            </div>
-        </div>
-    </p-card>
-</form>
+        </p-tabPanel>
+        <p-tabPanel header="Header III">
+            <ng-template pTemplate="header">
+                <i class="pi pi-chart-bar mr-2"></i>
+                <span>Estadisticas</span>
+            </ng-template>
+            <p>
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                provident, similique sunt in culpa
+                qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est
+                et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo
+                minus.
+            </p>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+<ng-template #noMatchData>Content to render when condition is false.</ng-template>

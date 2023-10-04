@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Player } from 'src/app/model/player';
 
 @Component({
   selector: 'app-changes',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./changes.component.css']
 })
 export class ChangesComponent {
-
+  @Input() entra!:Player;
+  @Input() sale!:Player;
+  constructor(){
+    
+  }
 }

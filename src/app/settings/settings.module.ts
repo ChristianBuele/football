@@ -7,7 +7,6 @@ import { MatchsComponent } from './matchs/matchs.component';
 import { TeamsComponent } from './teams/teams.component';
 import { MatchComponent } from './match/match.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MinutesSecondsPipe } from '../pipes/timer';
 
 
 @NgModule({
@@ -15,8 +14,7 @@ import { MinutesSecondsPipe } from '../pipes/timer';
     HomeComponent,
     MatchsComponent,
     TeamsComponent,
-    MatchComponent,
-  MinutesSecondsPipe],
+    MatchComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

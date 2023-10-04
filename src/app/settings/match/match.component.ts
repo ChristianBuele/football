@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatchServiceService } from '../services/match-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatchDataResponse } from 'src/app/model/teamMatch';
+import { MatchDataResponse, Team } from 'src/app/model/teamMatch';
 import { MenuItem } from 'primeng/api';
+import { Player } from 'src/app/model/player';
+import { PlayersService } from '../services/players.service';
 
 @Component({
   selector: 'app-match',
@@ -11,17 +13,11 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./match.component.css']
 })
 export class MatchComponent {
-  constructor(private fb: FormBuilder,private matchService:MatchServiceService,private activateRoute:ActivatedRoute){
+  constructor(private fb: FormBuilder,private matchService:MatchServiceService,private activateRoute:ActivatedRoute,private playersService:PlayersService){
   }
 
   ngOnInit(): void {
-    this.items = [
-      { label: 'Tablero', icon: 'pi pi-fw pi-desktop' },
-      { label: 'Tarjetas', icon: 'pi pi-fw pi-file' },
-      { label: 'Cambios', icon: 'pi pi-fw pi-replay' },
-      { label: 'Estadisticas', icon: 'pi pi-fw pi-chart-bar' }
-  ];
-  this.activeItem = this.items[0];
+   
     this.activateRoute.params.subscribe(({id})=>{
       this.matchService.getMatchTeamById(id).subscribe(
         data=>{
@@ -41,22 +37,17 @@ export class MatchComponent {
     play:[false]
   });
   matchData!:MatchDataResponse;
-  items: MenuItem[] | undefined;
-  activeItem: MenuItem | undefined;
+  players:Player[]=[];
   edit:boolean=false;
   play:boolean=false;
   elapsetSeconds:number=0;
+  selectedTeam!:Team;
+  entra!:Player;
+  sale!:Player;
 
-  onActiveItemChange(event: MenuItem) {
-    this.activeItem = event;
-    this.scoreForm.controls['time'].value
-}
-
-activateLast() {
-    this.activeItem = (this.items as MenuItem[])[(this.items as MenuItem[]).length - 1];
-}
 
   saveData(){
+    
     this.scoreForm.controls['id'].setValue(this.matchData.match.id!);
     this.matchService.postScore(this.scoreForm.value).subscribe(
       data=>{
@@ -70,6 +61,7 @@ activateLast() {
   isRunning: boolean = false;
 
   startTimer() {
+    this.secondsElapsed=this.scoreForm.controls['time'].value!;
     if (!this.isRunning) {
       this.timer = setInterval(() => {
         this.secondsElapsed++;
@@ -100,5 +92,40 @@ activateLast() {
     this.scoreForm.controls['time'].setValue(this.secondsElapsed);
     this.scoreForm.controls['play'].setValue(false);
     this.saveData();
+  }
+  
+
+  getPlayers(){
+    this.playersService.getPlayersByTeam(this.selectedTeam.id).subscribe(
+      data=>{
+        this.players=data;
+      }
+    )
+  }
+
+  showTarget(isYellow:boolean,player:Player){
+    
+    this.playersService.postPlayerTarget({isYellow,player,"matchId":this.matchData.match.id}).subscribe(data=>{
+      console.log(data)
+    });
+  }
+
+  cambio(){
+    this.playersService.postChangePlayer({
+      "entra":this.entra,
+      "sale":this.sale,
+      "matchId":this.matchData.match.id
+    }).subscribe(
+      data=>{
+        console.log(data)
+      }
+    )
+  }
+  editTime(){
+    this.edit=!this.edit;
+  }
+
+  setTime(data:any){
+    console.log(data)
   }
 }

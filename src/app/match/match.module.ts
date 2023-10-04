@@ -8,7 +8,7 @@ import { ChangesComponent } from './changes/changes.component';
 import { BoardComponent } from './board/board.component';
 import { HomeComponent } from './home/home.component';
 import { PrimerNgModule } from '../primer-ng/primer-ng.module';
-import { MinutesSecondsPipe } from '../pipes/timer';
+
 
 
 @NgModule({
@@ -18,7 +18,6 @@ import { MinutesSecondsPipe } from '../pipes/timer';
     ChangesComponent,
     BoardComponent,
     HomeComponent,
-    MinutesSecondsPipe
   ],
   imports: [
     CommonModule,

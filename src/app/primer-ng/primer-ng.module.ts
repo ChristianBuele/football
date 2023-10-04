@@ -11,8 +11,15 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CardModule } from 'primeng/card';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ImageModule } from 'primeng/image';
+import { MinutesSecondsPipe } from '../pipes/timer';
+import { TabViewModule } from 'primeng/tabview';
+import { DropdownModule } from 'primeng/dropdown';
+import {DividerModule} from 'primeng/divider';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    MinutesSecondsPipe
+  ],
   exports:[
     ButtonModule,
     InputTextModule,
@@ -25,7 +32,12 @@ import { ImageModule } from 'primeng/image';
     InputNumberModule,
     CardModule,
     TabMenuModule,
-    ImageModule
+    ImageModule,
+    MinutesSecondsPipe,
+    TabMenuModule,
+    TabViewModule,
+    DropdownModule,
+    DividerModule
   ]
 })
 export class PrimerNgModule { }
