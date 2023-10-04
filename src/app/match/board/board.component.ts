@@ -21,22 +21,23 @@ export class BoardComponent {
   sub!: Subscription;
   scoreLocal:number=0;
   scoreVisit:number=0;
+  secondsElapsed: number = 0;
 
   ngOnInit(): void {
-    this.getSocketData();
+    
     this.activateRoute.params.subscribe(({id})=>{
       this.matchService.getMatchTeamById(id).subscribe(
         data=>{
           console.log(data);
           this.matchData=data;
-          
+          this.getSocketData();
         }
       );
     });
 
   }
   getSocketData(): void {
-    this.sub = this.socketService.getSocketData()
+    this.sub = this.socketService.getSocketData(this.matchData.match.id!)
       .subscribe(data => {
        console.log(data)
        this.scoreLocal=data.scoreLocal;
@@ -45,33 +46,6 @@ export class BoardComponent {
     });
   }
 
-  timer: any;
-  secondsElapsed: number = 0;
-  isRunning: boolean = false;
-
-  startTimer() {
-    if (!this.isRunning) {
-      this.timer = setInterval(() => {
-        this.secondsElapsed++;
-      }, 1000); // Actualiza los segundos cada segundo (1000 ms)
-      this.isRunning = true;
-    }
-  }
-
-  pauseTimer() {
-    if (this.isRunning) {
-      clearInterval(this.timer);
-      this.isRunning = false;
-    }
-  }
-
-  stopTimer() {
-    if (this.isRunning) {
-      clearInterval(this.timer);
-      this.isRunning = false;
-    }
-    this.secondsElapsed = 0; // Reinicia los segundos a 0
-  }
-
-
+  
+ 
 }
