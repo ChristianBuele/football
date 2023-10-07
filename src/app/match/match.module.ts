@@ -8,6 +8,7 @@ import { ChangesComponent } from './changes/changes.component';
 import { BoardComponent } from './board/board.component';
 import { HomeComponent } from './home/home.component';
 import { PrimerNgModule } from '../primer-ng/primer-ng.module';
+import { LineupComponent } from './lineup/lineup.component';
 
 
 
@@ -18,6 +19,7 @@ import { PrimerNgModule } from '../primer-ng/primer-ng.module';
     ChangesComponent,
     BoardComponent,
     HomeComponent,
+    LineupComponent,
   ],
   imports: [
     CommonModule,

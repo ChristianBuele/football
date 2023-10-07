@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatchDataResponse } from 'src/app/model/teamMatch';
+import { MatchDataResponse, Team } from 'src/app/model/teamMatch';
 import { MatchServiceService } from 'src/app/settings/services/match-service.service';
 import { SocketServiceService } from '../services/socket-service.service';
 import { Subscription } from 'rxjs';
@@ -32,6 +32,12 @@ export class BoardComponent {
     show: false
   }
   changePlayers: Player[] = [];
+
+  titulares:Player[]=[];
+  suplentes:Player[]=[];
+  selectedTeam!:Team;
+  showLineup:boolean=false;
+
   ngOnInit(): void {
 
     this.activateRoute.params.subscribe(({ id }) => {
@@ -42,6 +48,7 @@ export class BoardComponent {
           this.getMatchData();
           this.getTargetPlayer();
           this.getChangePlayer();
+          this.getLineup();
         }
       );
     });
@@ -80,7 +87,16 @@ export class BoardComponent {
     });
   }
 
-
-
-
+  getLineup(){
+    this.socketService.socket.on('MatchLineup' + this.matchData.match.id?.toString(), (data: any) => {
+      console.log(data);
+      this.titulares=data.titulares;
+      this.suplentes=data.suplentes;
+      this.selectedTeam=data.team;
+      this.showLineup=true;
+      setTimeout(()=>{
+        this.showLineup=false;
+      },5000);
+    });
+  }
 }

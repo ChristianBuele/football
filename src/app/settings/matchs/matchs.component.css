@@ -1,0 +1,9 @@
+.ui-dialog {
+    overflow: visible !important; /* Establece overflow a visible */
+    z-index: 1000; /* Ajusta el z-index a un valor alto */
+  }
+  
+  /* Estilo para el p-dropdown */
+  .ui-dropdown-panel {
+    z-index: 1001; /* Ajusta el z-index a un valor más alto que el del p-dialog */
+  }

@@ -1,9 +1,11 @@
+import { Categorie } from "./categorie";
 import { Match } from "./match";
 
 export interface TeamMatchResponse {
     teamMatch: TeamMatch;
     local:    Team,
-    visit: Team
+    visit: Team,
+    category?:Categorie
 }
 
 export interface Team {

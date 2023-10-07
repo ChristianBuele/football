@@ -1,0 +1,21 @@
+<div class=" surface-300 sombra bounce-in-left " *ngIf="show">
+    <div class="bg-blue-900 flex align-content-center text-3xl h-3rem justify-content-center font-bold flex-wrap">
+        {{team?team.name:''}}
+    </div>
+    <div class="surface-300 ml-2 mr-6">
+        <div class="font-bold text-xl py-1" [ngClass]="{'titulares-enter-active': mostrarTitulares}">
+            Titulares
+        </div>
+        <div *ngFor="let player of titulares" class="py-1 text-xl font-bold" [ngClass]="{'titulares-enter-active': mostrarTitulares}">
+            <label class="">{{player.number}} -</label>
+            <span class="ml-2 surface-300 w-12">{{player.name}}</span>
+        </div>
+        <div class="font-bold text-xl py-1" [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
+            Suplentes
+        </div>
+        <div *ngFor="let player of suplentes" class="py-1 text-xl font-bold" [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
+            <label class="">{{player.number}} -</label>
+            <span class="ml-2 surface-300 w-12">{{player.name}}</span>
+        </div>
+    </div>
+</div>

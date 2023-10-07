@@ -128,4 +128,12 @@ export class MatchComponent {
   setTime(data:any){
     console.log(data)
   }
+
+  showFormacion(local:boolean){
+    
+    const idTeam=local?this.matchData.teams[0].id:this.matchData.teams[1].id;
+    this.playersService.postLineUp({idTeam,matchId:this.matchData.match.id}).subscribe(data=>{
+      console.log(data)
+    });
+  }
 }

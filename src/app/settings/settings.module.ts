@@ -7,6 +7,7 @@ import { MatchsComponent } from './matchs/matchs.component';
 import { TeamsComponent } from './teams/teams.component';
 import { MatchComponent } from './match/match.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PlayersComponent } from './players/players.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     MatchsComponent,
     TeamsComponent,
-    MatchComponent],
+    MatchComponent,
+    PlayersComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

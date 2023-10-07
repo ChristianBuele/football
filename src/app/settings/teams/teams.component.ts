@@ -21,19 +21,15 @@ export class TeamsComponent {
   loadingPlayers: boolean = false;
   showDialog: boolean = false;
   showDialogPlayers: boolean = false;
-  showDialogNewPlayer: boolean = false;
   selectedTeam!: Team;
   teamsForm = this.fb.group({
     name: ['', [Validators.required]],
     color: ['', [Validators.required]]
   });
 
-  playerForm = this.fb.group({
-    name: ['', [Validators.required]],
-    number: [0, [Validators.required]],
-    titular: [true, [Validators.required]],
-    idTeam: [0, [Validators.required]]
-  });
+  clonedTeams: { [s: string]:Team } = {};
+
+
   players: Player[] = [];
 
   ngOnInit(): void {
@@ -84,40 +80,29 @@ export class TeamsComponent {
   openTeamPlayers(team: Team) {
     this.selectedTeam = team;
     this.showDialogPlayers = true;
-    this.loadingPlayers = true;
-    this.playersService.getAllPlayers(this.selectedTeam.id).subscribe(
-      data => {
-        this.loadingPlayers = false;
-        this.players = data;
+    console.log('sadas')
+    
+  }
+
+  closeDialog(band:any){
+    this.showDialogPlayers=band;
+  } 
+  
+
+  onRowEditInit(team:Team){
+    this.clonedTeams[team.id!.toString()]={...team};
+  }
+  onRowEditSave(team:Team){
+    this.teamsService.putTeam(team).subscribe(
+      data=>{
+        console.log(data);
+        this.messageService.add({severity:'success',summary:'Success',detail:'Equipo actualizado correctamente'});
+        
       }
     )
   }
-
-  showHideDialogPlayers(band: boolean) {
-    console.log('abriendo dialog', band);
-    this.showDialogNewPlayer = band;
-  }
-
-  savePlayer() {
-    console.log(this.playerForm.value);
-    this.playerForm.patchValue({
-      "idTeam": this.selectedTeam.id
-    });
-    if (this.playerForm.invalid) {
-      this.playerForm.markAllAsTouched();
-      return
-    }
-    this.loading = true;
-    this.playersService.postPlayer(this.playerForm.value).subscribe(
-      data => {
-        this.players.push(data);
-        this.showDialogNewPlayer = false;
-        this.loading = false;
-        this.teamsForm.reset();
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Jugador registrado correctamente' });
-      }
-    )
-
-
+  onRowEditCancel(team:Team,  index: number){
+    this.teams[index]=this.clonedTeams[team.id?.toString() as string];
+    delete this.clonedTeams[team.id?.toString() as string]
   }
 }

@@ -45,4 +45,8 @@ export class TeamsServiceService {
       )
     )
   }
+
+  putTeam(team:Team):Observable<Team>{
+    return this.http.put<Team>(this.baseUrl+"/teams/"+team.id.toString(),team);
+  }
 }

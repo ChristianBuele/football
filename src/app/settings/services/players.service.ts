@@ -40,4 +40,12 @@ export class PlayersService {
   postChangePlayer(data:any){
     return this.http.post(this.baseUrl+"/players/change",data);
   }
+
+  postLineUp(data:any){
+    return this.http.post(this.baseUrl+"/players/lineup",data);
+  }
+
+  putPlayer(player:Player):Observable<Player>{
+    return this.http.put<Player>(this.baseUrl+"/players/"+player.id?.toString(),player)
+  }
 }

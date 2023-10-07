@@ -1,0 +1,120 @@
+<p-dialog [visible]="showDialogPlayers" [header]="selectedTeam.name " *ngIf="selectedTeam" styleClass="p-fluid"
+    [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true" [closable]="false">
+    <p-table [value]="players" dataKey="id" editMode="row"> 
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button type="button" pButton pRipple icon="pi pi-plus" class="ml-2" pTooltip="Nuevo Jugador"
+                    tooltipPosition="bottom" (click)="showDialogNewPlayer=true"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="min-width:15rem">Id Jugador</th>
+                <th style="min-width:15rem"> Nombre</th>
+                <th style="min-width:15rem">Número</th>
+                <th style="min-width:15rem">Presente</th>
+                <th style="min-width:15rem">Titular</th>
+                <th style="width:20%"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-player let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="player">
+                <td>{{player.id}}</td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="player.name" required autofocus>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{player.name}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="player.number" required autofocus>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{player.number}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-checkbox [(ngModel)]="player.present" label="Presente" [binary]="true"></p-checkbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{player.present ?'Si':'No'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-checkbox  [(ngModel)]="player.titular" label="Titular" [binary]="true"></p-checkbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{player.titular ?'Si':'No'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(player)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(player)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(player, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton pRipple icon="pi pi-times" class="ml-2" pTooltip="Cerrar" label="Cerrar"
+            tooltipPosition="bottom" (click)="closeDialogPlayers()"></button>
+    </ng-template>
+</p-dialog>
+
+<form [formGroup]="playerForm" (submit)="savePlayer()">
+    <p-dialog [visible]="showDialogNewPlayer" header="Nuevo Jugador" styleClass="p-fluid"
+        [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false"
+        [modal]="true">
+        <ng-template pTemplate="content">
+
+            <div class="field">
+                <label for="name">Nombre</label>
+                <input type="text" pInputText id="namePlayer" required autofocus formControlName="name" />
+                <small class="p-error"
+                    *ngIf="playerForm.controls.name.errors && playerForm.controls.name.touched">Nombre is
+                    required.</small>
+            </div>
+            <div class="field">
+                <label for="numero">Número</label>
+                <p-inputNumber formControlName="number" inputId="sf"></p-inputNumber>
+                <small class="p-error"
+                    *ngIf="playerForm.controls.number.errors && playerForm.controls.number.touched">Número is
+                    required.</small>
+            </div>
+            <div class="field">
+                <p-checkbox formControlName="titular" label="Titular" [binary]="true"></p-checkbox>
+                <small class="p-error"
+                    *ngIf="playerForm.controls.titular.errors && playerForm.controls.titular.touched">Titular is
+                    required.</small>
+            </div>
+            <div class="field">
+                <p-checkbox formControlName="present" label="Presente" [binary]="true"></p-checkbox>
+                <small class="p-error"
+                    *ngIf="playerForm.controls.present.errors && playerForm.controls.present.touched">Titular is
+                    required.</small>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button type="button" pButton pRipple icon="pi pi-times" class="ml-2" pTooltip="Cerrar" label="Cerrar"
+                        tooltipPosition="bottom" (click)="showDialogNewPlayer=false"></button>
+            <p-button icon="pi pi-save" type="submit" label="Guardar" styleClass="p-button-text"
+                [loading]="loading"></p-button>
+                    
+        </ng-template>
+    </p-dialog>
+</form>

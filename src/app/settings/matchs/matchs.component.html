@@ -2,7 +2,7 @@
 <p-table #dt1 [value]="matches" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
     [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['local.name','visit.name']">
+    [globalFilterFields]="['local.name','visit.name']" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="caption">
         <div class="flex">
             <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
@@ -12,27 +12,19 @@
                 <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
                     placeholder="Search keyword" />
             </span>
+            <button pButton label="Nuevo" class="p-button-outlined" icon="pi pi-plus"
+                (click)="newMatchDialog=true"></button>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
-        <tr><th style="min-width:15rem">
-            ID Partido
-        </th>
-            <th style="min-width:15rem">
-                Local
-            </th>
-            <th style="min-width:15rem">
-                Color
-            </th>
-            <th style="min-width:15rem">
-                Visita
-            </th>
-            <th style="min-width:15rem">
-                Color
-            </th>
-            <th>
-                Acciones
-            </th>
+        <tr>
+            <th style="min-width:15rem">ID Partido</th>
+            <th style="min-width:15rem">Categoría</th>
+            <th style="min-width:15rem">Local</th>
+            <th style="min-width:15rem">Color</th>
+            <th style="min-width:15rem">Visita</th>
+            <th style="min-width:15rem">Color</th>
+            <th>Acciones</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-matchTeam>
@@ -41,19 +33,22 @@
                 {{matchTeam.teamMatch.id}}
             </td>
             <td>
+                {{matchTeam.category!=null?matchTeam.category.name:'Sin categoría'}}
+            </td>
+            <td>
                 {{matchTeam.local.name}}
             </td>
             <td>
-                <p-colorPicker ngModel="matchTeam.local.color" ></p-colorPicker>
+                <p-colorPicker [ngModel]="matchTeam.local.color" [disabled]="true"></p-colorPicker>
             </td>
             <td>
                 {{matchTeam.visit.name}}
             </td>
             <td>
-                <p-colorPicker ngModel="matchTeam.visit.color" ></p-colorPicker>
+                <p-colorPicker [ngModel]="matchTeam.visit.color" [disabled]="true"></p-colorPicker>
             </td>
             <td>
-                <p-button icon="pi pi-play" styleClass="p-button-success" (onClick)="startMatch(matchTeam.teamMatch.id)"></p-button>
+                <p-button icon="pi pi-play" styleClass="p-button-success" (onClick)="startMatch(matchTeam.teamMatch.idMatch)"></p-button>
             </td>
         </tr>
     </ng-template>
@@ -63,3 +58,61 @@
         </tr>
     </ng-template>
 </p-table>
+
+<form [formGroup]="matchForm" (submit)="saveMatch()">
+    <p-dialog [visible]="newMatchDialog" class="ui-dialog " [closable]="false" header="Nuevo Partido" styleClass="p-fluid" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw'  }" [modal]="true">
+        <div class="grid">
+            <div class="col">
+                    <span>Categoría</span>
+                    <p-dropdown [options]="categories" optionLabel="name" formControlName="categorie"></p-dropdown>
+                    <small class="p-error"
+                    *ngIf="matchForm.controls.categorie.errors && matchForm.controls.categorie.touched">Categoria is
+                    required.</small>
+            </div>
+            <div class="col">
+                <span>Descripción</span>
+                <input type="text" pInputText id="date" required autofocus formControlName="date" maxlength="20" />
+                    <small class="p-error"
+                    *ngIf="matchForm.controls.date.errors && matchForm.controls.date.touched">Descripcion is
+                    required.</small>
+            </div>
+        </div>
+        <div >
+            <span>Local</span>
+            <p-dropdown [options]="teams" optionLabel="name" [virtualScroll]="true" [virtualScrollItemSize]="38" class="ui-dropdown-panel" formControlName="teamLocal" ></p-dropdown>
+            <small class="p-error"
+            *ngIf="matchForm.controls.teamLocal.errors && matchForm.controls.teamLocal.touched">Local is
+            required.</small>
+        </div>
+        <div >
+            <span>Visita</span>
+            <p-dropdown [options]="teams" optionLabel="name" formControlName="teamVisit"></p-dropdown>
+            <small class="p-error"
+            *ngIf="matchForm.controls.teamVisit.errors && matchForm.controls.teamVisit.touched">Visita is
+            required.</small>
+        </div>
+        
+        <div class="grid">
+            <div class="col">
+                    <span>Lugar</span>
+                    <input type="text" pInputText id="namePlayer" required autofocus formControlName="location" />
+                    <small class="p-error"
+                    *ngIf="matchForm.controls.location.errors && matchForm.controls.location.touched">Lugar is
+                    required.</small>
+            </div>
+            <div class="col">
+                <span>Duración</span>
+                <p-inputNumber  id="time" autofocus formControlName="minutes" />
+                <small class="p-error"
+                *ngIf="matchForm.controls.minutes.errors && matchForm.controls.minutes.touched">Duración is
+                required.</small>
+        </div>
+        </div>
+        <p>Recuerde que no puede seleccionar el mismo equipo como local y visitante no sea gil</p>
+        
+        <ng-template pTemplate="footer">
+            <p-button label="Cancelar" icon="pi pi-times" [loading]="loading" (onClick)="newMatchDialog=false"></p-button>
+            <p-button label="Guardar" icon="pi pi-save" [loading]="loading" type="submit"></p-button>
+        </ng-template>
+    </p-dialog>
+</form>

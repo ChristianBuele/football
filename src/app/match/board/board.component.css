@@ -28,4 +28,12 @@
     }
   }
 
+  .container {
+    display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
+    align-items: flex-start; /* Alinea a la izquierda */
+    justify-content: center; /* Centra verticalmente */
+    height: 100vh; /* Establece la altura del contenedor al 100% del viewport */
+    padding-left: 20px; /* Ajusta el espacio a la izquierda si es necesario */
+  }
   

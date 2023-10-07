@@ -45,6 +45,17 @@
                     </div>
                     <div class="flex justify-content-center flex-wrap">
                         <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
+                            <p-button label="Formación Local" icon="pi pi-eye" styleClass="p-button-success"
+                                (onClick)="showFormacion(true)" ></p-button>
+                            
+                            <p-button label="Formación Visita" icon="pi pi-eye" styleClass="p-button-help"
+                                [style]="{ 'margin-left': '.5em' }" (onClick)="showFormacion(false)"
+                                ></p-button>
+
+                        </div>
+                    </div>
+                    <div class="flex justify-content-center flex-wrap">
+                        <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
                             <p-button label="Play" icon="pi pi-play" styleClass="p-button-success"
                                 (onClick)="startTimer()" [disabled]="isRunning"></p-button>
                             <p-button label="Pause" icon="pi pi-pause" styleClass="p-button-secondary"
@@ -53,7 +64,6 @@
                             <p-button label="Stop" icon="pi pi-stop" styleClass="p-button-help"
                                 [style]="{ 'margin-left': '.5em' }" (onClick)="stopTimer()"
                                 [disabled]="!isRunning"></p-button>
-
                         </div>
                     </div>
                 </p-card>

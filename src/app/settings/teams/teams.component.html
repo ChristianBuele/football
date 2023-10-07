@@ -1,7 +1,7 @@
 <p-table #dt1 [value]="teams" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
     [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['name']">
+    [globalFilterFields]="['name']" editMode="row">
     <ng-template pTemplate="caption">
         <div class="flex">
             <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
@@ -22,14 +22,40 @@
             <th style="min-width:15rem">Nombre</th>
             <th style="min-width:15rem">Color</th>
             <th>Jugadores</th>
+            <th style="width:20%"></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-team>
-        <tr>
+    <ng-template pTemplate="body" let-team let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="team">
             <td>{{team.id}}</td>
-            <td>{{team.name}}</td>
-            <td><p-colorPicker [ngModel]="team.color" [disabled]="true"></p-colorPicker></td>
-            <td><p-button icon="pi pi-eye" styleClass="p-button-success" (onClick)="openTeamPlayers(team)"></p-button></td>
+            <td>
+                <p-cellEditor>
+                    <<ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="team.name" required autofocus>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{team.name}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <<ng-template pTemplate="input">
+                        <p-colorPicker [(ngModel)]="team.color" [disabled]="false" required autofocus></p-colorPicker>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        <p-colorPicker [ngModel]="team.color" [disabled]="true"></p-colorPicker>
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td><p-button icon="pi pi-users" styleClass="p-button-success" (onClick)="openTeamPlayers(team)"></p-button></td>
+            <td>
+                <div class="flex align-items-center justify-content-center gap-2">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(team)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(team)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(team, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                </div>
+            </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
@@ -37,11 +63,7 @@
             <td colspan="7">No customers found.</td>
         </tr>
     </ng-template>
-     <ng-template pTemplate="footer">
-            
-            <p-button icon="pi pi-save" type="submit" label="Guardar" styleClass="p-button-text"
-                [loading]="loading"></p-button>
-        </ng-template>
+    
 </p-table>
 
 <form [formGroup]="teamsForm" (submit)="saveTeam()">
@@ -49,17 +71,18 @@
         [style]="{ width: '50vw' }" [modal]="true">
         <ng-template pTemplate="content">
             <div class="field">
-                <label for="name">Name</label>
-                <input type="text" pInputText id="name" required autofocus formControlName="name" />
-                <small class="p-error" *ngIf="teamsForm.controls.name.errors && teamsForm.controls.name.touched">Name is
-                    required.</small>
-            </div>
-            <div class="field">
                 <label for="color">Color:</label>
                 <p-colorPicker required autofocus formControlName="color"></p-colorPicker>
                 <small class="p-error" *ngIf="teamsForm.controls.color.errors && teamsForm.controls.color.touched">Color
                     is required.</small>
             </div>
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" pInputText id="name" required autofocus formControlName="name" />
+                <small class="p-error" *ngIf="teamsForm.controls.name.errors && teamsForm.controls.name.touched">Name is
+                    required.</small>
+            </div>
+            
         </ng-template>
         <ng-template pTemplate="footer">
             
@@ -68,62 +91,4 @@
         </ng-template>
     </p-dialog>
 </form>
-
-<p-dialog [visible]="showDialogPlayers" [header]="selectedTeam.name " *ngIf="selectedTeam" styleClass="p-fluid" [breakpoints]="{ '960px': '75vw' }"
-[style]="{ width: '50vw' }" [modal]="true">
-<p-table [value]="players">
-    <ng-template pTemplate="caption">
-        <div class="flex">
-            <button type="button" pButton pRipple icon="pi pi-plus" class="ml-2" pTooltip="Nuevo Jugador"
-                tooltipPosition="bottom" (click)="showHideDialogPlayers(true)"></button>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="min-width:15rem">Id Jugador</th>
-            <th style="min-width:15rem"> Nombre</th>
-            <th style="min-width:15rem">Número</th>
-            <th>Titular</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-player>
-        <tr>
-            <td>{{player.id}}</td>
-            <td>{{player.name}}</td>
-            <td>{{player.number}}</td>
-            <td>{{player.titular ?'Si':'No'}}</td>
-        </tr>
-    </ng-template>
-</p-table>
-</p-dialog>
-
-<form [formGroup]="playerForm" (submit)="savePlayer()">
-    <p-dialog [visible]="showDialogNewPlayer" header="Nuevo Jugador"  styleClass="p-fluid" [breakpoints]="{ '960px': '75vw' }"
-    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [modal]="true">
-    <ng-template pTemplate="content">
-        
-        <div class="field">
-            <label for="name">Nombre</label>
-                <input type="text" pInputText id="namePlayer" required autofocus formControlName="name" />
-                <small class="p-error" *ngIf="playerForm.controls.name.errors && playerForm.controls.name.touched">Nombre is
-                    required.</small>
-        </div>
-            <div class="field">
-                <label for="numero">Número</label>
-                <p-inputNumber  formControlName="number" inputId="sf"></p-inputNumber>
-                <small class="p-error" *ngIf="playerForm.controls.number.errors && playerForm.controls.number.touched">Número is
-                    required.</small>
-            </div>
-            <div class="field">
-                <p-checkbox formControlName="titular" label="Titular" ></p-checkbox>
-                <small class="p-error" *ngIf="playerForm.controls.titular.errors && playerForm.controls.titular.touched">Titular is
-                    required.</small>
-        </div>  
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-save" type="submit" label="Guardar" styleClass="p-button-text"
-            [loading]="loading"></p-button>
-    </ng-template>
-    </p-dialog>
-</form>
-
+<app-players [showDialogPlayers]="showDialogPlayers" [selectedTeam]="selectedTeam" (closeDialog)="closeDialog($event)"></app-players>

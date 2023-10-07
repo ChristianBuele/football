@@ -40,6 +40,9 @@
     <app-targets [targetPlayer]="targetPlayer"></app-targets>
     <app-changes [entra]="changePlayers[0]" [sale]="changePlayers[1]" *ngIf="changePlayers.length==2"></app-changes>
 </div>
-
+<div class="container ">
+    <app-lineup [titulares]="titulares" [suplentes]="suplentes" [team]="selectedTeam" [show]="showLineup"></app-lineup>
+</div>
 
 <ng-template #noMatch>Content to render when condition is false.</ng-template>
+
