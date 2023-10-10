@@ -73,7 +73,7 @@ export class BoardComponent {
       this.targetPlayer.color = data.isYellow ? 'yellow' : 'red';
       setTimeout(() => {
         this.targetPlayer.show = false;
-      }, 3000);
+      }, 10000);
     });
     //despues de 10 s ejecutar una accion
   }
@@ -85,7 +85,7 @@ export class BoardComponent {
       this.changePlayers[1]=data.sale;
       setTimeout(() => {
         this.changePlayers=[];
-      }, 10000);
+      }, 20000);
     });
   }
 
@@ -98,7 +98,7 @@ export class BoardComponent {
       this.showLineup=true;
       setTimeout(()=>{
         this.showLineup=false;
-      },5000);
+      },30000);
     });
   }
 
@@ -108,7 +108,7 @@ export class BoardComponent {
       this.matchPlayer=data;
       setTimeout(()=>{
         this.matchPlayer=undefined;
-      },10000);
+      },60000);
     })
   }
 }

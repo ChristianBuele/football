@@ -8,6 +8,6 @@ import { Player } from 'src/app/model/player';
 })
 export class MatchPlayerComponent {
   @Input() player!:Player;
-  auspiciante:string='Don Bonice';
+  auspiciante:string='Truchirot';
   
 }
