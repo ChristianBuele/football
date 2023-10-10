@@ -23,6 +23,7 @@ export class MatchComponent {
         data=>{
           console.log(data);
           this.matchData=data;
+          
         }
       );
     });

@@ -37,6 +37,7 @@ export class BoardComponent {
   suplentes:Player[]=[];
   selectedTeam!:Team;
   showLineup:boolean=false;
+  matchPlayer!:Player|undefined;
 
   ngOnInit(): void {
 
@@ -49,6 +50,7 @@ export class BoardComponent {
           this.getTargetPlayer();
           this.getChangePlayer();
           this.getLineup();
+          this.getMatchPlayer()
         }
       );
     });
@@ -98,5 +100,15 @@ export class BoardComponent {
         this.showLineup=false;
       },5000);
     });
+  }
+
+  getMatchPlayer(){
+    this.socketService.socket.on('MatchPlayer'+this.matchData.match.id?.toString(),(data:any)=>{
+      console.log(data);
+      this.matchPlayer=data;
+      setTimeout(()=>{
+        this.matchPlayer=undefined;
+      },10000);
+    })
   }
 }

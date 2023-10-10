@@ -28,11 +28,7 @@ export class MatchServiceService {
   }
 
   getMatchTeamById(id:number):Observable<MatchDataResponse>{
-    return this.http.get<MatchDataResponse>(this.baseUrl+"/matchTeam/"+id.toString()).pipe(
-      map(data=>{
-        return data;
-      })
-    );
+    return this.http.get<MatchDataResponse>(this.baseUrl+"/matchTeam/"+id.toString());
   }
 
   postScore(data:any){

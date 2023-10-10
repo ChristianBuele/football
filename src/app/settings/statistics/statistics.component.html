@@ -1,0 +1,23 @@
+<p-divider></p-divider>
+<div class="p-fluid">
+    <div class="grid">
+        <form [formGroup]="playerForm" (ngSubmit)="showTeamPlayer()">
+            <div class="col">
+                <span>Jugador del partido</span>
+                <p-dropdown [options]="players" optionLabel="name" placeholder="Seleccione el jugador" [group]="true" formControlName="player">
+                    <ng-template let-player pTemplate="group">
+                        <div class="flex align-items-center">
+                            <span>{{ player.name }}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+                <small *ngIf="playerForm.controls.player.errors && playerForm.controls.player.touched" class="p-error">Seleccione el jugador</small>
+            </div>
+            <div class="col">
+                <span>Mostrar en vivo</span>
+                <p-button label="Mostrar" icon="pi pi-eye" [loading]="loading" type="submit"></p-button>
+            </div>
+        </form>
+    </div>
+</div>
+<p-divider></p-divider>

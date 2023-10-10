@@ -9,6 +9,7 @@ import { MatchTeamService } from '../services/match-team.service';
 import { MessageService } from 'primeng/api';
 import { Categorie } from 'src/app/model/categorie';
 import { CategorieService } from '../services/categorie.service';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-matchs',
@@ -29,7 +30,7 @@ export class MatchsComponent {
     categorie:[,[Validators.required]]
   });
   categories:Categorie[]=[];
-  constructor(private categorieService:CategorieService,private messaageService:MessageService,private mathService: MatchServiceService,private router:Router,private teamsService:TeamsServiceService,private fb: FormBuilder,private matchTeamService:MatchTeamService) {
+  constructor( private clipboardApi: ClipboardService,private categorieService:CategorieService,private messaageService:MessageService,private mathService: MatchServiceService,private router:Router,private teamsService:TeamsServiceService,private fb: FormBuilder,private matchTeamService:MatchTeamService) {
 
   }
 
@@ -79,6 +80,13 @@ export class MatchsComponent {
         this.getMatches();
       }
     );
+  }
+
+  copyPathMatch(path:string){
+    const dominio=window.location.origin;
+    const url=dominio+"/match/"+path
+    this.clipboardApi.copyFromContent(url);
+    console.log(url)
   }
   
 }

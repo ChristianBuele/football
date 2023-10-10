@@ -46,6 +46,20 @@ export class PlayersService {
   }
 
   putPlayer(player:Player):Observable<Player>{
-    return this.http.put<Player>(this.baseUrl+"/players/"+player.id?.toString(),player)
+    return this.http.put<Player>(this.baseUrl+"/players/"+player.id?.toString(),player);
+  }
+
+  getPlayersByMatch(idMatch:number):Observable<any[]>{
+    return this.http.get<any>(this.baseUrl+"/players/match/"+idMatch.toString()).pipe(
+      map(
+        data=>{
+          return data.teamPlayers as any[];
+        }
+      )
+    );
+  }
+
+  postTeamPlayer(player:any){
+    return this.http.post(this.baseUrl+"/players/matchPlayer",player);
   }
 }

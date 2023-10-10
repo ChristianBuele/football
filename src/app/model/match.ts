@@ -6,5 +6,5 @@ export interface Match {
     startTime:any;
     idCategory:number;
     active:any;
-    Category:any
+    Category?:any
 }

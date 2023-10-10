@@ -1,0 +1,14 @@
+<div class="grid  mb-4 bg-blue-900 col-3 bottom-center sombra" *ngIf="player">
+    <div class="col-3 bg-white sombra">
+        <p-image src="assets/logos/logo.png" width="100%" > </p-image>
+    </div>
+    <div class="col-9  text-center">
+        <div class="col-12 font-bold text-4xl">
+            {{player.number}}. {{player.name}}
+        </div>
+        <div class="col-12">
+            Jugador del partido <span class="font-bold"> {{auspiciante}}</span>
+        </div>
+        
+    </div>
+</div>
