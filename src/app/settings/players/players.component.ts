@@ -18,10 +18,10 @@ export class PlayersComponent {
   players:Player[]=[];
   playerForm = this.fb.group({
     name: ['', [Validators.required]],
-    number: [0, [Validators.required]],
+    number: [, [Validators.required]],
     titular: [false, [Validators.required]],
     idTeam: [0, [Validators.required]],
-    present:[false,[Validators.required]]
+    present:[true,[Validators.required]]
   });
   clonedPlayers: { [s: string]: Player } = {};
   loading:boolean=false;
@@ -39,7 +39,8 @@ export class PlayersComponent {
   savePlayer() {
     console.log(this.playerForm.value);
     this.playerForm.patchValue({
-      "idTeam": this.selectedTeam.id
+      "idTeam": this.selectedTeam.id,
+      "present":true
     });
     if (this.playerForm.invalid) {
       this.playerForm.markAllAsTouched();
@@ -52,6 +53,11 @@ export class PlayersComponent {
         this.showDialogNewPlayer = false;
         this.loading = false;
         this.playerForm.reset();
+        this.playerForm.patchValue({
+          "idTeam": this.selectedTeam.id,
+          "present":true,
+          "titular":false
+        });
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Jugador registrado correctamente' });
       }
     )
@@ -84,5 +90,28 @@ export class PlayersComponent {
   onRowEditCancel(player:Player,  index: number){
     this.players[index]=this.clonedPlayers[player.id?.toString() as string];
     delete this.clonedPlayers[player.id?.toString() as string]
+  }
+
+  deletePlayer(id:number){
+    this.loading=true;
+    this.playersService.deletePlayer(id).subscribe(
+      data=>{
+        this.loading=false;
+        if(data.status){
+          this.getPlayers();
+          this.messageService.add(
+            {
+              severity: 'success', summary: 'Success', detail: 'Jugador eliminado correctamente'
+            }
+          )
+        }else{
+          this.messageService.add(
+            {
+              severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el jugador: '+data.message
+            }
+          )
+        }
+      }
+    )
   }
 }

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { PrimerNgModule } from '../primer-ng/primer-ng.module';
 import { LineupComponent } from './lineup/lineup.component';
 import { MatchPlayerComponent } from './match-player/match-player.component';
+import { HalfTimescoreComponent } from './half-timescore/half-timescore.component';
 
 
 
@@ -22,6 +23,7 @@ import { MatchPlayerComponent } from './match-player/match-player.component';
     HomeComponent,
     LineupComponent,
     MatchPlayerComponent,
+    HalfTimescoreComponent,
   ],
   imports: [
     CommonModule,

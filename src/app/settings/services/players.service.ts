@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment.prod';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { Player, PlayersResponse } from 'src/app/model/player';
 
 @Injectable({
@@ -61,5 +61,26 @@ export class PlayersService {
 
   postTeamPlayer(player:any){
     return this.http.post(this.baseUrl+"/players/matchPlayer",player);
+  }
+
+  deletePlayer(idPlayer:number){
+    return this.http.delete(this.baseUrl+"/players/"+idPlayer.toString()).pipe(
+      map(
+        data=>{
+          return {
+            status:true,
+            message:"Jugador eliminado correctamente"
+          };
+        }
+      ),
+      catchError(err=>{
+        return of(
+          {
+            status:false,
+            message:err.error.message
+          }
+        );
+      })
+    )
   }
 }

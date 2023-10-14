@@ -6,23 +6,24 @@
                 <span>Tablero</span>
             </ng-template>
             <form [formGroup]="scoreForm" (submit)="saveData()">
-                <p-card header="Control Partido" [style]="{ width: '100vp' }">
+                <p-card header="{{'Control Partido: '+matchData.match.id}}" [style]="{ width: '100vp' }">
 
                     <div class="flex justify-content-center flex-wrap">
                         <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
                             <h1>{{ scoreForm.controls['time'].value | minutesSeconds }}</h1>
                             <i class="pi pi-pencil ml-2" (click)="editTime()"></i>
-                            <p-inputNumber inputId="integeronly" formControlName="time" *ngIf="edit"  placeholder="Ingrese el tiempo en segundos"></p-inputNumber>
+                            <p-inputNumber inputId="integeronly" formControlName="time" *ngIf="edit"
+                                placeholder="Ingrese el tiempo en segundos"></p-inputNumber>
                         </div>
                     </div>
                     <div class="grid">
                         <div class="col-6">
-                            <div class="text-center p-3 border-round-sm font-bold">
+                            <div class="text-center p-3 border-round-sm font-bold text-3xl">
                                 {{matchData.teams[0].name}}
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="text-center p-3 border-round-sm font-bold">
+                            <div class="text-center p-3 border-round-sm font-bold text-3xl">
                                 {{matchData.teams[1].name}}
                             </div>
                         </div>
@@ -46,14 +47,19 @@
                     <div class="flex justify-content-center flex-wrap">
                         <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
                             <p-button label="Formación Local" icon="pi pi-eye" styleClass="p-button-success"
-                                (onClick)="showFormacion(true)" ></p-button>
-                            
+                                (onClick)="showFormacion(true)"></p-button>
+
                             <p-button label="Formación Visita" icon="pi pi-eye" styleClass="p-button-help"
-                                [style]="{ 'margin-left': '.5em' }" (onClick)="showFormacion(false)"
-                                ></p-button>
+                                [style]="{ 'margin-left': '.5em' }" (onClick)="showFormacion(false)"></p-button>
 
                         </div>
                     </div>
+                    <!-- <div class="flex justify-content-center flex-wrap">
+                        <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
+                            <p-button label="Mostrar Tablero" icon="pi pi-eye" 
+                                (onClick)="showBoard()" [disabled]="isRunning"></p-button>
+                        </div>
+                    </div> -->
                     <div class="flex justify-content-center flex-wrap">
                         <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
                             <p-button label="Play" icon="pi pi-play" styleClass="p-button-success"
@@ -66,6 +72,7 @@
                                 [disabled]="!isRunning"></p-button>
                         </div>
                     </div>
+
                 </p-card>
             </form>
         </p-tabPanel>
@@ -74,9 +81,11 @@
                 <i class="pi pi-file mr-2"></i>
                 <span>Tarjetas</span>
             </ng-template>
-            <p-card header="Advanced Card" >
-                <p-dropdown [options]="matchData.teams"  placeholder="Seleccione un equipo" [(ngModel)]="selectedTeam" (onChange)="getPlayers()" optionLabel="name"></p-dropdown>
-                <p-table [value]="players" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-card>
+                <p-dropdown [options]="matchData.teams" placeholder="Seleccione un equipo" [(ngModel)]="selectedTeam"
+                    (onChange)="getPlayers()" optionLabel="name"></p-dropdown>
+                <p-table [value]="players" responsiveLayout="stack" [breakpoint]="'960px'"
+                    [tableStyle]="{'min-width': '15rem'}">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Nombre</th>
@@ -89,10 +98,10 @@
                             <td>{{ player.name}}</td>
                             <td>{{ player.number }}</td>
                             <td>
-                                <p-button label="Mostrar" icon="pi pi-eye" styleClass="p-button-warning"
-                                [style]="{ 'margin-left': '.5em' }" (onClick)="showTarget(true,player)" ></p-button>
-                                <p-button label="Mostrar" icon="pi pi-eye" styleClass="p-button-danger"
-                                [style]="{ 'margin-left': '.5em' }" (onClick)="showTarget(false,player)">
+                                <p-button label="Amarilla" icon="pi pi-eye" styleClass="p-button-warning"
+                                    [style]="{ 'margin-left': '.5em' }" (onClick)="showTarget(true,player)"></p-button>
+                                <p-button label="Roja" icon="pi pi-eye" styleClass="p-button-danger"
+                                    [style]="{ 'margin-left': '.5em' }" (onClick)="showTarget(false,player)">
                                 </p-button>
                             </td>
                         </tr>
@@ -105,16 +114,29 @@
                 <i class="pi pi-replay mr-2"></i>
                 <span>Cambios</span>
             </ng-template>
-            <p-dropdown placeholder="Elija el equipo" [options]="matchData.teams" optionLabel="name" (onChange)="getPlayers()"  [(ngModel)]="selectedTeam" ></p-dropdown>
-            <p-divider></p-divider>
-            <div class="field p-fluid">  
-                <label for="inventoryStatus">Entra</label>
-                <p-dropdown placeholder="Seleccione jugador" [options]="players" optionLabel="name" inputId="float-label" [(ngModel)]="entra"></p-dropdown>
-                <label for="inventoryStatus">Sale</label>
-                <p-dropdown placeholder="Seleccione jugador" [options]="players" optionLabel="name" inputId="float-label2" [(ngModel)]="sale"></p-dropdown>
-            </div>
-            <p-button label="Registrar Cambio" icon="pi pi-save" (onClick)="cambio()"></p-button>
-           
+            
+                <p-dropdown placeholder="Elija el equipo" [options]="matchData.teams" optionLabel="name"
+                    (onChange)="getPlayers()" [(ngModel)]="selectedTeam"></p-dropdown>
+                <p-divider></p-divider>
+                <form (ngSubmit)="cambio()" [formGroup]="changeForm">
+                <div class="field p-fluid">
+                    <label for="inventoryStatus">Entra</label>
+                    <p-dropdown placeholder="Seleccione jugador" [options]="players" optionLabel="name"
+                        inputId="float-label" formControlName="entra"></p-dropdown>
+                        <small class="p-error"
+                        *ngIf="changeForm.controls.entra.errors && changeForm.controls.entra.touched">Entra is
+                        required.</small>
+                        <br>
+                    <label for="inventoryStatus">Sale</label>
+                    <p-dropdown placeholder="Seleccione jugador" [options]="players" optionLabel="name"
+                        inputId="float-label2" formControlName="sale"></p-dropdown>
+                        <small class="p-error"
+                        *ngIf="changeForm.controls.sale.errors && changeForm.controls.sale.touched">Sale is
+                        required.</small>
+                </div>
+                <p-button label="Registrar Cambio" icon="pi pi-save" type="submit"></p-button>
+            </form>
+
         </p-tabPanel>
         <p-tabPanel header="Header III">
             <ng-template pTemplate="header">

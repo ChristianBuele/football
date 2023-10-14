@@ -38,6 +38,8 @@ export class BoardComponent {
   selectedTeam!:Team;
   showLineup:boolean=false;
   matchPlayer!:Player|undefined;
+  showBoard:boolean=false;
+  teamTargetChange:string='Portul';
 
   ngOnInit(): void {
 
@@ -50,7 +52,8 @@ export class BoardComponent {
           this.getTargetPlayer();
           this.getChangePlayer();
           this.getLineup();
-          this.getMatchPlayer()
+          this.getMatchPlayer();
+          this.getEvents();
         }
       );
     });
@@ -67,10 +70,14 @@ export class BoardComponent {
   }
   getTargetPlayer() {
     this.socketService.socket.on('MatchTarget' + this.matchData.match.id?.toString(), (data: any) => {
+      this.teamTargetChange= this.matchData.teams.find((team)=>{
+        return team.id==data.player.idTeam;
+      })?.name.substring(0)!;
       this.targetPlayer.name = data.player.name;
       this.targetPlayer.number = data.player.number;
       this.targetPlayer.show = true;
       this.targetPlayer.color = data.isYellow ? 'yellow' : 'red';
+      console.log(data)
       setTimeout(() => {
         this.targetPlayer.show = false;
       }, 10000);
@@ -80,7 +87,10 @@ export class BoardComponent {
 
   getChangePlayer(){
     this.socketService.socket.on('MatchChange' + this.matchData.match.id?.toString(), (data: any) => {
-      console.log(data)
+      console.log(data);
+      this.teamTargetChange= this.matchData.teams.find((team)=>{
+        return team.id==data.entra.idTeam;
+      })?.name.substring(0)!;
       this.changePlayers[0]=data.entra;
       this.changePlayers[1]=data.sale;
       setTimeout(() => {
@@ -111,4 +121,15 @@ export class BoardComponent {
       },60000);
     })
   }
+
+  getEvents(){
+    this.socketService.socket.on('EventsBoard'+this.matchData.match.id?.toString(),(data:any)=>{
+      console.log(data);
+      if(data.name='showBoard'){
+        this.showBoard=data.data
+      }
+    })
+  }
+
+ 
 }

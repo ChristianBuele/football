@@ -3,9 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatchServiceService } from '../services/match-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatchDataResponse, Team } from 'src/app/model/teamMatch';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Player } from 'src/app/model/player';
 import { PlayersService } from '../services/players.service';
+import { EventsService } from '../services/events.service';
 
 @Component({
   selector: 'app-match',
@@ -13,7 +14,7 @@ import { PlayersService } from '../services/players.service';
   styleUrls: ['./match.component.css']
 })
 export class MatchComponent {
-  constructor(private fb: FormBuilder,private matchService:MatchServiceService,private activateRoute:ActivatedRoute,private playersService:PlayersService){
+  constructor(private fb: FormBuilder,private messageService:MessageService,private eventsService:EventsService,private matchService:MatchServiceService,private activateRoute:ActivatedRoute,private playersService:PlayersService){
   }
 
   ngOnInit(): void {
@@ -36,6 +37,11 @@ export class MatchComponent {
     time:[0,[Validators.required]],
     id:[0],
     play:[false]
+  });
+  changeForm=this.fb.group({
+    "entra":[,[Validators.required]],
+    "sale":[,[Validators.required]],
+    "matchId":['',[Validators.required]]
   });
   matchData!:MatchDataResponse;
   players:Player[]=[];
@@ -73,6 +79,7 @@ export class MatchComponent {
       this.scoreForm.controls['play'].setValue(true);
       this.saveData();
     }
+  
   }
 
   pauseTimer() {
@@ -93,6 +100,7 @@ export class MatchComponent {
     this.scoreForm.controls['time'].setValue(this.secondsElapsed);
     this.scoreForm.controls['play'].setValue(false);
     this.saveData();
+   
   }
   
 
@@ -112,13 +120,20 @@ export class MatchComponent {
   }
 
   cambio(){
-    this.playersService.postChangePlayer({
-      "entra":this.entra,
-      "sale":this.sale,
-      "matchId":this.matchData.match.id
-    }).subscribe(
+    this.changeForm.controls['matchId'].setValue(this.matchData.match.id?.toString()!);
+    if(this.changeForm.invalid){
+      this.changeForm.markAllAsTouched();
+      return;
+    }
+    this.playersService.postChangePlayer(this.changeForm.value).subscribe(
       data=>{
-        console.log(data)
+        console.log(data);
+        this.changeForm.reset();
+        this.messageService.add({
+          severity:'success',
+          summary:'Success',
+          detail:'Cambio registrado correctamente'
+        })
       }
     )
   }
@@ -136,5 +151,19 @@ export class MatchComponent {
     this.playersService.postLineUp({idTeam,matchId:this.matchData.match.id}).subscribe(data=>{
       console.log(data)
     });
+  }
+  
+  showBoardLive:boolean=true;
+  showBoard(){
+    
+    this.eventsService.postEventBoard(
+      {
+        "matchId":this.matchData.match.id,
+        "name":"showBoard",
+        "data":this.showBoardLive
+      }
+    ).subscribe(data=>{
+      this.showBoardLive=!this.showBoardLive;
+    })
   }
 }

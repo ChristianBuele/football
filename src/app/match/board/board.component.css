@@ -37,3 +37,9 @@
     padding-left: 20px; /* Ajusta el espacio a la izquierda si es necesario */
   }
   
+  .centered-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Aprovecha toda la altura de la pantalla */
+}

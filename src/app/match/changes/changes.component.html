@@ -1,16 +1,24 @@
-<div class="w-2 h-2rem bg-blue-900 slide-down-animation" style="display: flex;" >
-    <div style="flex: 10%;">
-        <i class="pi pi-caret-down font-bold " style="color: green; font-size: 1.5rem"></i>
-    </div>
-    <div style="flex: 90%;" class="font-bold text-xl">
-        Entra: {{entra.name}} {{entra.number}}
-    </div>
-</div>
-<div class="w-2 h-2rem bg-blue-900 slide-down-animation" style="display: flex;" >
-    <div style="flex: 10%;">
-        <i class="pi pi-caret-up font-bold" style="color: red; font-size: 1.5rem"></i>
-    </div>
-    <div style="flex: 90%; " class=" font-bold text-xl">
-        Sale: {{sale.name}} {{sale.number}}
+<div class="bg-blue-900 fadein animation-duration-1000 bottom-center shadow-8" style="width: 600px;">
+    <div class="grid">
+        <div class="col-3 flex align-items-center justify-content-center text-2xl font-bold text-center">
+            Cambio en {{team}}
+        </div>
+        <div class="col-6" style="white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;">
+            <div class="col-12 font-bold text-xl">
+                <i class="pi pi-caret-up font-bold" style="color: red; font-size: 2.5rem"></i>
+                {{sale.number}}. {{sale.name}}
+            </div>
+            <div class="col-12 font-bold text-xl" style="white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;">
+                <i class="pi pi-caret-down font-bold" style="color: green; font-size: 2.5rem"></i>
+                 {{entra.number}}. {{entra.name}}
+            </div>
+        </div>
+        <div class="col-3 flex align-items-center justify-content-cente pr-2">
+            <p-image src="assets/auspiciantes/alvid.jpg" width="90%"></p-image>
+        </div>
     </div>
 </div>

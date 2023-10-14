@@ -12,4 +12,5 @@ export class TargetsComponent {
     color:"red",
     show:false
   }
+  @Input() team:String="";
 }

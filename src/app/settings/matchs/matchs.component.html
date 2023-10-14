@@ -1,6 +1,6 @@
 
 <p-table #dt1 [value]="matches" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
+    [rowsPerPageOptions]="[5,10]" [loading]="loading" [paginator]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [globalFilterFields]="['local.name','visit.name']" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="caption">
@@ -18,17 +18,17 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th style="min-width:15rem">ID Partido</th>
+            
             <th style="min-width:15rem">Categoría</th>
             <th style="min-width:15rem">Local</th>
             <th style="min-width:15rem">Visita</th>
             <th>Acciones</th>
+            <th style="min-width:15rem">ID Partido</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-matchTeam>
         <tr>
-            <td>{{matchTeam.teamMatch.id}}
-            </td>
+            
             <td>{{matchTeam.category!=null?matchTeam.category.name:'Sin categoría'}}
             </td>
             <td>{{matchTeam.local.name}}
@@ -39,6 +39,7 @@
                 <p-button icon="pi pi-play" styleClass="p-button-success" (onClick)="startMatch(matchTeam.teamMatch.idMatch)"></p-button>
                 <p-button icon="pi pi-copy" styleClass="p-button-info" (onClick)="copyPathMatch(matchTeam.teamMatch.idMatch)" class="ml-1"></p-button>
             </td>
+            <td>{{matchTeam.teamMatch.id}}</td>
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">

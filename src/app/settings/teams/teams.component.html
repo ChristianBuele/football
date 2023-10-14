@@ -1,11 +1,10 @@
 <p-table #dt1 [value]="teams" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
     [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['name']" editMode="row">
+    [globalFilterFields]="['name']" editMode="row" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '15rem'}">
     <ng-template pTemplate="caption">
         <div class="flex">
-            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
-                (click)="clear(dt1)"></button>
+            
             <span class="p-input-icon-left ml-auto">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
@@ -18,17 +17,18 @@
 
     <ng-template pTemplate="header">
         <tr>
-            <th style="min-width:15rem">ID Equipo</th>
+            <!-- <th style="min-width:15rem">ID Equipo</th> -->
             <th style="min-width:15rem">Nombre</th>
             <th style="min-width:15rem">Color</th>
             <th>Jugadores</th>
-            <th style="width:20%"></th>
+            <th style="width:20%">Acciones</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-team let-editing="editing" let-ri="rowIndex">
         <tr [pEditableRow]="team">
-            <td>{{team.id}}</td>
+            <!-- <td>{{team.id}}</td> -->
             <td>
+                <span class="p-column-title">Nombre</span>
                 <p-cellEditor>
                     <<ng-template pTemplate="input">
                         <input pInputText type="text" [(ngModel)]="team.name" required autofocus>
@@ -39,6 +39,7 @@
                 </p-cellEditor>
             </td>
             <td>
+                <span class="p-column-title">Color</span>
                 <p-cellEditor>
                     <<ng-template pTemplate="input">
                         <p-colorPicker [(ngModel)]="team.color" [disabled]="false" required autofocus></p-colorPicker>
@@ -48,8 +49,10 @@
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td><p-button icon="pi pi-users" styleClass="p-button-success" (onClick)="openTeamPlayers(team)"></p-button></td>
+            <td><span class="p-column-title">Jugadores</span>
+                <p-button icon="pi pi-users" styleClass="p-button-success" (onClick)="openTeamPlayers(team)"></p-button></td>
             <td>
+                <span class="p-column-title">Acciones</span>
                 <div class="flex align-items-center justify-content-center gap-2">
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(team)" class="p-button-rounded p-button-text"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(team)" class="p-button-rounded p-button-text p-button-success mr-2"></button>

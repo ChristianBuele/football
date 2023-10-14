@@ -7,7 +7,13 @@ import { Player } from 'src/app/model/player';
   styleUrls: ['./match-player.component.css']
 })
 export class MatchPlayerComponent {
-  @Input() player!:Player;
-  auspiciante:string='Truchirot';
+  @Input() player:Player={
+    idTeam:1,
+    name:'Mariano',
+    titular:true,
+    id:1,
+    number:12
+  };
+  auspiciante:string='ALVID MASTER';
   
 }

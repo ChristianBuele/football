@@ -49,6 +49,7 @@ export class MatchsComponent {
     )
   }
   getMatches(){
+    this.loading=true;
     this.mathService.getAllMatches().subscribe(
       data => {
         this.matches = data;

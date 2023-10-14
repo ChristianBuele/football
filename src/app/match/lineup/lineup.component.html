@@ -1,21 +1,52 @@
-<div class=" surface-300 sombra bounce-in-left " *ngIf="show">
-    <div class="bg-blue-900 flex align-content-center text-3xl h-3rem justify-content-center font-bold flex-wrap">
-        {{team?team.name:''}}
+<div style=" max-width: 1000px; " *ngIf="show" >
+    <div class="grid surface-200  flex justify-content-center align-content-center flex-wrap shadow-8 border-round-md ">
+        <div class="col-12 bg-blue-900 text-3xl font-bold text-center border-round-md">
+            Alineación de: {{team?team.name:''}}
+        </div>
+        <div class="col-6 ">
+            <div class="font-bold  py-1 text-center" [ngClass]="{'titulares-enter-active': mostrarTitulares}">
+                <p-divider >
+                    <div class="inline-flex align-items-center">
+                        <i class="pi pi-users mr-2"></i>
+                        <b class="text-9xl">Titulares</b>
+                    </div>
+                </p-divider>
+            </div>
+            <div class="col-12">
+                <div *ngFor="let player of titulares" class="py-1 text-xl font-bold text-center" 
+                    [ngClass]="{'titulares-enter-active': mostrarTitulares}">
+                    <label class="">{{player.number}}. </label>
+                    <span >{{player.name}}</span>
+                </div>
+            </div>
+            <div class="font-bold  py-1 " [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
+                <p-divider >
+                    <div class="inline-flex align-items-center">
+                        <i class="pi pi-users mr-2"></i>
+                        <b class="text-9xl">Suplentes</b>
+                    </div>
+                </p-divider>
+            </div>
+            <div class="col-12">
+                <div *ngFor="let player of suplentes" class="py-1 text-xl font-bold text-center"
+                    [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
+                    <label class="">{{player.number}}. </label>
+                    <span class="ml-2 w-12">{{player.name}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 border-left-2 ">
+            <div class="flex justify-content-center align-content-center flex-wrap " style="height: 100%">
+                <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-center ">
+                    <p-image src="assets/auspiciantes/alvid.jpg" width="80%" ></p-image>
+                </div>
+                <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-3xl underline">
+                    Auspiciante Oficial
+                </div>
+               
+            </div>
+        </div>
     </div>
-    <div class="surface-300 ml-2 mr-6">
-        <div class="font-bold text-xl py-1" [ngClass]="{'titulares-enter-active': mostrarTitulares}">
-            Titulares
-        </div>
-        <div *ngFor="let player of titulares" class="py-1 text-xl font-bold" [ngClass]="{'titulares-enter-active': mostrarTitulares}">
-            <label class="">{{player.number}} -</label>
-            <span class="ml-2 surface-300 w-12">{{player.name}}</span>
-        </div>
-        <div class="font-bold text-xl py-1" [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
-            Suplentes
-        </div>
-        <div *ngFor="let player of suplentes" class="py-1 text-xl font-bold" [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
-            <label class="">{{player.number}} -</label>
-            <span class="ml-2 surface-300 w-12">{{player.name}}</span>
-        </div>
-    </div>
+
 </div>
