@@ -30,14 +30,8 @@
                     </div>
                 </div>
             </div>
-    
-            <div class="flex bg-blue-50 w-1 bg-blue-500 justify-content-around "
-                [class.slide-in-from-left]="secondsElapsed != 0" [class.slide-out-to-left]="!secondsElapsed"
-                *ngIf="secondsElapsed!=0">
-                <div class="font-bold align-items-center justify-content-center text-5xl">
-                    {{secondsElapsed | minutesSeconds }}
-                </div>
-            </div>
+            <app-time [timeEvent]="timeEvents" ></app-time>    
+            
         </div>
     </div>
     <app-targets [targetPlayer]="targetPlayer" [team]="teamTargetChange"></app-targets>

@@ -54,6 +54,7 @@ export class BoardComponent {
           this.getLineup();
           this.getMatchPlayer();
           this.getEvents();
+          this.getTimeEvents();
         }
       );
     });
@@ -65,8 +66,17 @@ export class BoardComponent {
         console.log(data)
         this.scoreLocal = data.scoreLocal;
         this.scoreVisit = data.scoreVisit;
-        this.secondsElapsed = data.time;
       });
+  }
+
+  timeEvents: any;
+  getTimeEvents(): void {
+    this.socketService.getSocketData('TimeEvents'+ this.matchData.match.id?.toString()).subscribe(
+      data=>{
+        console.log(data);
+        this.timeEvents=data;
+      }
+    )
   }
   getTargetPlayer() {
     this.socketService.socket.on('MatchTarget' + this.matchData.match.id?.toString(), (data: any) => {

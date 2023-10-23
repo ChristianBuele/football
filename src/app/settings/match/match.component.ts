@@ -7,6 +7,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Player } from 'src/app/model/player';
 import { PlayersService } from '../services/players.service';
 import { EventsService } from '../services/events.service';
+import { TimeService } from '../services/time.service';
 
 @Component({
   selector: 'app-match',
@@ -14,7 +15,7 @@ import { EventsService } from '../services/events.service';
   styleUrls: ['./match.component.css']
 })
 export class MatchComponent {
-  constructor(private fb: FormBuilder,private messageService:MessageService,private eventsService:EventsService,private matchService:MatchServiceService,private activateRoute:ActivatedRoute,private playersService:PlayersService){
+  constructor(private fb: FormBuilder,private timeService:TimeService ,private messageService:MessageService,private eventsService:EventsService,private matchService:MatchServiceService,private activateRoute:ActivatedRoute,private playersService:PlayersService){
   }
 
   ngOnInit(): void {
@@ -73,12 +74,15 @@ export class MatchComponent {
       this.timer = setInterval(() => {
         this.secondsElapsed++;
         this.scoreForm.controls['time'].setValue(this.secondsElapsed);
-        this.saveData();
       }, 1000); // Actualiza los segundos cada segundo (1000 ms)
       this.isRunning = true;
       this.scoreForm.controls['play'].setValue(true);
-      this.saveData();
     }
+    this.setTimeEvent({
+      "event":'start',
+      "time":this.secondsElapsed.toString(),
+      "id":this.matchData.match.id
+    })
   
   }
 
@@ -87,8 +91,12 @@ export class MatchComponent {
       clearInterval(this.timer);
       this.isRunning = false;
       this.scoreForm.controls['play'].setValue(false);
-      this.saveData();
     }
+    this.setTimeEvent({
+      "event":'pause',
+      "time":this.secondsElapsed.toString(),
+      "id":this.matchData.match.id
+    })
   }
 
   stopTimer() {
@@ -99,8 +107,11 @@ export class MatchComponent {
     this.secondsElapsed = 0; // Reinicia los segundos a 0
     this.scoreForm.controls['time'].setValue(this.secondsElapsed);
     this.scoreForm.controls['play'].setValue(false);
-    this.saveData();
-   
+    this.setTimeEvent({
+      "event":'stop',
+      "time":this.secondsElapsed.toString(),
+      "id":this.matchData.match.id
+    })
   }
   
 
@@ -165,5 +176,13 @@ export class MatchComponent {
     ).subscribe(data=>{
       this.showBoardLive=!this.showBoardLive;
     })
+  }
+
+  setTimeEvent(data:any){
+    this.timeService.postTimeEvent(data).subscribe(
+      data=>{
+        console.log(data);
+      }
+    );
   }
 }

@@ -1,1 +1,6 @@
-<p>time works!</p>
+<div class="flex bg-blue-50 bg-blue-500 justify-content-around ml-2 px-2" [class.slide-in-from-left]="secondsElapsed != 0"
+    [class.slide-out-to-left]="!secondsElapsed" *ngIf="secondsElapsed!=0">
+    <div class="font-bold align-items-center justify-content-center text-5xl">
+        {{secondsElapsed | minutesSeconds }}
+    </div>
+</div>
