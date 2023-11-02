@@ -88,6 +88,11 @@ export class MatchsComponent {
     const url=dominio+"/match/"+path
     this.clipboardApi.copyFromContent(url);
     console.log(url)
+    this.messaageService.add({
+      severity:'success',
+      summary:'Success',
+      detail:'Url copied'
+    })
   }
   
 }

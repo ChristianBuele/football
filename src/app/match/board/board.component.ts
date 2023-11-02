@@ -48,12 +48,13 @@ export class BoardComponent {
         data => {
           console.log(data);
           this.matchData = data;
-          this.getMatchData();
+          
           this.getTargetPlayer();
           this.getChangePlayer();
           this.getLineup();
           this.getMatchPlayer();
           this.getEvents();
+          this.getMatchData();
           this.getTimeEvents();
         }
       );
@@ -61,9 +62,8 @@ export class BoardComponent {
 
   }
   getMatchData(): void {
-    this.subTablero = this.socketService.getSocketData("MatchScore" + this.matchData.match.id?.toString())
-      .subscribe(data => {
-        console.log(data)
+  this.socketService.socket.on('MatchScoreTest' + this.matchData.match.id?.toString(),
+   ( data:any) => {
         this.scoreLocal = data.scoreLocal;
         this.scoreVisit = data.scoreVisit;
       });
@@ -71,9 +71,8 @@ export class BoardComponent {
 
   timeEvents: any;
   getTimeEvents(): void {
-    this.socketService.getSocketData('TimeEvents'+ this.matchData.match.id?.toString()).subscribe(
-      data=>{
-        console.log(data);
+    this.socketService.socket.on('TimeEvents'+ this.matchData.match.id?.toString(),
+      (data:any)=>{
         this.timeEvents=data;
       }
     )
@@ -115,10 +114,8 @@ export class BoardComponent {
       this.titulares=data.titulares;
       this.suplentes=data.suplentes;
       this.selectedTeam=data.team;
-      this.showLineup=true;
-      setTimeout(()=>{
-        this.showLineup=false;
-      },30000);
+      this.showLineup=data.show;
+     
     });
   }
 

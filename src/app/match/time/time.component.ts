@@ -13,10 +13,7 @@ export class TimeComponent {
   @Input() timeEvent:any;
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes time');
-    console.log(changes);
     if(changes['timeEvent'] && !changes['timeEvent'].firstChange){
-      console.log('entraaa');
       if(this.timeEvent.event === 'start'){
         
         this.secondsElapsed=parseInt(this.timeEvent.time);
@@ -38,7 +35,6 @@ export class TimeComponent {
   startTimer() {
     if (!this.isRunning) {
       this.timer = setInterval(() => {
-        console.log('corre tiempo')
         this.secondsElapsed++;
       }, 1000); // Actualiza los segundos cada segundo (1000 ms)
       this.isRunning = true;

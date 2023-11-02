@@ -10,7 +10,7 @@
 
                     <div class="flex justify-content-center flex-wrap">
                         <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
-                            <h1>{{ scoreForm.controls['time'].value | minutesSeconds }}</h1>
+                            <h1>{{ secondsElapsed | minutesSeconds }}</h1>
                             <i class="pi pi-pencil ml-2" (click)="editTime()"></i>
                             <p-inputNumber inputId="integeronly" formControlName="time" *ngIf="edit"
                                 placeholder="Ingrese el tiempo en segundos"></p-inputNumber>
@@ -54,12 +54,7 @@
 
                         </div>
                     </div>
-                    <!-- <div class="flex justify-content-center flex-wrap">
-                        <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
-                            <p-button label="Mostrar Tablero" icon="pi pi-eye" 
-                                (onClick)="showBoard()" [disabled]="isRunning"></p-button>
-                        </div>
-                    </div> -->
+                   
                     <div class="flex justify-content-center flex-wrap">
                         <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
                             <p-button label="Play" icon="pi pi-play" styleClass="p-button-success"

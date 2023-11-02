@@ -35,9 +35,7 @@ export class MatchComponent {
   scoreForm=this.fb.group({
     scoreLocal:[0,[Validators.required]],
     scoreVisit:[0,[Validators.required]],
-    time:[0,[Validators.required]],
     id:[0],
-    play:[false]
   });
   changeForm=this.fb.group({
     "entra":[,[Validators.required]],
@@ -69,14 +67,11 @@ export class MatchComponent {
   isRunning: boolean = false;
 
   startTimer() {
-    this.secondsElapsed=this.scoreForm.controls['time'].value!;
     if (!this.isRunning) {
       this.timer = setInterval(() => {
         this.secondsElapsed++;
-        this.scoreForm.controls['time'].setValue(this.secondsElapsed);
       }, 1000); // Actualiza los segundos cada segundo (1000 ms)
       this.isRunning = true;
-      this.scoreForm.controls['play'].setValue(true);
     }
     this.setTimeEvent({
       "event":'start',
@@ -90,7 +85,6 @@ export class MatchComponent {
     if (this.isRunning) {
       clearInterval(this.timer);
       this.isRunning = false;
-      this.scoreForm.controls['play'].setValue(false);
     }
     this.setTimeEvent({
       "event":'pause',
@@ -105,8 +99,6 @@ export class MatchComponent {
       this.isRunning = false;
     }
     this.secondsElapsed = 0; // Reinicia los segundos a 0
-    this.scoreForm.controls['time'].setValue(this.secondsElapsed);
-    this.scoreForm.controls['play'].setValue(false);
     this.setTimeEvent({
       "event":'stop',
       "time":this.secondsElapsed.toString(),
@@ -155,12 +147,27 @@ export class MatchComponent {
   setTime(data:any){
     console.log(data)
   }
-
+  showFormation:boolean=true;
   showFormacion(local:boolean){
     
     const idTeam=local?this.matchData.teams[0].id:this.matchData.teams[1].id;
-    this.playersService.postLineUp({idTeam,matchId:this.matchData.match.id}).subscribe(data=>{
-      console.log(data)
+
+    this.playersService.postLineUp({idTeam,matchId:this.matchData.match.id,show:this.showFormation}).subscribe(data=>{
+      console.log(data);
+      if(this.showFormation){
+        this.messageService.add({
+          severity:'success',
+          summary:'Success',
+          detail:'Formación mostrada correctamente'
+        });
+      }else{
+        this.messageService.add({
+          severity:'success',
+          summary:'Success',
+          detail:'Formación ocultada correctamente'
+        });
+      }
+      this.showFormation=!this.showFormation;
     });
   }
   
