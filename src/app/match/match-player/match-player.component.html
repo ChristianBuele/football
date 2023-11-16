@@ -1,16 +1,22 @@
-<div style="height: 600px">
-    <div class="grid  mb-4 bg-blue-900 bottom-center sombra " *ngIf="player">
-        <div class="col-3 bg-white sombra">
-            <p-image src="assets/auspiciantes/alvid.jpg" width="100%" > </p-image>
+<div  class="sombra ">
+    <div class="grid  mb-4  bottom-center " *ngIf="player">
+        <div class="col-3  sombra flex align-content-center flex-wrap" style="max-height: 100px; min-height: 100px; max-width: 400px;">
+            <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="2000" [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+                <ng-template pTemplate="item" let-item >
+                    <img [src]="item.name" style="width: 100%; display: block;" />
+                </ng-template>
+            </p-galleria>
         </div>
         <div class="col-9  text-center">
-            <div class="col-12 font-bold text-4xl">
-                {{player.number}}. {{player.name}}
-            </div>
-            <div class="col-12">
-                Jugador del partido auspiciado por:<span class="font-bold"> {{auspiciante}}</span>
+            <div class="col-12 text-3xl font-bold radialbg text-100">
+                Jugador del partido
             </div>
             
+            <div class="col-12 font-bold text-4xl bg-blue-900">
+                {{player.name | uppercase}}
+            </div>
+          
         </div>
     </div>
 </div>
+

@@ -18,7 +18,7 @@ export class PlayersComponent {
   players:Player[]=[];
   playerForm = this.fb.group({
     name: ['', [Validators.required]],
-    number: [, [Validators.required]],
+    number: [null],
     titular: [false, [Validators.required]],
     idTeam: [0, [Validators.required]],
     present:[true,[Validators.required]]
@@ -46,6 +46,11 @@ export class PlayersComponent {
       this.playerForm.markAllAsTouched();
       return
     }
+    //if number is null, set with 0
+    if(this.playerForm.value.number==null){
+      this.playerForm.get("number")?.patchValue(0 as any);
+    }
+
     this.loading = true;
     this.playersService.postPlayer(this.playerForm.value).subscribe(
       data => {

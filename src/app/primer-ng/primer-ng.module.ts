@@ -15,6 +15,7 @@ import { MinutesSecondsPipe } from '../pipes/timer';
 import { TabViewModule } from 'primeng/tabview';
 import { DropdownModule } from 'primeng/dropdown';
 import {DividerModule} from 'primeng/divider';
+import { GalleriaModule } from "primeng/galleria"
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {DividerModule} from 'primeng/divider';
     TabMenuModule,
     TabViewModule,
     DropdownModule,
-    DividerModule
+    DividerModule,
+    GalleriaModule
   ]
 })
 export class PrimerNgModule { }

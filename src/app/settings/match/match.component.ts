@@ -25,7 +25,7 @@ export class MatchComponent {
         data=>{
           console.log(data);
           this.matchData=data;
-          
+          this.selectedTeam=this.matchData.teams[0];
         }
       );
     });
@@ -40,7 +40,8 @@ export class MatchComponent {
   changeForm=this.fb.group({
     "entra":[,[Validators.required]],
     "sale":[,[Validators.required]],
-    "matchId":['',[Validators.required]]
+    "matchId":['',[Validators.required]],
+    "team":[""]
   });
   matchData!:MatchDataResponse;
   players:Player[]=[];
@@ -128,6 +129,8 @@ export class MatchComponent {
       this.changeForm.markAllAsTouched();
       return;
     }
+    //set team name in changeForm
+    this.changeForm.controls['team'].setValue(this.selectedTeam.name);
     this.playersService.postChangePlayer(this.changeForm.value).subscribe(
       data=>{
         console.log(data);
@@ -162,7 +165,7 @@ export class MatchComponent {
         });
       }else{
         this.messageService.add({
-          severity:'success',
+          severity:'info',
           summary:'Success',
           detail:'Formación ocultada correctamente'
         });
@@ -191,5 +194,30 @@ export class MatchComponent {
         console.log(data);
       }
     );
+  }
+
+  
+  saveScore(player:Player){
+    this.playersService.postScore({
+      player,
+      team:this.selectedTeam,
+      id:this.matchData.match.id
+    }).subscribe(
+      data=>{
+        if(data.status){
+          this.messageService.add({
+            severity:'success',
+            summary:'Success',
+            detail:data.message
+          })
+        }else{
+          this.messageService.add({
+            severity:'error',
+            summary:'Error',
+            detail:data.message
+          })
+        }
+      }
+    )
   }
 }

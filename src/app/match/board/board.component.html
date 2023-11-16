@@ -39,5 +39,7 @@
 </div>
 <app-lineup [titulares]="titulares" [suplentes]="suplentes" [team]="selectedTeam" [show]="showLineup" class="centered-container"></app-lineup>
 <app-match-player [player]="matchPlayer!"></app-match-player>
-<app-changes [entra]="changePlayers[0]" [sale]="changePlayers[1]" *ngIf="changePlayers.length==2" [team]="teamTargetChange"></app-changes>
+<app-score [scoreData]="scoreData"  [show]="showScore"></app-score>
+<app-changes [entra]="changePlayers[0]" [sale]="changePlayers[1]" [showEntra]="showEntra" *ngIf="changePlayers.length==2" [team]="teamTargetChange"></app-changes>
+<!-- <app-penales ></app-penales> -->
 <ng-template #noMatch>No hay informacion sobre el partido dado</ng-template>

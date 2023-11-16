@@ -71,10 +71,11 @@
                 </p-card>
             </form>
         </p-tabPanel>
-        <p-tabPanel header="Tarjetas">
+       
+        <p-tabPanel header="Jugadores">
             <ng-template pTemplate="header">
-                <i class="pi pi-file mr-2"></i>
-                <span>Tarjetas</span>
+                <i class="pi pi-users mr-2"></i>
+                <span>Jugadores</span>
             </ng-template>
             <p-card>
                 <p-dropdown [options]="matchData.teams" placeholder="Seleccione un equipo" [(ngModel)]="selectedTeam"
@@ -97,6 +98,9 @@
                                     [style]="{ 'margin-left': '.5em' }" (onClick)="showTarget(true,player)"></p-button>
                                 <p-button label="Roja" icon="pi pi-eye" styleClass="p-button-danger"
                                     [style]="{ 'margin-left': '.5em' }" (onClick)="showTarget(false,player)">
+                                </p-button>
+                                <p-button label="Gol" icon="pi pi-spin pi-spinner" styleClass="p-button-success"
+                                    [style]="{ 'margin-left': '.5em' }" (onClick)="saveScore(player)">
                                 </p-button>
                             </td>
                         </tr>

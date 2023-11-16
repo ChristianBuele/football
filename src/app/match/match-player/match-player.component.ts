@@ -15,5 +15,40 @@ export class MatchPlayerComponent {
     number:12
   };
   auspiciante:string='ALVID MASTER';
+
+  auspiciantes=[
+    {
+      name:"assets/auspiciantes/alvid.jpg",
+    },
+    {
+      name:"assets/auspiciantes/nuevo.jpg"
+    },
+    {
+      name:"assets/auspiciantes/mcm.jpg"
+    },
+    {
+      name:"assets/auspiciantes/rc.jpg"
+    },
+    {
+      name:"assets/auspiciantes/ing.jpg"
+    },
+    {
+      name:"assets/auspiciantes/ds.jpg"
+    }
+  ]
+  responsiveOptions: any[] = [
+    {
+        breakpoint: '1024px',
+        numVisible: 5
+    },
+    {
+        breakpoint: '768px',
+        numVisible: 3
+    },
+    {
+        breakpoint: '560px',
+        numVisible: 1
+    }
+];
   
 }

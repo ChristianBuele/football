@@ -1,24 +1,39 @@
-<div class="bg-blue-900 fadein animation-duration-1000 bottom-center shadow-8" style="width: 600px;">
-    <div class="grid">
-        <div class="col-3 flex align-items-center justify-content-center text-2xl font-bold text-center">
-            Cambio en {{team}}
+<div class="sombra ">
+    <div class="grid  mb-4  bottom-center ">
+        <div class="col-3  sombra flex align-content-center flex-wrap"
+            style="max-height: 100px; min-height: 100px; max-width: 400px;">
+            <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="2000"
+                [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showThumbnails]="false"
+                [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+                <ng-template pTemplate="item" let-item>
+                    <img [src]="item.name" style="width: 100%; display: block;" />
+                </ng-template>
+            </p-galleria>
         </div>
-        <div class="col-6" style="white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;">
-            <div class="col-12 font-bold text-xl">
-                <i class="pi pi-caret-up font-bold" style="color: red; font-size: 2.5rem"></i>
-                {{sale.number}}. {{sale.name}}
+        <div class="col-9  text-center">
+            <div class="col-12 text-3xl font-bold radialbg text-100">
+                Cambio de Jugador en {{team}}
             </div>
-            <div class="col-12 font-bold text-xl" style="white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;">
-                <i class="pi pi-caret-down font-bold" style="color: green; font-size: 2.5rem"></i>
-                 {{entra.number}}. {{entra.name}}
+            <div class="flex justify-content-center w-12 font-bold text-4xl bg-blue-900"
+                *ngIf="showEntra; else salePlayer">
+                <div class="mx-2">
+                    <i class="pi pi-caret-up font-bold" style="color: red; font-size: 2.5rem"></i>
+                </div>
+                <div>
+                    {{sale.number}}. {{sale.name}}
+                </div>
             </div>
-        </div>
-        <div class="col-3 flex align-items-center justify-content-cente pr-2">
-            <p-image src="assets/auspiciantes/alvid.jpg" width="90%"></p-image>
         </div>
     </div>
 </div>
+
+<ng-template #salePlayer>
+    <div class="flex justify-content-center w-12 font-bold text-4xl bg-blue-900">
+        <div class="mx-2">
+            <i class="pi pi-caret-down font-bold" style="color: green; font-size: 2.5rem"></i>
+        </div>
+        <div>
+            {{entra.number}}. {{entra.name}}
+        </div>
+    </div>
+</ng-template>

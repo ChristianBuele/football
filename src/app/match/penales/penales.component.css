@@ -1,0 +1,25 @@
+.radialbg{
+    background: rgb(240,240,244);
+    background: radial-gradient(circle, rgba(240,240,244,1) 0%, rgba(231,230,230,1) 35%, rgba(176,176,176,1) 100%); 
+}
+
+.circulo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Hace que el div sea circular */
+    border: 2px solid gray; /* Contorno gris en todos los casos */
+    margin: 10px; /* Espaciado entre los divs */
+    display: inline-block; /* Para que aparezcan en la misma línea */
+  }
+
+  .verde {
+    background-color: green; /* Fondo verde para el primer div */
+  }
+
+  .rojo {
+    background-color: red; /* Fondo rojo para el segundo div */
+  }
+
+  .gris {
+    background-color: gray; /* Fondo gris para el tercer div */
+  }

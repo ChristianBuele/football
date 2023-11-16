@@ -1,0 +1,29 @@
+<div *ngIf="show" class="w-8 h-rem flex justify-content-center flex-column">
+    <div class="text-center radialbg text-100 font-bold text-2xl">
+        PENALES
+    </div>
+    <div class="flex justify-content-around">
+        <div *ngFor="let penal of penalesLocal" class="mx-4">
+            <div class="elemento-en-for d-flex justify-content-center">
+                <div *ngIf="!penal.play; else play" class="circulo gris"></div>
+                <ng-template #play>
+                    <div *ngIf="penal.score; else noScore" class="circulo verde"></div>
+                </ng-template>
+                <ng-template #noScore>
+                    <div class="circulo rojo"></div>
+                </ng-template>
+            </div>
+        </div>
+        <div *ngFor="let penal of penalesVisit" class="mx-4">
+            <div class="elemento-en-for d-flex justify-content-center">
+                <div *ngIf="!penal.play; else play" class="circulo gris"></div>
+                <ng-template #play>
+                    <div *ngIf="penal.score; else noScore" class="circulo verde"></div>
+                </ng-template>
+                <ng-template #noScore>
+                    <div class="circulo rojo"></div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,8 @@ import { PrimerNgModule } from '../primer-ng/primer-ng.module';
 import { LineupComponent } from './lineup/lineup.component';
 import { MatchPlayerComponent } from './match-player/match-player.component';
 import { HalfTimescoreComponent } from './half-timescore/half-timescore.component';
+import { PenalesComponent } from './penales/penales.component';
+import { ScoreComponent } from './score/score.component';
 
 
 
@@ -24,6 +26,8 @@ import { HalfTimescoreComponent } from './half-timescore/half-timescore.componen
     LineupComponent,
     MatchPlayerComponent,
     HalfTimescoreComponent,
+    PenalesComponent,
+    ScoreComponent,
   ],
   imports: [
     CommonModule,
