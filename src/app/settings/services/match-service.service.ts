@@ -34,4 +34,73 @@ export class MatchServiceService {
   postScore(data:any){
     return this.http.post(this.baseUrl+"/matches/score",data);
   }
+
+  postPenales(data:any){
+    return this.http.post(this.baseUrl+"/matches/penales",data).pipe(
+      map(
+        data=>{
+          return {
+            status:true,
+            data:data
+          }
+        }
+      ),
+      catchError(
+        error=>{
+          return of(
+            {
+              status:false,
+              data:error
+            }
+          );
+        }
+      )
+    );
+  }
+
+  showDisableBoard(data:any){
+    return this.http.post(this.baseUrl+"/matches/showDisableBoard",data).pipe(
+      map(
+        data=>{
+          return {
+            status:true,
+            data:data
+          }
+        }
+      ),
+      catchError(
+        error=>{
+          return of(
+            {
+              status:false,
+              data:error
+            }
+          );
+        }
+      )
+    );
+  }
+
+  postStatistics(data:any){
+    return this.http.post(this.baseUrl+"/matches/statistics/add",data).pipe(
+      map(
+        data=>{
+          return {
+            ok:true,
+            msg:'Datos Mostrados correctamente'
+          }
+        }
+      ),
+      catchError(
+        error=>{
+          return of(
+            {
+              ok:false,
+              msg:"No se pudo mostrar los datos"
+            }
+          )
+        }
+      )
+    );
+  }
 }

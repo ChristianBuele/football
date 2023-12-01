@@ -1,0 +1,54 @@
+<div class="flex w-12 flex-column vidrio sombra" *ngIf="statistics.show">
+    <div class="flex flex-row w-12 bg-blue-900 py-2">
+        <div class="text-3xl font-bold border-500 w-6 text-center">
+            {{matchData.teams[0].name}}
+            {{statistics.local.goles}}
+        </div>
+        <div class="text-3xl font-bold border-left-2  border-500 w-6 text-center">
+            {{matchData.teams[1].name}}
+            {{statistics.visit.goles}}
+        </div>
+    </div>
+    <div class="w-12 text-center text-4xl mt-3">
+        CAMPEONATO INTERCOMUNIDADES
+        
+    </div>
+    <div class="w-12 text-center text-4xl font-bold mt-2" >
+        ESTADÍSTICAS DEL PARTIDO
+    </div>
+    <div class="flex flex-row w-12 justify-content-around my-3 text-xl">
+        <div class="font-bold">{{statistics.local.position}} %</div>
+        <div>POSESIÓN DEL BALÓN</div>
+        <div class="font-bold">{{statistics.visit.position}} %</div>
+    </div>
+    <div class="flex flex-row w-12 justify-content-around mb-3 text-xl">
+        <div class="font-bold">{{statistics.local.red}} </div>
+        <div>TARJETAS ROJAS</div>
+        <div class="font-bold">{{statistics.visit.red}} </div>
+    </div>
+    <div class="flex flex-row w-12 justify-content-around mb-3 text-xl">
+        <div class="font-bold">{{statistics.local.yellow}}</div>
+        <div>TARJETAS AMARILLAS</div>
+        <div class="font-bold">{{statistics.visit.yellow}}</div>
+    </div>
+   <div class="flex flex-column justify-content-center text-2xl">
+    <div class="text-center font-bold">
+        Gracias al auspicio de
+    </div>
+    <div class="col-3 flex justify-content-center flex-wrap w-12"
+            >
+            <div style="max-height: 100px; min-height: 100px; max-width: 200px;">
+                <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="2000"
+                [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showThumbnails]="false"
+                [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+                <ng-template pTemplate="item" let-item>
+                    <img [src]="item.name" style="width: 100%; display: block;" />
+                </ng-template>
+            </p-galleria>
+            </div>
+        </div>
+   </div>
+   <br>
+   <br>
+  
+</div>

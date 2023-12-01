@@ -1,4 +1,4 @@
-<div *ngIf="matchData; else noMatch" class="mt-4 ml-4">
+<div *ngIf="matchData && showBoard" class="mt-4 ml-4">
     <div  [class.slide-in-from-left]="showBoard" [class.slide-out-to-left]="!showBoard">
         <div class="flex bg-blue-900 w-5 h-3rem justify-content-between">
             <div class="font-bold flex align-items-center w-4 text-xl">
@@ -34,10 +34,14 @@
             
         </div>
     </div>
-    <app-targets [targetPlayer]="targetPlayer" [team]="teamTargetChange"></app-targets>
+   
   
 </div>
+<app-statistics [statistics]="statistics" [matchData]="matchData" *ngIf="statistics" class="centered-div"></app-statistics>
+<app-targets [targetPlayer]="targetPlayer" [team]="teamTargetChange"></app-targets>
 <app-lineup [titulares]="titulares" [suplentes]="suplentes" [team]="selectedTeam" [show]="showLineup" class="centered-container"></app-lineup>
 <app-match-player [player]="matchPlayer!"></app-match-player>
-<app-changes [entra]="changePlayers[0]" [sale]="changePlayers[1]" *ngIf="changePlayers.length==2" [team]="teamTargetChange"></app-changes>
-<ng-template #noMatch>No hay informacion sobre el partido dado</ng-template>
+<app-score [scoreData]="scoreData"  [show]="showScore" *ngIf="scoreData"></app-score>
+<app-changes [entra]="changePlayers[0]" [sale]="changePlayers[1]" [showEntra]="showEntra" *ngIf="changePlayers.length==2" [team]="teamTargetChange"></app-changes>
+<app-penales [matchData]="matchData" [show]="penalesData.show" [penalesLocal]="penalesData.local" [penalesVisit]="penalesData.visit" ></app-penales>
+

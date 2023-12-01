@@ -25,7 +25,8 @@ export class MatchComponent {
         data=>{
           console.log(data);
           this.matchData=data;
-          
+          this.selectedTeam=this.matchData.teams[0];
+          this.getPlayers();
         }
       );
     });
@@ -40,7 +41,8 @@ export class MatchComponent {
   changeForm=this.fb.group({
     "entra":[,[Validators.required]],
     "sale":[,[Validators.required]],
-    "matchId":['',[Validators.required]]
+    "matchId":['',[Validators.required]],
+    "team":[""]
   });
   matchData!:MatchDataResponse;
   players:Player[]=[];
@@ -81,6 +83,29 @@ export class MatchComponent {
   
   }
 
+  changeTime(event:any){
+    console.log();
+    if (this.isRunning) {
+      clearInterval(this.timer);
+      this.isRunning = false;
+    }
+    this.secondsElapsed=event.value*60;
+  }
+  saveTime(){
+    if(this.isRunning){
+      this.setTimeEvent({
+        "event":'start',
+        "time":this.secondsElapsed.toString(),
+        "id":this.matchData.match.id
+      })
+    }else{
+      this.setTimeEvent({
+        "event":'stop',
+        "time":this.secondsElapsed.toString(),
+        "id":this.matchData.match.id
+      })
+    }
+  }
   pauseTimer() {
     if (this.isRunning) {
       clearInterval(this.timer);
@@ -108,6 +133,7 @@ export class MatchComponent {
   
 
   getPlayers(){
+    
     this.playersService.getPlayersByTeam(this.selectedTeam.id).subscribe(
       data=>{
         this.players=data;
@@ -128,6 +154,8 @@ export class MatchComponent {
       this.changeForm.markAllAsTouched();
       return;
     }
+    //set team name in changeForm
+    this.changeForm.controls['team'].setValue(this.selectedTeam.name);
     this.playersService.postChangePlayer(this.changeForm.value).subscribe(
       data=>{
         console.log(data);
@@ -162,7 +190,7 @@ export class MatchComponent {
         });
       }else{
         this.messageService.add({
-          severity:'success',
+          severity:'info',
           summary:'Success',
           detail:'Formación ocultada correctamente'
         });
@@ -189,7 +217,54 @@ export class MatchComponent {
     this.timeService.postTimeEvent(data).subscribe(
       data=>{
         console.log(data);
+        if(data.ok){
+          this.messageService.add(
+            {
+              severity:"success",
+              summary:"Success",
+              detail:data.msg
+            }
+          );
+        }else{
+          this.messageService.add(
+            {
+              severity:"error",
+              summary:"Error",
+              detail:data.msg
+              }
+          );
+        }
       }
     );
+  }
+
+  
+  saveScore(player:Player){
+    this.playersService.postScore({
+      player,
+      team:this.selectedTeam,
+      id:this.matchData.match.id
+    }).subscribe(
+      data=>{
+        if(data.status){
+          this.messageService.add({
+            severity:'success',
+            summary:'Success',
+            detail:data.message
+          })
+        }else{
+          this.messageService.add({
+            severity:'error',
+            summary:'Error',
+            detail:data.message
+          })
+        }
+      }
+    )
+  }
+
+  mostrarOcultar(event:any){
+    this.showBoardLive=event.checked;
+      this.matchService.showDisableBoard({show:this.showBoardLive,id:this.matchData.match.id}).subscribe();
   }
 }

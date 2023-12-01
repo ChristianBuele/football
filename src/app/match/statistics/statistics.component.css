@@ -1,0 +1,13 @@
+.radialbg{
+    background: rgb(240,240,244);
+    background: radial-gradient(circle, rgba(240,240,244,1) 0%, rgba(231,230,230,1) 35%, rgba(176,176,176,1) 100%); 
+}
+
+.vidrio{
+    background: rgba(90, 90, 90, 0.73);
+}  
+.sombra {
+    -webkit-box-shadow: 7px 6px 18px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 7px 6px 18px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 7px 6px 18px -4px rgba(0, 0, 0, 0.75);
+  }

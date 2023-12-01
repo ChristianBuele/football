@@ -9,6 +9,7 @@ import { MatchComponent } from './match/match.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlayersComponent } from './players/players.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { PenalesComponent } from './penales/penales.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     TeamsComponent,
     MatchComponent,
     PlayersComponent,
-    StatisticsComponent],
+    StatisticsComponent,
+    PenalesComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

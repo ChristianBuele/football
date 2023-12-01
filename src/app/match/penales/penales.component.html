@@ -1,0 +1,40 @@
+<div *ngIf="show" class="w-8 bottom-center mb-5">
+    <div class="text-center radialbg text-100 font-bold text-2xl">
+        PENALES
+    </div>
+    <div class="flex justify-content-around flex-wrap bgTransparent">
+        <div class="flex justify-content-center flex-wrap w-5">
+            <div *ngFor="let penal of penalesLocal">
+                <div *ngIf="!penal.play; else play" class="circulo gris w-3rem h-3rem border-circle"></div>
+                <ng-template #play>
+                    <div *ngIf="penal.score; else noScore" class="circulo verde w-3rem h-3rem border-circle"></div>
+                </ng-template>
+                <ng-template #noScore>
+                    <div class="circulo rojo  w-3rem h-3rem border-circle"></div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="flex justify-content-center text-6xl font-bold">
+            <div>{{totalLocal}}</div>
+            <div class="mx-2">-</div>
+            <div>{{totalVisit}}</div>
+        </div>
+        <div class="flex justify-content-center flex-wrap w-5 ">
+            <div *ngFor="let penal of penalesVisit">
+                <div *ngIf="!penal.play; else play" class="circulo gris w-3rem h-3rem border-circle"></div>
+                <ng-template #play>
+                    <div *ngIf="penal.score; else noScore" class="circulo verde w-3rem h-3rem border-circle"></div>
+                </ng-template>
+                <ng-template #noScore>
+                    <div class="circulo rojo w-3rem h-3rem border-circle"></div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="degradado-linea"></div>
+    <div class="flex justify-content-around font-bold text-3xl bgTransparent">
+        <div>{{matchData.teams[0].name}}</div>
+        <div></div>
+        <div>{{matchData.teams[1].name}}</div>
+    </div>
+</div>

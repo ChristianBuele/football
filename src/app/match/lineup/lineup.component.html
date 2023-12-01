@@ -1,5 +1,5 @@
 <div style=" max-width: 1000px; " *ngIf="show" >
-    <div class="grid surface-200  flex justify-content-center align-content-center flex-wrap shadow-8 border-round-md ">
+    <div class="grid vidrio flex justify-content-center align-content-center flex-wrap shadow-8 border-round-md ">
         <div class="col-12 bg-blue-900 text-3xl font-bold text-center border-round-md">
             Alineación de: {{team?team.name:''}}
         </div>
@@ -15,7 +15,7 @@
             <div class="col-12">
                 <div *ngFor="let player of titulares" class="py-1 text-xl font-bold text-center" 
                     [ngClass]="{'titulares-enter-active': mostrarTitulares}">
-                    <label class="">{{player.number}}. </label>
+                    <label class="">{{player.number!=0 ?player.number:" "}}. </label>
                     <span >{{player.name}}</span>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="col-12">
                 <div *ngFor="let player of suplentes" class="py-1 text-xl font-bold text-center"
                     [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
-                    <label class="">{{player.number}}. </label>
+                    <label class="">{{player.number!=0 ?player.number:" "}}. </label>
                     <span class="ml-2 w-12">{{player.name}}</span>
                 </div>
             </div>
@@ -38,11 +38,16 @@
 
         <div class="col-6 border-left-2 ">
             <div class="flex justify-content-center align-content-center flex-wrap " style="height: 100%">
-                <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-center ">
-                    <p-image src="assets/auspiciantes/alvid.jpg" width="80%" ></p-image>
+                <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-center " style="min-height: 500px; max-width: 500px;">
+                    
+                    <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="2000" [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showIndicators]="true"  [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+                        <ng-template pTemplate="item" let-item >
+                            <img [src]="item.name" style="width: 100%; display: block;" />
+                        </ng-template>
+                    </p-galleria>
                 </div>
                 <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-3xl underline">
-                    Auspiciante Oficial
+                    Auspiciantes
                 </div>
                
             </div>

@@ -4,14 +4,16 @@
         <form [formGroup]="playerForm" (ngSubmit)="showTeamPlayer()">
             <div class="col">
                 <span>Jugador del partido</span>
-                <p-dropdown [options]="players" optionLabel="name" placeholder="Seleccione el jugador" [group]="true" formControlName="player">
+                <p-dropdown [options]="players" optionLabel="name" placeholder="Seleccione el jugador" [group]="true"
+                    formControlName="player">
                     <ng-template let-player pTemplate="group">
                         <div class="flex align-items-center">
                             <span>{{ player.name }}</span>
                         </div>
                     </ng-template>
                 </p-dropdown>
-                <small *ngIf="playerForm.controls.player.errors && playerForm.controls.player.touched" class="p-error">Seleccione el jugador</small>
+                <small *ngIf="playerForm.controls.player.errors && playerForm.controls.player.touched"
+                    class="p-error">Seleccione el jugador</small>
             </div>
             <div class="col">
                 <span>Mostrar en vivo</span>
@@ -21,3 +23,80 @@
     </div>
 </div>
 <p-divider></p-divider>
+<div class="flex justify-content-center flex-column flex-wrap">
+    <label for="Estadisticas del Partido" class="font-bold text-3xl text-center">
+        Estadisticas del partido
+    </label>
+    <div class="flex flex-row flex-wrap justify-content-center">
+        <div class="mr-2">
+            <form [formGroup]="statisticsFormLocal" (ngSubmit)="showStatistics()">
+                <label for="local" class="text-3xl">{{players.length!=0?players[1].name:''}}</label>
+                <p-divider></p-divider>
+                <div class="flex flex-column">
+                    <label for="" class="font-bold">Goles</label>
+                    <p-inputNumber formControlName="goles"></p-inputNumber>
+                    <small
+                        *ngIf="statisticsFormLocal.controls.goles.errors && statisticsFormLocal.controls.goles.touched"
+                        class="p-error">Seleccione el jugador</small>
+                </div>
+                <div class="flex flex-column">
+                    <label for="" class="font-bold">Posición</label>
+                    <p-inputNumber formControlName="position" placeholder="Ingresa Porcentaje" (onInput)="setPosition($event,true)"></p-inputNumber>
+                    <small
+                        *ngIf="statisticsFormLocal.controls.position.errors && statisticsFormLocal.controls.position.touched"
+                        class="p-error">Ingrese el porcentaje</small>
+                </div>
+                <div class="flex flex-column">
+                    <label for="" class="font-bold">Rojas</label>
+                    <p-inputNumber formControlName="red" placeholder="Ingresa Rojas"></p-inputNumber>
+                    <small *ngIf="statisticsFormLocal.controls.red.errors && statisticsFormLocal.controls.red.touched"
+                        class="p-error">Ingrese Rojas</small>
+                </div>
+                <div class="flex flex-column">
+                    <label for="" class="font-bold">Amarillas</label>
+                    <p-inputNumber formControlName="yellow" placeholder="Ingresa Amarillas"></p-inputNumber>
+                    <small
+                        *ngIf="statisticsFormLocal.controls.yellow.errors && statisticsFormLocal.controls.yellow.touched"
+                        class="p-error">Ingrese Amarillas</small>
+                </div>
+                <div class="mt-2">
+                    <p-button label="{{!showStatisticsBand?'Mostrar':'Ocultar'}}" icon="{{!showStatisticsBand?'pi pi-eye':'pi pi-eye-slash'}}" type="submit"></p-button>
+                </div>
+               
+            </form>
+        </div>
+        <div class="mr-2">
+            <form [formGroup]="statisticsFormVisit" (ngSubmit)="showStatistics()">
+                <label for="local" class="text-3xl">{{players.length!=0?players[0].name:''}}</label>
+                <p-divider></p-divider>
+                <div class="flex flex-column">
+                    <label for="" class="font-bold">Goles</label>
+                    <p-inputNumber formControlName="goles"></p-inputNumber>
+                    <small
+                        *ngIf="statisticsFormVisit.controls.goles.errors && statisticsFormVisit.controls.goles.touched"
+                        class="p-error">Seleccione el jugador</small>
+                </div>
+                <div class="flex flex-column">
+                    <label for="" class="font-bold">Posición</label>
+                    <p-inputNumber formControlName="position" placeholder="Ingresa Porcentaje" (onInput)="setPosition($event,false)"></p-inputNumber>
+                    <small
+                        *ngIf="statisticsFormVisit.controls.position.errors && statisticsFormVisit.controls.position.touched"
+                        class="p-error">Ingrese el porcentaje</small>
+                </div>
+                <div class="flex flex-column">
+                    <label for="" class="font-bold">Rojas</label>
+                    <p-inputNumber formControlName="red" placeholder="Ingresa Rojas"></p-inputNumber>
+                    <small *ngIf="statisticsFormVisit.controls.red.errors && statisticsFormVisit.controls.red.touched"
+                        class="p-error">Ingrese Rojas</small>
+                </div>
+                <div class="flex flex-column">
+                    <label for="" class="font-bold">Amarillas</label>
+                    <p-inputNumber formControlName="yellow" placeholder="Ingresa Amarillas"></p-inputNumber>
+                    <small
+                        *ngIf="statisticsFormVisit.controls.yellow.errors && statisticsFormVisit.controls.yellow.touched"
+                        class="p-error">Ingrese Amarillas</small>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

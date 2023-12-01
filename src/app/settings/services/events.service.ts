@@ -12,4 +12,6 @@ export class EventsService {
   postEventBoard(data:any){
     return this.http.post(this.baseUrl+"/board",data);
   }
+
+  
 }

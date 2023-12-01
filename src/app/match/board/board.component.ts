@@ -48,7 +48,7 @@ export class BoardComponent {
         data => {
           console.log(data);
           this.matchData = data;
-          
+          this.getPlayerScore();
           this.getTargetPlayer();
           this.getChangePlayer();
           this.getLineup();
@@ -56,6 +56,9 @@ export class BoardComponent {
           this.getEvents();
           this.getMatchData();
           this.getTimeEvents();
+          this.getPenales();
+          this.getShowBoard();
+          this.getStatistics();
         }
       );
     });
@@ -94,6 +97,7 @@ export class BoardComponent {
     //despues de 10 s ejecutar una accion
   }
 
+  showEntra:boolean=true;
   getChangePlayer(){
     this.socketService.socket.on('MatchChange' + this.matchData.match.id?.toString(), (data: any) => {
       console.log(data);
@@ -102,9 +106,13 @@ export class BoardComponent {
       })?.name.substring(0)!;
       this.changePlayers[0]=data.entra;
       this.changePlayers[1]=data.sale;
+      setTimeout(()=>{
+        this.showEntra=false;
+      },7500)
       setTimeout(() => {
         this.changePlayers=[];
-      }, 20000);
+        this.showEntra=true;
+      }, 15000);
     });
   }
 
@@ -125,7 +133,14 @@ export class BoardComponent {
       this.matchPlayer=data;
       setTimeout(()=>{
         this.matchPlayer=undefined;
-      },60000);
+      },30000);
+    })
+  }
+  statistics:any;
+  getStatistics(){
+    this.socketService.socket.on('Statistics'+this.matchData.match.id?.toString(),(data:any)=>{
+      this.statistics=data;
+    console.log(this.statistics);
     })
   }
 
@@ -135,6 +150,38 @@ export class BoardComponent {
       if(data.name='showBoard'){
         this.showBoard=data.data
       }
+    })
+  }
+
+  showScore:boolean=true;
+  scoreData!:any;
+  getPlayerScore(){
+    this.socketService.socket.on('PlayerScore'+this.matchData.match.id?.toString(),(data:any)=>{
+        console.log("gollll")
+        this.showScore=true;
+        this.scoreData=data;
+        setTimeout(()=>{
+          this.showScore=false;
+        },10000);
+    })
+  }
+
+  penalesData:any={
+    show:false,
+    local:[],
+    visit:[]
+  };
+  getPenales(){
+    this.socketService.socket.on('Penal'+this.matchData.match.id?.toString(),(data:any)=>{
+      console.log(data);
+      this.penalesData=data;
+    });
+  }
+
+  getShowBoard(){
+    this.socketService.socket.on('ShowBoard'+this.matchData.match.id?.toString(),(data:any)=>{
+      console.log(data);
+      this.showBoard=data.show;
     })
   }
 

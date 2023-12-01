@@ -1,21 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { Player } from 'src/app/model/player';
+import { Team } from 'src/app/model/teamMatch';
+import { MatchDataResponse } from '../../model/teamMatch';
 
 @Component({
-  selector: 'app-match-player',
-  templateUrl: './match-player.component.html',
-  styleUrls: ['./match-player.component.css']
+  selector: 'app-statistics',
+  templateUrl: './statistics.component.html',
+  styleUrls: ['./statistics.component.css']
 })
-export class MatchPlayerComponent {
-  @Input() player:Player={
-    idTeam:1,
-    name:'Mariano',
-    titular:true,
-    id:1,
-    number:12
-  };
-  auspiciante:string='ALVID MASTER';
-
+export class StatisticsComponent {
+  @Input() statistics:any;
+  @Input() matchData!:MatchDataResponse;
   auspiciantes=[
     {
       name:"assets/auspiciantes/alvid.jpg",
@@ -38,7 +32,7 @@ export class MatchPlayerComponent {
     {
       name:"assets/auspiciantes/ss.jpg"
     }
-  ]
+  ];
   responsiveOptions: any[] = [
     {
         breakpoint: '1024px',
@@ -53,5 +47,4 @@ export class MatchPlayerComponent {
         numVisible: 1
     }
 ];
-  
 }

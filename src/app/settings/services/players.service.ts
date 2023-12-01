@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'environments/environment.prod';
 import { Observable, catchError, map, of } from 'rxjs';
 import { Player, PlayersResponse } from 'src/app/model/player';
@@ -70,6 +70,28 @@ export class PlayersService {
           return {
             status:true,
             message:"Jugador eliminado correctamente"
+          };
+        }
+      ),
+      catchError(err=>{
+        return of(
+          {
+            status:false,
+            message:err.error.message
+          }
+        );
+      })
+    )
+  }
+
+
+  postScore(data:any){
+    return this.http.post(this.baseUrl+"/players/score",data).pipe(
+      map(
+        data=>{
+          return {
+            status:true,
+            message:"Gol registrado correctamente"
           };
         }
       ),

@@ -1,0 +1,59 @@
+<div>
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-user mr-2"></i>
+            <b>Configuración Penales</b>
+        </div>
+    </p-divider>
+    <div class="card flex flex-wrap gap-3 justify-content-center p-fluid">
+        <div >
+            <p-inputNumber [(ngModel)]="cantidadPenales" [min]="0" [max]="10" [showButtons]="true"
+                [buttonLayout]="'horizontal'" ></p-inputNumber>
+        </div>
+        <div class="ml-2"><p-button label="Guardar" icon="pi pi-save" styleClass="p-button-info" (onClick)="generarPenales()"></p-button></div>
+        
+    </div>
+    <p-divider>
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-user mr-2"></i>
+            <b>Tablero</b>
+        </div>
+    </p-divider>
+    <div *ngIf="penalesLocal.length!=0 && penalesVisit.length!=0; else sinPenales" class="flex justify-content-center flex-wrap flex-column">
+        <div class="text-center">
+            <label for="local" class="font-bold text-3xl">{{matchData?this.matchData.teams[0].name:"Sin nombre"}}</label>
+            <div class="flex justify-content-center flex-wrap">
+                <div *ngFor="let penal of penalesLocal;index as i" class="mx-1">
+                    <p-dropdown [options]="estadoPenales"  placeholder="Estado penal"  optionLabel="name" (onChange)=" changePenalStatus($event,i,true)"></p-dropdown>
+                </div>
+            </div>
+        </div>
+          
+        <div class="text-center my-2">
+            <label for="visit" class="font-bold text-3xl">{{matchData?this.matchData.teams[1].name:"Sin nombre"}}</label>
+            <div class="flex justify-content-center flex-wrap">
+                <div *ngFor="let penal of penalesVisit; index as i" class="mx-1">
+                    <p-dropdown [options]="estadoPenales"  placeholder="Estado penal"  optionLabel="name" (onChange)=" changePenalStatus($event,i,false)"></p-dropdown>
+                </div>
+            </div>
+        </div> 
+        <div class="">
+            <p-button label="Guardar" icon="pi pi-save" styleClass="p-button-info" (onClick)="guardarPenales()"></p-button>
+        </div>
+        <div class="ml-2">
+            <label for="" class="mx-2">Los penales están {{this.showPenal?"Mostrandose":"Ocultos"}}</label>
+            <p-inputSwitch [(ngModel)]="showPenal" (onChange)="mostrarOcultar($event)">
+                
+            </p-inputSwitch>
+            
+        </div>
+    </div>
+    
+</div>
+
+<ng-template #sinPenales>
+    <div class="card flex flex-wrap gap-3 justify-content-center p-fluid">
+        <div class="w-2 text-center">
+            <p>No existe una cantidad de penales definidad</p>
+        </div>
+    </div>

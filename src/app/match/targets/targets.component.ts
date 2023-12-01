@@ -7,10 +7,11 @@ import { Component, Input } from '@angular/core';
 })
 export class TargetsComponent {
   @Input() targetPlayer:any={
-    name:'',
-    number:0,
+    name:'Christian Buele',
+    number:10,
     color:"red",
-    show:false
+    show:true
   }
-  @Input() team:String="";
+  @Input() team:String="Deportivo Cuenca";
+  
 }

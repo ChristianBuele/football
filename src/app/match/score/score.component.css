@@ -1,19 +1,12 @@
-@keyframes slideDown {
-    from {
-      transform: translateY(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+.bottom-center {
+    border-radius: 6px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
   }
-
-  .slide-down-animation {
-    animation: slideDown 0.5s ease;
-  } 
-
-
+  
   .sombra {
     -webkit-box-shadow: 7px 6px 18px -4px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 7px 6px 18px -4px rgba(0, 0, 0, 0.75);
@@ -23,13 +16,4 @@
   .radialbg{
     background: rgb(240,240,244);
     background: radial-gradient(circle, rgba(240,240,244,1) 0%, rgba(231,230,230,1) 35%, rgba(176,176,176,1) 100%); 
-}
-
-.bottom-center {
-  border-radius: 6px;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
 }
