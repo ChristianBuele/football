@@ -30,6 +30,9 @@ export class ChangesComponent {
 
   auspiciantes=[
     {
+      name:"assets/auspiciantes/pc.jpg"
+    },
+    {
       name:"assets/auspiciantes/alvid.jpg",
     },
     {
@@ -43,7 +46,29 @@ export class ChangesComponent {
     },
     {
       name:"assets/auspiciantes/ing.jpg"
+    },
+    {
+      name:"assets/auspiciantes/ds.jpg"
+    },
+    {
+      name:"assets/auspiciantes/ss.jpg"
+    },
+    {
+      name:"assets/auspiciantes/cs.jpg"
+    },
+    {
+      name:"assets/auspiciantes/ab.jpg"
+    },
+    {
+      name:"assets/auspiciantes/jpg.jpg"
+    },
+    {
+      name:"assets/auspiciantes/rpc.jpg"
+    },
+    {
+      name:"assets/auspiciantes/bg.jpg"
     }
+
   ]
   responsiveOptions: any[] = [
     {

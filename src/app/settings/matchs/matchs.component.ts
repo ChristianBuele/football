@@ -21,13 +21,14 @@ export class MatchsComponent {
   loading: boolean = false;
   newMatchDialog:boolean=false;
   teams:Team[]=[];
+  selectedCategorie!:Categorie;
   matchForm=this.fb.group({
     teamLocal:[,[Validators.required]],
     teamVisit:[,[Validators.required]],
     date:[,[Validators.required]],
     location:[,[Validators.required]],
     minutes:[,[Validators.required]],
-    categorie:[,[Validators.required]]
+    categorie:[this.selectedCategorie,[Validators.required]]
   });
   categories:Categorie[]=[];
   constructor( private clipboardApi: ClipboardService,private categorieService:CategorieService,private messaageService:MessageService,private mathService: MatchServiceService,private router:Router,private teamsService:TeamsServiceService,private fb: FormBuilder,private matchTeamService:MatchTeamService) {
@@ -36,27 +37,50 @@ export class MatchsComponent {
 
   ngOnInit(): void {
     
-    this.getMatches();
-    this.teamsService.getAllTeams().subscribe(
-      data=>{
-        this.teams=data.teams;
-      }
-    );
     this.categorieService.getAllCategories().subscribe(
       data=>{
         this.categories=data.categories;
+        if(this.categories.length>0){
+          this.selectedCategorie=this.categories[0];
+          this.getMatches({
+              value:this.selectedCategorie
+          });
+        }
       }
-    )
+    );
   }
-  getMatches(){
+
+  getTeams(event:any){
+    const id=event.value.id;
+    console.log(event);
+    this.selectedCategorie=event.value;
+    this.matchForm.controls['categorie'].setValue(this.selectedCategorie);
+    console.log(this.matchForm.value)
+    this.teamsService.getAllTeamsByIdCategory(id).subscribe(
+      data=>{
+        this.teams=data.data;
+      }
+    );
+  }
+  getMatches(event:any){
+    const id=event.value.id;
+    console.log(event);
+    this.selectedCategorie=event.value;
+    this.matchForm.controls['categorie'].setValue(this.selectedCategorie);
+    console.log(this.matchForm.value)
     this.loading=true;
-    this.mathService.getAllMatches().subscribe(
+    this.mathService.getAllMatchesByCategorieId(this.selectedCategorie.id?.toString()??'').subscribe(
       data => {
         this.matches = data;
         this.loading = false;
       }
     );
+    this.getTeams({
+      value:this.selectedCategorie
+    })
   }
+
+
   clear(table: Table) {
     table.clear();
   }
@@ -77,8 +101,13 @@ export class MatchsComponent {
         this.loading=false;
         this.newMatchDialog=false;
         this.matchForm.reset()
+        this.matchForm.controls['categorie'].setValue(this.selectedCategorie);
         this.messaageService.add({severity:'success', summary: 'Success', detail: 'Match created'});
-        this.getMatches();
+        this.getMatches({
+          value:{
+            id:this.matchForm.controls['categorie'].value?.id
+          }
+        });
       }
     );
   }

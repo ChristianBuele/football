@@ -54,7 +54,7 @@ export class PlayersComponent {
     this.loading = true;
     this.playersService.postPlayer(this.playerForm.value).subscribe(
       data => {
-        this.players.push(data);
+        this.getPlayers();
         this.showDialogNewPlayer = false;
         this.loading = false;
         this.playerForm.reset();

@@ -18,6 +18,9 @@ export class MatchPlayerComponent {
 
   auspiciantes=[
     {
+      name:"assets/auspiciantes/pc.jpg"
+    },
+    {
       name:"assets/auspiciantes/alvid.jpg",
     },
     {
@@ -37,7 +40,23 @@ export class MatchPlayerComponent {
     },
     {
       name:"assets/auspiciantes/ss.jpg"
+    },
+    {
+      name:"assets/auspiciantes/cs.jpg"
+    },
+    {
+      name:"assets/auspiciantes/ab.jpg"
+    },
+    {
+      name:"assets/auspiciantes/rl.jpg"
+    },
+    {
+      name:"assets/auspiciantes/rpc.jpg"
+    },
+    {
+      name:"assets/auspiciantes/bg.jpg"
     }
+
   ]
   responsiveOptions: any[] = [
     {

@@ -26,6 +26,20 @@ export class MatchServiceService {
       )
     );
   }
+  getAllMatchesByCategorieId(id:string):Observable<TeamMatchResponse[]>{
+    return this.http.get(this.baseUrl+"/matchTeam/category/"+id).pipe(
+      map(
+        data=>{
+          return data as TeamMatchResponse[];
+        }
+      ),
+      catchError(
+        error=>{
+          return of();
+        }
+      )
+    );
+  }
 
   getMatchTeamById(id:number):Observable<MatchDataResponse>{
     return this.http.get<MatchDataResponse>(this.baseUrl+"/matchTeam/"+id.toString());
@@ -97,6 +111,27 @@ export class MatchServiceService {
             {
               ok:false,
               msg:"No se pudo mostrar los datos"
+            }
+          )
+        }
+      )
+    );
+  }
+
+  showMarcador(data:any){
+    return this.http.post(this.baseUrl+"/matches/statistics/marcador",data).pipe(
+      map(
+        data=>{
+          return {
+            ok:true,
+          }
+        }
+      ),
+      catchError(
+        error=>{
+          return of(
+            {
+              ok:false
             }
           )
         }

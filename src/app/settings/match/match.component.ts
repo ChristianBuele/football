@@ -53,6 +53,7 @@ export class MatchComponent {
   entra!:Player;
   sale!:Player;
 
+ 
 
   saveData(){
     
@@ -69,6 +70,15 @@ export class MatchComponent {
   isRunning: boolean = false;
 
   startTimer() {
+    console.log(this.showBoardLive)
+    if(this.showBoardLive==false){
+      this.messageService.add({
+        severity:'warn',
+        summary:'Advertencia',
+        detail:'Debe mostrar el marcador antes de iniciar el tiempo.'
+      });
+      return;
+    }
     if (!this.isRunning) {
       this.timer = setInterval(() => {
         this.secondsElapsed++;
@@ -139,6 +149,7 @@ export class MatchComponent {
         this.players=data;
       }
     )
+    this.scoreForm.controls['scoreLocal'].value;
   }
 
   showTarget(isYellow:boolean,player:Player){
@@ -199,7 +210,7 @@ export class MatchComponent {
     });
   }
   
-  showBoardLive:boolean=true;
+  showBoardLive:boolean=false;
   showBoard(){
     
     this.eventsService.postEventBoard(
@@ -265,6 +276,10 @@ export class MatchComponent {
 
   mostrarOcultar(event:any){
     this.showBoardLive=event.checked;
+    if(!this.showBoardLive){
+      this.stopTimer();
+    }
+    console.log(this.showBoardLive);
       this.matchService.showDisableBoard({show:this.showBoardLive,id:this.matchData.match.id}).subscribe();
   }
 }

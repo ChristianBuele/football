@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { MatchServiceService } from '../services/match-service.service';
+import { MatchDataResponse } from 'src/app/model/teamMatch';
 
 @Component({
   selector: 'app-statistics',
@@ -22,6 +23,21 @@ export class StatisticsComponent {
     player: [, [Validators.required]],
     matchId: [, [Validators.required]]
   });
+  @Input() scoreLocal:any;
+  @Input() scoreVisit:any;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    console.log(changes);
+    if(changes['scoreLocal']){
+      this.statisticsFormLocal.controls['goles'].setValue(changes['scoreLocal'].currentValue)
+    }else if(changes['scoreVisit']){
+      this.statisticsFormVisit.controls['goles'].setValue(changes['scoreVisit'].currentValue)
+    }
+    console.log(this.statisticsFormLocal.value)
+  }
+
   statisticsFormLocal = this.fb.group({
     position: [50, [Validators.required, Validators.min(0), Validators.max(100)]],
     yellow: [0, [Validators.required, Validators.min(0)]],
@@ -36,6 +52,13 @@ export class StatisticsComponent {
     tiros: [0, [Validators.required, Validators.min(0)]],
     goles:[0,[Validators.required]]
   });
+  @Input() matchData!:MatchDataResponse;
+  timeNames=[
+    'Previa',
+    'Entretiempo',
+    'Final'
+  ];
+  selectedTime:string='Previa';
 
   items:any[]=[
     {
@@ -59,6 +82,7 @@ export class StatisticsComponent {
       key:'yellow'
     }
   ]
+  matchId!:any;
   ngOnInit(): void {
     this.activateRoute.params.subscribe(({ id }) => {
       this.playerForm.controls['matchId'].setValue(id);
@@ -66,6 +90,7 @@ export class StatisticsComponent {
         this.players = data;
         console.log('statiscsddadsds')
         console.log(this.players);
+        this.matchId=id;
       });
     })
   }
@@ -148,5 +173,50 @@ export class StatisticsComponent {
       this.statisticsFormVisit.controls['position'].setValue(100-value);
       this.statisticsFormLocal.controls['position'].setValue(value);
     }
+  }
+  showMarcadorBand:boolean=true;
+  loadingStatistics:boolean=false;
+  showMarcador(){
+    this.loadingStatistics=true;
+    this.matchService.showMarcador({
+      show:this.showMarcadorBand,
+      local:this.scoreLocal,
+    visit:this.scoreVisit,
+    tiempo:this.selectedTime,
+    id:this.matchId
+    }).subscribe(
+      data=>{
+        this.loadingStatistics=false;
+        console.log(data)
+        if(data.ok==true ){
+          if(!this.showMarcadorBand){
+            this.messageService.add(
+              {
+                severity:'success',
+                summary:'Exito',
+                detail:'Estadisticas mostradas correctamente'
+              }
+            )
+          }else{
+            this.messageService.add(
+              {
+                severity:'success',
+                summary:'Exito',
+                detail:'Estadisticas ocultadas correctamente'
+              }
+            )
+          }
+          this.showMarcadorBand=!this.showMarcadorBand;
+        }else{
+          this.messageService.add(
+            {
+              severity:'error',
+              summary:'Error',
+              detail:'Estadisticas no mostradas'
+            }
+          )
+        }
+      }
+    )
   }
 }

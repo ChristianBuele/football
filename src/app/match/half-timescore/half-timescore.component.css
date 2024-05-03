@@ -1,0 +1,22 @@
+.bgTransparent{
+    background: rgba(39, 39, 39, 0.73);
+  }
+
+  .degradado-linea {
+    width: 100%;
+    height: 2px; /* Ajusta el grosor de la línea según tus necesidades */
+    background: linear-gradient(to left, transparent, yellow, transparent);
+  }
+
+  .bottom-center {
+    border-radius: 6px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+  }
+  .radialbg{
+    background: rgb(240,240,244);
+    background: radial-gradient(circle, rgba(240,240,244,1) 0%, rgba(231,230,230,1) 35%, rgba(176,176,176,1) 100%); 
+}

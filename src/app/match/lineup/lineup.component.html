@@ -1,7 +1,7 @@
 <div style=" max-width: 1000px; " *ngIf="show" >
     <div class="grid vidrio flex justify-content-center align-content-center flex-wrap shadow-8 border-round-md ">
         <div class="col-12 bg-blue-900 text-3xl font-bold text-center border-round-md">
-            Alineación de: {{team?team.name:''}}
+            Alineación de: {{team?team.name:'' |uppercase}}
         </div>
         <div class="col-6 ">
             <div class="font-bold  py-1 text-center" [ngClass]="{'titulares-enter-active': mostrarTitulares}">
@@ -15,11 +15,11 @@
             <div class="col-12">
                 <div *ngFor="let player of titulares" class="py-1 text-xl font-bold text-center" 
                     [ngClass]="{'titulares-enter-active': mostrarTitulares}">
-                    <label class="">{{player.number!=0 ?player.number:" "}}. </label>
+                    <label class="">{{player.number!=0 ?player.number+". ":" "}}</label>
                     <span >{{player.name}}</span>
                 </div>
             </div>
-            <div class="font-bold  py-1 " [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
+            <div class="font-bold  py-1 " [ngClass]="{'suplentes-enter-active': mostrarSuplentes}" *ngIf="suplentes.length>0">
                 <p-divider >
                     <div class="inline-flex align-items-center">
                         <i class="pi pi-users mr-2"></i>
@@ -30,7 +30,7 @@
             <div class="col-12">
                 <div *ngFor="let player of suplentes" class="py-1 text-xl font-bold text-center"
                     [ngClass]="{'suplentes-enter-active': mostrarSuplentes}">
-                    <label class="">{{player.number!=0 ?player.number:" "}}. </label>
+                    <label class="">{{player.number!=0 ?player.number+". ":" "}}</label>
                     <span class="ml-2 w-12">{{player.name}}</span>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="flex justify-content-center align-content-center flex-wrap " style="height: 100%">
                 <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-center " style="min-height: 500px; max-width: 500px;">
                     
-                    <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="2000" [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showIndicators]="true"  [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+                    <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="1000" [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showIndicators]="true"  [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
                         <ng-template pTemplate="item" let-item >
                             <img [src]="item.name" style="width: 100%; display: block;" />
                         </ng-template>

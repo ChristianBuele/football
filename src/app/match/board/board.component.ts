@@ -59,6 +59,7 @@ export class BoardComponent {
           this.getPenales();
           this.getShowBoard();
           this.getStatistics();
+          this.getStatisticsMarcador();
         }
       );
     });
@@ -182,6 +183,13 @@ export class BoardComponent {
     this.socketService.socket.on('ShowBoard'+this.matchData.match.id?.toString(),(data:any)=>{
       console.log(data);
       this.showBoard=data.show;
+    })
+  }
+
+  statisticsMarcador:any;
+  getStatisticsMarcador(){
+    this.socketService.socket.on('StatisticsMarcador'+this.matchData.match.id?.toString(),(data:any)=>{
+      this.statisticsMarcador=data;
     })
   }
 

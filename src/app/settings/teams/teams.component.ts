@@ -6,6 +6,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Player } from 'src/app/model/player';
 import { PlayersService } from '../services/players.service';
+import { CategorieService } from '../services/categorie.service';
+import { Categorie } from 'src/app/model/categorie';
 
 @Component({
   selector: 'app-teams',
@@ -13,7 +15,7 @@ import { PlayersService } from '../services/players.service';
   styleUrls: ['./teams.component.css'],
 })
 export class TeamsComponent {
-  constructor(private teamsService: TeamsServiceService, private fb: FormBuilder, private messageService: MessageService, private playersService: PlayersService) {
+  constructor(private teamsService: TeamsServiceService,private categoryService:CategorieService, private fb: FormBuilder, private messageService: MessageService, private playersService: PlayersService) {
 
   }
   teams: Team[] = [];
@@ -24,25 +26,39 @@ export class TeamsComponent {
   selectedTeam!: Team;
   teamsForm = this.fb.group({
     name: ['', [Validators.required]],
-    color: ['', [Validators.required]]
+    color: ['', [Validators.required]],
+    idcategory:[,[Validators.required]]
   });
 
   clonedTeams: { [s: string]:Team } = {};
 
 
   players: Player[] = [];
-
+  categories:Categorie[]=[];
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.loading = true;
-    this.teamsService.getAllTeams().subscribe(
-      (data) => {
+    
+    this.categoryService.getAllCategories().subscribe(
+      data=>{
         console.log(data);
-        this.teams = data.teams;
-        this.loading = false;
+        this.categories=data.categories;
       }
     );
+  }
+
+  getTeams(event:any){
+    console.log(event)
+    const idCategory=event?.value.id;
+    this.loading=true;
+    this.teamsService.getAllTeamsByIdCategory(idCategory).subscribe(
+      data=>{
+        this.loading=false;
+        if(data.ok){
+          this.teams=data.data;
+        }
+      }
+    )
   }
   clear(table: Table) {
     table.clear();

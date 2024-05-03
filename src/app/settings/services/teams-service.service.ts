@@ -29,6 +29,29 @@ export class TeamsServiceService {
     );
   }
 
+  getAllTeamsByIdCategory(id:string){
+    return this.http.get<any>(this.baseUrl+"/teams/"+id).pipe(
+      map(
+        data=>{
+         return {
+          ok:true,
+          data:data.teams as Team[]
+         }
+        }
+      ),
+      catchError(
+        error=>{
+          return of(
+            {
+              ok:false,
+              data:[]
+            }
+          );
+        }
+      )
+    );
+  }
+
   postTeam(team:any):Observable<Team>{
     return this.http.post<Team>(this.baseUrl+'/teams',team).pipe(
       map(

@@ -3,15 +3,19 @@
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [globalFilterFields]="['name']" editMode="row" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '15rem'}">
     <ng-template pTemplate="caption">
-        <div class="flex">
-            
-            <span class="p-input-icon-left ml-auto">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
-                    placeholder="Search keyword" />
-            </span>
-            <button type="button" pButton pRipple icon="pi pi-plus" class="ml-2" pTooltip="Nuevo Equipo"
-                tooltipPosition="bottom" (click)="showHideDialog(true)"></button>
+        <div class="flex justify-content-between">
+            <div>
+                <p-dropdown placeholder="Selecciona una categoría" [options]="categories" optionLabel="name" (onChange)="getTeams($event)"></p-dropdown>
+            </div>
+            <div>
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                        placeholder="Search keyword" />
+                </span>
+                <button type="button" pButton pRipple icon="pi pi-plus" class="ml-2" pTooltip="Nuevo Equipo"
+                    tooltipPosition="bottom" (click)="showHideDialog(true)"></button>
+            </div>
         </div>
     </ng-template>
 
@@ -63,7 +67,7 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="7">No customers found.</td>
+            <td colspan="7">No se encuentra equipos</td>
         </tr>
     </ng-template>
     
@@ -74,17 +78,25 @@
         [style]="{ width: '50vw' }" [modal]="true">
         <ng-template pTemplate="content">
             <div class="field">
+                <label for="name">Categoría</label>
+                <p-dropdown formControlName="idcategory" [options]="categories" optionLabel="name" optionValue="id" placeholder="Selecione una categoría"></p-dropdown>
+
+                <small class="p-error" *ngIf="teamsForm.controls.idcategory.errors && teamsForm.controls.idcategory.touched">Categoria is
+                    required.</small>
+            </div>
+            <div class="field">
                 <label for="color">Color:</label>
                 <p-colorPicker required autofocus formControlName="color"></p-colorPicker>
                 <small class="p-error" *ngIf="teamsForm.controls.color.errors && teamsForm.controls.color.touched">Color
                     is required.</small>
             </div>
             <div class="field">
-                <label for="name">Name</label>
+                <label for="name">Nombre</label>
                 <input type="text" pInputText id="name" required autofocus formControlName="name" />
                 <small class="p-error" *ngIf="teamsForm.controls.name.errors && teamsForm.controls.name.touched">Name is
                     required.</small>
             </div>
+            
             
         </ng-template>
         <ng-template pTemplate="footer">

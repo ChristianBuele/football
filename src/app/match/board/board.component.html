@@ -1,47 +1,48 @@
 <div *ngIf="matchData && showBoard" class="mt-4 ml-4">
-    <div  [class.slide-in-from-left]="showBoard" [class.slide-out-to-left]="!showBoard">
-        <div class="flex bg-blue-900 w-5 h-3rem justify-content-between">
+    <div [class.slide-in-from-left]="showBoard" [class.slide-out-to-left]="!showBoard">
+        <div class="flex bg-blue-900 w-4 h-3rem justify-content-between">
             <div class="font-bold flex align-items-center w-4 text-xl">
                 <p-image src="assets/logos/intercomunidades.jpg" alt="Image" height="50" class="mr-2"></p-image>
                 <p>Intercomunidades</p>
-            </div>
-            <div class="font-bold flex align-items-center justify-content-center w-4 text-xl">
-                Sede: {{matchData.match.location}}
             </div>
             <div class="font-bold flex align-items-center justify-content-center w-4 text-xl">
                 {{matchData.match.date | uppercase}}
             </div>
         </div>
         <div class="flex">
-            <div class="flex bg-blue-50 w-5 justify-content-around flex-wrap">
-                <div class="font-bold flex align-items-center justify-content-center text-50 text-5xl"
+            <div class="flex bg-blue-50 w-4 justify-content-around flex-wrap">
+                <div class="font-bold flex align-items-center justify-content-center text-50 text-5xl w-5 white-space-nowrap overflow-hidden text-overflow-ellipsis"
                     style="display: flex; flex-direction: column; align-items: center;">
-                    <div>{{matchData.teams[0].name}}</div>
+                    <div>{{matchData.teams[0].name.length<=9?matchData.teams[0].name:matchData.teams[0].name.substring(0,9)}}</div>
                     <div style="height: 5px;" [style.background-color]="matchData.teams[0].color" class="w-12"></div>
                 </div>
-                <div class="font-bold flex align-items-center justify-content-center text-5xl w-4">
+                <div class="font-bold flex align-items-center justify-content-center text-5xl w-2">
                     <div class="bg-blue-900  mr-1 text-center px-2">{{scoreLocal}}</div>
                     <div class="bg-blue-900  text-center px-2">{{scoreVisit}}</div>
                 </div>
-                <div class="font-bold flex align-items-center justify-content-center text-50 text-5xl"
+                <div class="font-bold flex align-items-center justify-content-center text-50 text-5xl w-5 white-space-nowrap overflow-hidden text-overflow-ellipsis"
                     style="display: flex; flex-direction: column; align-items: center;">
-                    <div>{{matchData.teams[1].name}}</div>
-                    <div style="height: 5px; width: 100%;" [style.background-color]="matchData.teams[1].color" class="w-12">
+                    <div>{{matchData.teams[1].name.length<=9?matchData.teams[1].name:matchData.teams[1].name.substring(0,7)+"..."}}</div>
+                    <div style="height: 5px; width: 100%;" [style.background-color]="matchData.teams[1].color"
+                        class="w-12">
                     </div>
                 </div>
             </div>
-            <app-time [timeEvent]="timeEvents" ></app-time>    
-            
+            <app-time [timeEvent]="timeEvents"></app-time>
         </div>
     </div>
-   
-  
 </div>
-<app-statistics [statistics]="statistics" [matchData]="matchData" *ngIf="statistics" class="centered-div"></app-statistics>
-<app-targets [targetPlayer]="targetPlayer" [team]="teamTargetChange"></app-targets>
-<app-lineup [titulares]="titulares" [suplentes]="suplentes" [team]="selectedTeam" [show]="showLineup" class="centered-container"></app-lineup>
-<app-match-player [player]="matchPlayer!"></app-match-player>
-<app-score [scoreData]="scoreData"  [show]="showScore" *ngIf="scoreData"></app-score>
-<app-changes [entra]="changePlayers[0]" [sale]="changePlayers[1]" [showEntra]="showEntra" *ngIf="changePlayers.length==2" [team]="teamTargetChange"></app-changes>
-<app-penales [matchData]="matchData" [show]="penalesData.show" [penalesLocal]="penalesData.local" [penalesVisit]="penalesData.visit" ></app-penales>
 
+<app-statistics [statistics]="statistics" [matchData]="matchData" *ngIf="statistics"
+    class="centered-div"></app-statistics>
+<app-targets [targetPlayer]="targetPlayer" [team]="teamTargetChange"></app-targets>
+<app-lineup [titulares]="titulares" [suplentes]="suplentes" [team]="selectedTeam" [show]="showLineup"
+    class="centered-container"></app-lineup>
+<app-match-player [player]="matchPlayer!"></app-match-player>
+<app-score [scoreData]="scoreData" [show]="showScore" *ngIf="scoreData"></app-score>
+<app-changes [entra]="changePlayers[0]" [sale]="changePlayers[1]" [showEntra]="showEntra"
+    *ngIf="changePlayers.length==2" [team]="teamTargetChange"></app-changes>
+<app-penales [matchData]="matchData" [show]="penalesData.show" [penalesLocal]="penalesData.local"
+    [penalesVisit]="penalesData.visit"></app-penales>
+<app-half-timescore [matchData]="matchData" [marcador]="statisticsMarcador"
+    *ngIf="statisticsMarcador"></app-half-timescore>

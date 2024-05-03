@@ -1,1 +1,33 @@
-<p>half-timescore works!</p>
+<div class="bottom-center w-12 flex justify-content-center" *ngIf="marcador.body.show">
+    <div class="w-5  mb-5">
+        <div class="text-center radialbg text-100 font-bold text-2xl">
+            {{marcador.body.tiempo|uppercase}}
+        </div>
+        <div class="flex justify-content-around flex-wrap bgTransparent">
+            <div class="flex justify-content-around font-bold text-3xl bgTransparent h-full	">
+                <div class="flex align-content-center text-5xl">{{matchData.teams[0].name}}</div>
+            </div>
+            <div class="flex justify-content-center text-6xl font-bold " *ngIf="marcador.body.tiempo!='Previa'">
+                <div>{{marcador.body.local}}</div>
+                <div class="mx-2">-</div>
+                <div>{{marcador.body.visit}}</div>
+            </div>
+            <div class="flex justify-content-around font-bold text-3xl bgTransparent text-5xl">
+
+                <div>{{matchData.teams[1].name}}</div>
+            </div>
+        </div>
+        <div class="degradado-linea"></div>
+
+    </div>
+    <div class="col-3  sombra flex align-content-center flex-wrap"
+        style="max-height: 100px; min-height: 100px; max-width: 400px;">
+        <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="1000"
+            [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showThumbnails]="false"
+            [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '150px' }">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.name" style="width: 100%; display: block;" />
+            </ng-template>
+        </p-galleria>
+    </div>
+</div>

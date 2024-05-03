@@ -1,8 +1,8 @@
 <div  class="flex flex-row flex-wrap  sombra bottom-center mb-4" *ngIf="show">
-    <div class="w-12 flex justify-content-center text-3xl font-bold radialbg text-100">
-        Gol de {{scoreData.team.name}}
+    <div class="w-12 flex justify-content-center text-3xl font-bold bg-blue-900 ">
+        Gol de {{scoreData.team.name |uppercase}}
     </div>
-    <div class="flex justify-content-center w-12 text-2xl mb-2 bg-blue-900">
+    <div class="flex justify-content-center w-12 text-2xl mb-2  radialbg text-100 font-bold">
         {{scoreData.player.number!=0?scoreData.player.number:"-"}}. {{scoreData.player.name}}
     </div>
 </div>

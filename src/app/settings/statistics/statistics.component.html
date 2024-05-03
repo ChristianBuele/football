@@ -21,6 +21,11 @@
             </div>
         </form>
     </div>
+    <div class="flex flex-column w-5">
+        <h3>Marcador</h3>
+        <p-dropdown [options]="timeNames" [(ngModel)]="selectedTime" placeholder="Seleccione" pTooltip="Seleccione"></p-dropdown>
+        <p-button class="my-2" label="Mostrar Marcador" (onClick)="showMarcador()" [loading]="loadingStatistics"></p-button>
+    </div>
 </div>
 <p-divider></p-divider>
 <div class="flex justify-content-center flex-column flex-wrap">
@@ -30,7 +35,7 @@
     <div class="flex flex-row flex-wrap justify-content-center">
         <div class="mr-2">
             <form [formGroup]="statisticsFormLocal" (ngSubmit)="showStatistics()">
-                <label for="local" class="text-3xl">{{players.length!=0?players[1].name:''}}</label>
+                <label for="local" class="text-3xl">{{matchData.teams[0].name}}</label>
                 <p-divider></p-divider>
                 <div class="flex flex-column">
                     <label for="" class="font-bold">Goles</label>
@@ -67,7 +72,7 @@
         </div>
         <div class="mr-2">
             <form [formGroup]="statisticsFormVisit" (ngSubmit)="showStatistics()">
-                <label for="local" class="text-3xl">{{players.length!=0?players[0].name:''}}</label>
+                <label for="local" class="text-3xl">{{matchData.teams[1].name}}</label>
                 <p-divider></p-divider>
                 <div class="flex flex-column">
                     <label for="" class="font-bold">Goles</label>
