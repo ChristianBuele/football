@@ -166,7 +166,7 @@ export class BoardComponent {
         },10000);
     })
   }
-
+  
   penalesData:any={
     show:false,
     local:[],

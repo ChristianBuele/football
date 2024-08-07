@@ -37,7 +37,44 @@ export class MatchComponent {
     scoreLocal:[0,[Validators.required]],
     scoreVisit:[0,[Validators.required]],
     id:[0],
+    showBoardLive:[false]
   });
+
+  addScoreLocal(){
+    debugger
+    const newValues=this.scoreForm.controls['scoreLocal'].value!+1;
+    this.scoreForm.get('scoreLocal')?.setValue(newValues);
+    this.saveData();
+  }
+  leesScoreLocal(){
+    debugger
+   let newValue=this.scoreForm.controls['scoreLocal'].value!-1;
+    if(newValue<0){
+      newValue=0;
+    }
+    this.scoreForm.get('scoreLocal')?.setValue(newValue);
+    this.saveData();
+  }
+
+  addScoreVisit(){
+    debugger
+    const newValues=this.scoreForm.controls['scoreVisit'].value!+1;
+    this.scoreForm.get('scoreVisit')?.setValue(newValues);
+    this.saveData();
+  }
+
+  
+
+  leesScoreVisit(){
+    
+    let newValue=this.scoreForm.controls['scoreVisit'].value!-1;
+    if(newValue<0){
+      newValue=0;
+    }
+    this.scoreForm.get('scoreVisit')?.setValue(newValue);
+    this.saveData();
+  }
+
   changeForm=this.fb.group({
     "entra":[,[Validators.required]],
     "sale":[,[Validators.required]],
@@ -283,3 +320,5 @@ export class MatchComponent {
       this.matchService.showDisableBoard({show:this.showBoardLive,id:this.matchData.match.id}).subscribe();
   }
 }
+
+

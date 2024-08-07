@@ -1,6 +1,6 @@
 <div style=" max-width: 1000px; " *ngIf="show" >
     <div class="grid vidrio flex justify-content-center align-content-center flex-wrap shadow-8 border-round-md ">
-        <div class="col-12 bg-blue-900 text-3xl font-bold text-center border-round-md">
+        <div class="col-12  surface-ground text-3xl font-bold text-center border-round-md">
             Alineación de: {{team?team.name:'' |uppercase}}
         </div>
         <div class="col-6 ">
@@ -8,7 +8,7 @@
                 <p-divider >
                     <div class="inline-flex align-items-center">
                         <i class="pi pi-users mr-2"></i>
-                        <b class="text-9xl">Titulares</b>
+                        <b class="text-9xl">Equipo</b>
                     </div>
                 </p-divider>
             </div>
@@ -39,15 +39,11 @@
         <div class="col-6 border-left-2 ">
             <div class="flex justify-content-center align-content-center flex-wrap " style="height: 100%">
                 <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-center " style="min-height: 500px; max-width: 500px;">
-                    
-                    <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="1000" [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showIndicators]="true"  [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+                    <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="3000" [showItemNavigators]="false" [autoPlay]="true"  [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '500px' }">
                         <ng-template pTemplate="item" let-item >
                             <img [src]="item.name" style="width: 100%; display: block;" />
                         </ng-template>
                     </p-galleria>
-                </div>
-                <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-3xl underline">
-                    Auspiciantes
                 </div>
                
             </div>

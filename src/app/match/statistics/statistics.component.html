@@ -1,42 +1,33 @@
 <div class="flex w-12 flex-column shadow-8" *ngIf="statistics.show">
-    <div class="flex flex-row w-12 bg-blue-900 py-2 ">
-        <div class="text-3xl font-bold border-500 w-6 text-center">
-            {{matchData.teams[0].name}}
-            {{statistics.local.goles}}
-        </div>
-        <div class="text-3xl font-bold border-left-2  border-500 w-6 text-center">
-            {{matchData.teams[1].name}}
-            {{statistics.visit.goles}}
-        </div>
+    <div class="flex w-full surface-ground py-2 ">
+        <div class="text-3xl font-bold  w-5 text-center"> {{matchData.teams[0].name}}</div>
+        <div class="text-3xl font-bold border-500 w-2 text-center">{{statistics.local.goles}} - {{statistics.visit.goles}}</div>
+        <div class="text-3xl font-bold w-5 text-center">{{matchData.teams[1].name}}</div>
     </div>
-    <div class="vidrio ">
-        <div class="w-12 text-center text-4xl mt-3">
-            CAMPEONATO INTERCOMUNIDADES
+    <div class="vidrio flex flex-column align-content-between w-full gap-2">
+        <div class="w-12 text-center text-3xl font-bold mt-1">
+            Jornadas Deportivas Vacacionales 2024
         </div>
-        <div class="w-12 text-center text-4xl font-bold mt-2">
-            ESTADÍSTICAS DEL PARTIDO
-        </div>
-        <div class="flex flex-row w-12 justify-content-around my-3 text-xl">
-            <div class="font-bold">{{statistics.local.position}} %</div>
-            <div>POSESIÓN DEL BALÓN</div>
-            <div class="font-bold">{{statistics.visit.position}} %</div>
-        </div>
-        <div class="flex flex-row w-12 justify-content-around mb-3 text-xl">
-            <div class="font-bold">{{statistics.local.red}} </div>
-            <div>TARJETAS ROJAS</div>
-            <div class="font-bold">{{statistics.visit.red}} </div>
-        </div>
-        <div class="flex flex-row w-12 justify-content-around mb-3 text-xl">
-            <div class="font-bold">{{statistics.local.yellow}}</div>
-            <div>TARJETAS AMARILLAS</div>
-            <div class="font-bold">{{statistics.visit.yellow}}</div>
+        <div class="flex w-full justify-content-center ">
+            <div class="w-3 flex flex-column align-items-center">
+                <div class="font-bold">{{statistics.local.position}} %</div>
+                <div class="font-bold">{{statistics.local.red}} </div>
+                <div class="font-bold">{{statistics.local.yellow}}</div>
+            </div>
+            <div class="w-6 flex flex-column align-items-center">
+                <div>POSESIÓN DEL BALÓN</div>
+                <div>TARJETAS ROJAS</div>
+                <div>TARJETAS AMARILLAS</div>
+            </div>
+            <div class="w-3 flex flex-column align-items-center">
+                <div class="font-bold">{{statistics.visit.position}} %</div>
+                <div class="font-bold">{{statistics.visit.red}} </div>
+                <div class="font-bold">{{statistics.visit.yellow}}</div>
+            </div>
         </div>
         <div class="flex flex-column justify-content-center text-2xl">
-            <div class="text-center font-bold">
-                Gracias al auspicio de
-            </div>
             <div class="col-3 flex justify-content-center flex-wrap w-12">
-                <div style="max-height: 100px; min-height: 100px; max-width: 200px;">
+                <div style="max-height: 80px; min-height: 100px; max-width: 150px;">
                     <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="2000"
                         [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showThumbnails]="false"
                         [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">

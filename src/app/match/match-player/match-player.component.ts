@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Player } from 'src/app/model/player';
+import { Auspiciantes } from 'src/app/utils/auspiciantes';
 
 @Component({
   selector: 'app-match-player',
@@ -14,50 +15,9 @@ export class MatchPlayerComponent {
     id:1,
     number:12
   };
-  auspiciante:string='ALVID MASTER';
+  auspiciante:string='CONEXIÓN GLOBAL';
 
-  auspiciantes=[
-    {
-      name:"assets/auspiciantes/pc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/alvid.jpg",
-    },
-    {
-      name:"assets/auspiciantes/nuevo.jpg"
-    },
-    {
-      name:"assets/auspiciantes/mcm.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ing.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ds.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ss.jpg"
-    },
-    {
-      name:"assets/auspiciantes/cs.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ab.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rl.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rpc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/bg.jpg"
-    }
-
-  ]
+  auspiciantes=Auspiciantes.getAuspiciantes();
   responsiveOptions: any[] = [
     {
         breakpoint: '1024px',

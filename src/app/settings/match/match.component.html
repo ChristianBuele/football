@@ -29,19 +29,29 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="text-center p-3 border-round-sm  font-bold">
-                                <p-inputNumber formControlName="scoreLocal" [showButtons]="true" buttonLayout="vertical"
+                            <div class="text-center p-3 border-round-sm  font-bold flex flex-wrap-reverse justify-content-center">
+                                <p-button  icon="pi pi-minus" styleClass="p-button-success"
+                                [style]="{ 'margin-left': '.5em' }" (onClick)="leesScoreLocal()"></p-button>
+                                <p-inputNumber formControlName="scoreLocal" buttonLayout="vertical"
                                     spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
-                                    incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                                    decrementButtonIcon="pi pi-minus" [min]="0" (onInput)="saveData()"></p-inputNumber>
+                                    incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus" [readonly]="true"
+                                    decrementButtonIcon="pi pi-minus" [min]="0" ></p-inputNumber>
+                                    <p-button  icon="pi pi-plus" styleClass="p-button-success"
+                                    [style]="{ 'margin-left': '.5em' }" (onClick)="addScoreLocal()"></p-button>
+                                  
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="text-center p-3 border-round-sm  font-bold">
-                                <p-inputNumber formControlName="scoreVisit" [showButtons]="true" buttonLayout="vertical"
+                            <div class="text-center p-3 border-round-sm  font-bold flex flex-wrap-reverse justify-content-center">
+                                <p-button  icon="pi pi-minus" styleClass="p-button-success"
+                                    [style]="{ 'margin-left': '.5em' }" (onClick)="leesScoreVisit()"></p-button>
+                                <p-inputNumber formControlName="scoreVisit"  buttonLayout="vertical"
                                     spinnerMode="vertical" inputId="vertical" decrementButtonClass="p-button-secondary"
                                     incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                                    decrementButtonIcon="pi pi-minus" [min]="0" (onInput)="saveData()"></p-inputNumber>
+                                    decrementButtonIcon="pi pi-minus" [min]="0" [readonly]="true"></p-inputNumber>
+                                    <p-button  icon="pi pi-plus" styleClass="p-button-success"
+                                    [style]="{ 'margin-left': '.5em' }" (onClick)="addScoreVisit()"></p-button>
+                                
                             </div>
                         </div>
                     </div>
@@ -49,7 +59,7 @@
                         <div class="flex align-items-center justify-content-center  font-bold border-round m-2">
                             <p-button label="Formación Local" icon="pi pi-eye" styleClass="p-button-success"
                                 (onClick)="showFormacion(true)"></p-button>
-                               <div class="mx-2"> <p-inputSwitch [(ngModel)]="showBoardLive" (onChange)="mostrarOcultar($event)"></p-inputSwitch></div>
+                               <div class="mx-2"> <p-inputSwitch formControlName="showBoardLive" (onChange)="mostrarOcultar($event)"></p-inputSwitch></div>
                             <p-button label="Formación Visita" icon="pi pi-eye" styleClass="p-button-help"
                                 [style]="{ 'margin-left': '.5em' }" (onClick)="showFormacion(false)"></p-button>
 
@@ -163,3 +173,5 @@
 </div>
 
 <ng-template #noMatchData>Content to render when condition is false.</ng-template>
+
+

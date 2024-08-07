@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { MatchDataResponse } from 'src/app/model/teamMatch';
+import { Auspiciantes } from 'src/app/utils/auspiciantes';
 
 @Component({
   selector: 'app-half-timescore',
@@ -13,47 +14,7 @@ export class HalfTimescoreComponent {
     AMARILLA:1,
     ROJA:2
   }
-  auspiciantes=[
-    {
-      name:"assets/auspiciantes/pc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/alvid.jpg",
-    },
-    {
-      name:"assets/auspiciantes/nuevo.jpg"
-    },
-    {
-      name:"assets/auspiciantes/mcm.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ing.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ds.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ss.jpg"
-    },
-    {
-      name:"assets/auspiciantes/cs.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ab.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rl.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rpc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/bg.jpg"
-    }
-  ]
+  auspiciantes=Auspiciantes.getAuspiciantes();
   responsiveOptions: any[] = [
     {
         breakpoint: '1024px',

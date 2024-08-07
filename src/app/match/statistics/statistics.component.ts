@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Team } from 'src/app/model/teamMatch';
 import { MatchDataResponse } from '../../model/teamMatch';
+import { Auspiciantes } from 'src/app/utils/auspiciantes';
 
 @Component({
   selector: 'app-statistics',
@@ -10,48 +11,7 @@ import { MatchDataResponse } from '../../model/teamMatch';
 export class StatisticsComponent {
   @Input() statistics:any;
   @Input() matchData!:MatchDataResponse;
-  auspiciantes=[
-    {
-      name:"assets/auspiciantes/pc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/alvid.jpg",
-    },
-    {
-      name:"assets/auspiciantes/nuevo.jpg"
-    },
-    {
-      name:"assets/auspiciantes/mcm.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ing.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ds.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ss.jpg"
-    },
-    {
-      name:"assets/auspiciantes/cs.jpg"
-    },
-    {
-      name:"assets/auspiciantes/ab.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rl.jpg"
-    },
-    {
-      name:"assets/auspiciantes/rpc.jpg"
-    },
-    {
-      name:"assets/auspiciantes/bg.jpg"
-    }
-
-  ]
+  auspiciantes=Auspiciantes.getAuspiciantes();
   responsiveOptions: any[] = [
     {
         breakpoint: '1024px',
