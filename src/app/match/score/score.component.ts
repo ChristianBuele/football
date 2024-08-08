@@ -10,5 +10,5 @@ import { Team } from 'src/app/model/teamMatch';
 export class ScoreComponent {
 
   @Input() scoreData:any;
-  @Input() show!:boolean;
+  @Input() show:boolean=true;
 }
