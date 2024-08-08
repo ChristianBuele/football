@@ -19,7 +19,7 @@ export class PlayersComponent {
   playerForm = this.fb.group({
     name: ['', [Validators.required]],
     number: [null],
-    titular: [false, [Validators.required]],
+    titular: [true, [Validators.required]],
     idTeam: [0, [Validators.required]],
     present:[true,[Validators.required]]
   });
@@ -61,7 +61,7 @@ export class PlayersComponent {
         this.playerForm.patchValue({
           "idTeam": this.selectedTeam.id,
           "present":true,
-          "titular":false
+          "titular":true
         });
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Jugador registrado correctamente' });
       }

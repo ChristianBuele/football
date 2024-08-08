@@ -1,0 +1,22 @@
+[debug] [2024-08-08T23:31:32.843Z] ----------------------------------------------------------------------
+[debug] [2024-08-08T23:31:32.846Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\chris\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-08-08T23:31:32.846Z] CLI Version:   13.7.1
+[debug] [2024-08-08T23:31:32.847Z] Platform:      win32
+[debug] [2024-08-08T23:31:32.847Z] Node Version:  v20.10.0
+[debug] [2024-08-08T23:31:32.847Z] Time:          Thu Aug 08 2024 18:31:32 GMT-0500 (Colombia Standard Time)
+[debug] [2024-08-08T23:31:32.847Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-08-08T23:31:32.949Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-08-08T23:31:32.950Z] > authorizing via signed-in user (christian.buele@ucuenca.edu.ec)
+[debug] [2024-08-08T23:31:32.950Z] [iam] checking project topemos for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-08-08T23:31:32.952Z] > refreshing access token with scopes: []
+[debug] [2024-08-08T23:31:32.954Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-08-08T23:31:32.954Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-08-08T23:31:33.302Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-08-08T23:31:33.302Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-08-08T23:31:33.317Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/topemos:testIamPermissions [none]
+[debug] [2024-08-08T23:31:33.317Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/topemos:testIamPermissions x-goog-quota-user=projects/topemos
+[debug] [2024-08-08T23:31:33.317Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/topemos:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-08-08T23:31:34.058Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/topemos:testIamPermissions 200
+[debug] [2024-08-08T23:31:34.058Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/topemos:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-08-08T23:31:34.059Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/topemos [none]
