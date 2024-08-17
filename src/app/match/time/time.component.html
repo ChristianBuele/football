@@ -1,6 +1,6 @@
-<div class="flex  surface-ground justify-content-around ml-2 px-2" [class.slide-in-from-left]="secondsElapsed != 0"
+<div class="flex white-gray-gradient justify-content-around ml-2 px-2" [class.slide-in-from-left]="secondsElapsed != 0"
     [class.slide-out-to-left]="!secondsElapsed" *ngIf="secondsElapsed!=0">
-    <div class="font-bold align-items-center justify-content-center text-4xl">
+    <div class="font-bold text-0 align-items-center justify-content-center text-4xl">
         {{secondsElapsed | minutesSeconds }}
     </div>
 </div>

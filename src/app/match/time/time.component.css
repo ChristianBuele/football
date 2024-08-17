@@ -27,3 +27,7 @@
       opacity: 0;
     }
   }
+/* // gradient white to gray */
+.white-gray-gradient {
+    background: linear-gradient(90deg, #ffffff 0%, #f2f2f2 100%);
+  }
