@@ -43,14 +43,16 @@ export class StatisticsComponent {
     yellow: [0, [Validators.required, Validators.min(0)]],
     red: [0, [Validators.required, Validators.min(0)]],
     tiros: [0, [Validators.required, Validators.min(0)]],
-    goles:[0,[Validators.required]]
+    goles:[0,[Validators.required]],
+    showPosition:[false]
   });
   statisticsFormVisit = this.fb.group({
     position: [50, [Validators.required, Validators.min(0), Validators.max(100)]],
     yellow: [0, [Validators.required, Validators.min(0)]],
     red: [0, [Validators.required, Validators.min(0)]],
     tiros: [0, [Validators.required, Validators.min(0)]],
-    goles:[0,[Validators.required]]
+    goles:[0,[Validators.required]],
+    showPosition:[false]
   });
   @Input() matchData!:MatchDataResponse;
   timeNames=[
@@ -116,8 +118,14 @@ export class StatisticsComponent {
 
   showStatisticsBand:boolean=false;
   showStatistics(){
-    console.log(this.statisticsFormLocal);
-    console.log(this.statisticsFormVisit)
+    this.callShowStatics(false);
+  }
+
+  showPosition(){
+    this.callShowStatics(true);
+  }
+
+  callShowStatics(showOnlyPosition:boolean=false){
     if(this.statisticsFormLocal.invalid || this.statisticsFormVisit.invalid){
       this.statisticsFormLocal.markAllAsTouched();
       this.statisticsFormVisit.markAllAsTouched();
@@ -128,7 +136,8 @@ export class StatisticsComponent {
         local:this.statisticsFormLocal.value,
         visit:this.statisticsFormVisit.value,
         id:this.playerForm.controls['matchId'].value,
-        show:!this.showStatisticsBand
+        show:!this.showStatisticsBand,
+        showOnlyPosition
       }
     ).subscribe(
       data=>{

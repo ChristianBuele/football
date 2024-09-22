@@ -1,30 +1,34 @@
 <p-divider></p-divider>
-<div class="p-fluid">
-    <div class="grid">
+<div class="flex w-full justify-content-center gap-2 flex-wrap">
+    <div class="flex gap-1 align-items-end">
+        <div class="flex flex-column flex-gap">
+            <span>Marcador</span>
+            <p-dropdown [options]="timeNames" [(ngModel)]="selectedTime" placeholder="Seleccione"
+                pTooltip="Seleccione"></p-dropdown>
+        </div>
+        <p-button class="my-2" label="Mostrar Marcador" (onClick)="showMarcador()" [loading]="loadingStatistics"></p-button>
+    </div>
+    <div class="grid ml-2 mt-2">
         <form [formGroup]="playerForm" (ngSubmit)="showTeamPlayer()">
-            <div class="col">
-                <span>Jugador del partido</span>
-                <p-dropdown [options]="players" optionLabel="name" placeholder="Seleccione el jugador" [group]="true"
-                    formControlName="player">
-                    <ng-template let-player pTemplate="group">
-                        <div class="flex align-items-center">
-                            <span>{{ player.name }}</span>
-                        </div>
-                    </ng-template>
-                </p-dropdown>
-                <small *ngIf="playerForm.controls.player.errors && playerForm.controls.player.touched"
-                    class="p-error">Seleccione el jugador</small>
-            </div>
-            <div class="col">
-                <span>Mostrar en vivo</span>
-                <p-button label="Mostrar" icon="pi pi-eye" [loading]="loading" type="submit"></p-button>
+            <div class="flex gap-1 align-items-end">
+                <div class="flex flex-column">
+                    <span>Jugador del partido</span>
+                    <p-dropdown [options]="players" optionLabel="name" placeholder="Seleccione el jugador" [group]="true"
+                        formControlName="player">
+                        <ng-template let-player pTemplate="group">
+                            <div class="flex align-items-center">
+                                <span>{{ player.name }}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                    <small *ngIf="playerForm.controls.player.errors && playerForm.controls.player.touched"
+                        class="p-error">Seleccione el jugador</small>
+                </div>
+                <div class="flex flex-column">
+                    <p-button label="Mostrar" icon="pi pi-eye" [loading]="loading" type="submit"></p-button>
+                </div>
             </div>
         </form>
-    </div>
-    <div class="flex flex-column w-5">
-        <h3>Marcador</h3>
-        <p-dropdown [options]="timeNames" [(ngModel)]="selectedTime" placeholder="Seleccione" pTooltip="Seleccione"></p-dropdown>
-        <p-button class="my-2" label="Mostrar Marcador" (onClick)="showMarcador()" [loading]="loadingStatistics"></p-button>
     </div>
 </div>
 <p-divider></p-divider>
@@ -46,7 +50,8 @@
                 </div>
                 <div class="flex flex-column">
                     <label for="" class="font-bold">Posición</label>
-                    <p-inputNumber formControlName="position" placeholder="Ingresa Porcentaje" (onInput)="setPosition($event,true)"></p-inputNumber>
+                    <p-inputNumber formControlName="position" placeholder="Ingresa Porcentaje"
+                        (onInput)="setPosition($event,true)"></p-inputNumber>
                     <small
                         *ngIf="statisticsFormLocal.controls.position.errors && statisticsFormLocal.controls.position.touched"
                         class="p-error">Ingrese el porcentaje</small>
@@ -65,9 +70,14 @@
                         class="p-error">Ingrese Amarillas</small>
                 </div>
                 <div class="mt-2">
-                    <p-button label="{{!showStatisticsBand?'Mostrar':'Ocultar'}}" icon="{{!showStatisticsBand?'pi pi-eye':'pi pi-eye-slash'}}" type="submit"></p-button>
+                    <p-button label="{{!showStatisticsBand?'Mostrar Todo':'Ocultar'}}"
+                        icon="{{!showStatisticsBand?'pi pi-eye':'pi pi-eye-slash'}}" type="submit"></p-button>
                 </div>
-               
+                <div class="mt-2">
+                    <p-button label="{{!showStatisticsBand?'Mostrar Posesion':'Ocultar'}}"
+                        icon="{{!showStatisticsBand?'pi pi-eye':'pi pi-eye-slash'}}" (onClick)="showPosition()"></p-button>
+                </div>
+
             </form>
         </div>
         <div class="mr-2">
@@ -83,7 +93,8 @@
                 </div>
                 <div class="flex flex-column">
                     <label for="" class="font-bold">Posición</label>
-                    <p-inputNumber formControlName="position" placeholder="Ingresa Porcentaje" (onInput)="setPosition($event,false)"></p-inputNumber>
+                    <p-inputNumber formControlName="position" placeholder="Ingresa Porcentaje"
+                        (onInput)="setPosition($event,false)"></p-inputNumber>
                     <small
                         *ngIf="statisticsFormVisit.controls.position.errors && statisticsFormVisit.controls.position.touched"
                         class="p-error">Ingrese el porcentaje</small>
