@@ -11,3 +11,46 @@
     -moz-box-shadow: 7px 6px 18px -4px rgba(0, 0, 0, 0.75);
     box-shadow: 7px 6px 18px -4px rgba(0, 0, 0, 0.75);
   }
+
+  .possession-container {
+    display: flex;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .possession {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .team1 {
+    background-color: #4CAF50; /* Color del equipo 1 */
+  }
+  
+  .team2 {
+    background-color: #FF5733; /* Color del equipo 2 */
+  }
+
+  .circle {
+    width: 10px;
+    height: 10px;
+    background-color: #4CAF50; /* Elige el color que prefieras */
+    border-radius: 50%; /* Hace que el div sea redondo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bottom-center {
+    border-radius: 6px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+  }

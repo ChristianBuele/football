@@ -32,8 +32,12 @@
     </div>
 </div>
 
-<app-statistics [statistics]="statistics" [matchData]="matchData" *ngIf="statistics"
-    class="centered-div"></app-statistics>
+<app-statistics [statistics]="statistics" [matchData]="matchData" *ngIf="statistics && !statistics.showOnlyPosition"
+    class="centered-div border-500"></app-statistics>
+
+<app-statistics [statistics]="statistics" [matchData]="matchData" *ngIf="statistics && statistics.showOnlyPosition"
+    class="bottom-0 left-0 ml-6"></app-statistics>
+
 <app-targets [targetPlayer]="targetPlayer" [team]="teamTargetChange"></app-targets>
 <app-lineup [titulares]="titulares" [suplentes]="suplentes" [team]="selectedTeam" [show]="showLineup"
     class="centered-container"></app-lineup>
