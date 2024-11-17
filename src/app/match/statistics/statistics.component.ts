@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Team } from 'src/app/model/teamMatch';
 import { MatchDataResponse } from '../../model/teamMatch';
 import { Auspiciantes } from 'src/app/utils/auspiciantes';
 
