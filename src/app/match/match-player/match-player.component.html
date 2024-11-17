@@ -1,18 +1,18 @@
 <div  class="sombra ">
-    <div class="grid  mb-4  bottom-center " *ngIf="player">
-        <div class="col-3  sombra flex align-content-center flex-wrap" style="max-height: 100px; min-height: 100px; max-width: 400px;">
+    <div class="flex  mb-4  bottom-center gap-1" *ngIf="player">
+        <div class="w-3  sombra flex align-content-center flex-wrap" style="max-height: 9px; min-height: 90px; max-width: 400px;">
             <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="2000" [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
                 <ng-template pTemplate="item" let-item >
                     <img [src]="item.name" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
-        <div class="col-9  text-center">
-            <div class="col-12 text-3xl font-bold bg-blue-900">
+        <div class="w-9  text-center flex flex-column">
+            <div class="w-12 text-3xl font-bold bg-pink-700 text-white mb-1">
                 Jugador del partido
             </div>
             
-            <div class="col-12 font-bold text-4xl radialbg  text-100">
+            <div class="w-12 font-bold text-4xl text-white surface-ground">
                 {{player.name | uppercase}}
             </div>
           

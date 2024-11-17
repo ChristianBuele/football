@@ -31,7 +31,7 @@
   .degradado-linea {
     width: 100%;
     height: 2px; /* Ajusta el grosor de la línea según tus necesidades */
-    background: linear-gradient(to left, transparent, yellow, transparent);
+    background: linear-gradient(to left, transparent, rgb(185, 185, 185), transparent);
   }
 
   .bottom-center {

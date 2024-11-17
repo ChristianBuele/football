@@ -1,14 +1,13 @@
-<div class="flex w-12 flex-column shadow-8 border-round" *ngIf="statistics.show && !statistics.showOnlyPosition">
-    <div *ngIf="!statistics.showOnlyPosition">
-        <div class="flex w-full surface-ground py-2 ">
+<div class="flex w-12 flex-column" *ngIf="statistics.show && !statistics.showOnlyPosition">
+        <div class="flex w-full bg-pink-700 text-white mb-1 py-2">
             <div class="text-3xl font-bold  w-5 text-center"> {{matchData.teams[0].name}}</div>
             <div class="text-3xl font-bold border-500 w-2 text-center">{{statistics.local.goles}} -
                 {{statistics.visit.goles}}</div>
             <div class="text-3xl font-bold w-5 text-center">{{matchData.teams[1].name}}</div>
         </div>
-        <div class="vidrio flex flex-column align-content-between w-full gap-2">
-            <div class="w-12 text-center text-3xl font-bold mt-1">
-                Jornadas Deportivas Vacacionales 2024
+        <div class="vidrio flex flex-column align-content-between w-full ">
+            <div class="w-12 text-center text-3xl font-bold ">
+                Estadísticas del partido
             </div>
             <div class="flex w-full justify-content-center  mt-2  text-3xl">
                 <div class="w-3 flex flex-column align-items-center gap-4">
@@ -43,7 +42,6 @@
             </div>
             <br>
             <br>
-        </div>
     </div>
 
 </div>

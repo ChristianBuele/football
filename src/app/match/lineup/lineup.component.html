@@ -1,9 +1,9 @@
-<div style=" max-width: 1000px; " *ngIf="show" >
-    <div class="grid vidrio flex justify-content-center align-content-center flex-wrap shadow-8 border-round-md ">
-        <div class="col-12  surface-ground text-3xl font-bold text-center border-round-md">
-            Alineación de: {{team?team.name:'' |uppercase}}
-        </div>
-        <div class="col-6 ">
+<div style=" max-width: 1000px; " *ngIf="show" class="flex flex-column" >
+    <div class="col-12 bg-pink-700 text-3xl font-bold text-center border-round-md mb-1">
+        {{team?team.name:'' |uppercase}}
+    </div>
+    <div class="vidrio flex justify-content-center align-content-center flex-wrap shadow-8 border-round-md ">
+        <div class="w-6">
             <div class="font-bold  py-1 text-center" [ngClass]="{'titulares-enter-active': mostrarTitulares}">
                 <p-divider >
                     <div class="inline-flex align-items-center">
@@ -21,7 +21,7 @@
             </div>
             <div class="font-bold  py-1 " [ngClass]="{'suplentes-enter-active': mostrarSuplentes}" *ngIf="suplentes.length>0">
                 <p-divider >
-                    <div class="inline-flex align-items-center">
+                    <div class="inline-flex align-items-center ">
                         <i class="pi pi-users mr-2"></i>
                         <b class="text-9xl">Suplentes</b>
                     </div>
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="col-6 border-left-2 ">
+        <div class="w-6 border-left-2 ">
             <div class="flex justify-content-center align-content-center flex-wrap " style="height: 100%">
                 <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-center " style="min-height: 500px; max-width: 500px;">
                     <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="3000" [showItemNavigators]="false" [autoPlay]="true"  [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '500px' }">
