@@ -9,7 +9,7 @@ import { MenuItem } from 'primeng/api';
   styleUrls: []
 })
 export class HomeComponent {
-  
+
   items: MenuItem[] | undefined;
 
   constructor() {
@@ -17,8 +17,6 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.items = [
       {
         label: 'Partidos',
@@ -34,6 +32,11 @@ export class HomeComponent {
         label:'Boxeo',
         icon: 'pi pi-fw pi-box',
         routerLink:'boxing'
+      },
+      {
+        label: 'Radio',
+        icon: 'pi pi-fw pi-volume-up',
+        routerLink:'radio'
       }
     ];
   }

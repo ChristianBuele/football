@@ -1,0 +1,16 @@
+.status {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.pending {
+  color: orange;
+}
+
+.active {
+  color: green;
+}
+
+.error {
+  color: red;
+}

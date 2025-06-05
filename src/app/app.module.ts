@@ -7,10 +7,12 @@ import { PrimerNgModule } from './primer-ng/primer-ng.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { RadioComponent } from './radio/radio.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    RadioComponent,
   ],
   imports: [
     BrowserModule,

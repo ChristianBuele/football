@@ -24,7 +24,7 @@ import { BoxDisplayComponent } from './box-display/box-display.component';
     PlayersComponent,
     StatisticsComponent,
     PenalesComponent,
-    RadioComponent],
+    RadioComponent,
     PenalesComponent,
     BoxPanelComponent,
     BoxDisplayComponent],

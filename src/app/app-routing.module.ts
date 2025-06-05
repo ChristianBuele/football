@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RadioComponent } from './radio/radio.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,10 @@ const routes: Routes = [
   {
     path:'settings',
     loadChildren:()=> import('./settings/settings.module').then(n=>n.SettingsModule)
+  },
+  {
+    path:'radio',
+    component:RadioComponent
   },
   {
     path:'**',
