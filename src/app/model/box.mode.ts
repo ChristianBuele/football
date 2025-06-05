@@ -4,4 +4,5 @@ export interface BoxModel{
     nombre_visita: string;
     peso_local:string;
     peso_visita:string;
+    round?: number;
 }

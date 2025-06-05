@@ -21,6 +21,7 @@ export class BoxDisplayComponent implements OnInit {
   isRunning: boolean = false;
   timer: any;
   edit: boolean = false;
+  round: number = 1;
   ngOnInit(): void {
 
     this.activateRoute.params.subscribe(({ id }) => {
@@ -44,7 +45,8 @@ export class BoxDisplayComponent implements OnInit {
     this.emitAction({
       action: 'start',
       time: this.secondsElapsed,
-      matchId: this.box.id
+      matchId: this.box.id,
+      round: this.round
     })
 
   }
@@ -63,7 +65,8 @@ export class BoxDisplayComponent implements OnInit {
     this.emitAction({
       action: 'start',
       time: this.secondsElapsed,
-      matchId: this.box.id
+      matchId: this.box.id,
+      round: this.round
     });
 
   }
@@ -75,7 +78,8 @@ export class BoxDisplayComponent implements OnInit {
     this.emitAction({
       action: 'pause',
       time: this.secondsElapsed,
-      matchId: this.box.id
+      matchId: this.box.id,
+      round: this.round
     });
   }
 
@@ -88,7 +92,8 @@ export class BoxDisplayComponent implements OnInit {
     this.emitAction({
       action: 'stop',
       time: this.secondsElapsed,
-      matchId: this.box.id
+      matchId: this.box.id,
+      round: this.round
     });
   }
 

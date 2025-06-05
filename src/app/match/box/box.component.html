@@ -1,11 +1,13 @@
 <div style="width: 1920px; height: 1080px;" class="flex justify-content-center align-items-end">
-<div class="flex w-max bgTransparent justify-content-center align-content-center align-items-center text-white px-3 gap-2" >
-    <div class="text-3xl ">Roberto Plasencia</div>
+<div class="flex w-max bgTransparent justify-content-center align-content-center align-items-center text-white px-3 py-1 gap-2" >
+    <div class="text-3xl ">{{box.nombre_local}}</div>
     <div class="font-bold flex  justify-content-center align-items-center gap-2 border-x-3 border-red-800 px-4">
         <img src="assets/logos/d.png" class="w-auto h-2rem" >
-        <span class="text-3xl font-bold text-5xl ">1:22</span>
-        <span class="text-3xl font-bold bg-yellow-500 text-gray-800   ml-1 px-1">R2</span>
+        
+            <span *ngIf="isRunning" class="text-3xl font-bold text-5xl ">{{secondsElapsed | minutesSeconds }}</span>
+        
+        <span *ngIf="isRunning" class="text-3xl font-bold bg-yellow-500 text-gray-800   ml-1 px-1">R{{box.round}}</span>
     </div>
-    <div class="text-3xl">Nine Kaviedes</div>
+    <div class="text-3xl">{{box.nombre_visita}}</div>
 </div>
 </div>
