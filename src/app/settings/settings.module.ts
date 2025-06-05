@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlayersComponent } from './players/players.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { PenalesComponent } from './penales/penales.component';
+import { BoxPanelComponent } from './box-panel/box-panel.component';
+import { BoxDisplayComponent } from './box-display/box-display.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { PenalesComponent } from './penales/penales.component';
     MatchComponent,
     PlayersComponent,
     StatisticsComponent,
-    PenalesComponent],
+    PenalesComponent,
+    BoxPanelComponent,
+    BoxDisplayComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

@@ -14,6 +14,7 @@ import { HalfTimescoreComponent } from './half-timescore/half-timescore.componen
 import { PenalesComponent } from './penales/penales.component';
 import { ScoreComponent } from './score/score.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { BoxComponent } from './box/box.component';
 
 
 
@@ -30,6 +31,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
     PenalesComponent,
     ScoreComponent,
     StatisticsComponent,
+    BoxComponent,
   ],
   imports: [
     CommonModule,

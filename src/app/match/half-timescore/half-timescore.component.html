@@ -1,4 +1,4 @@
-<div class="bottom-center w-12 flex justify-content-center align-content-center align-items-center gap-1" *ngIf="marcador.body.show">
+<div class="bottom-center w-12 flex justify-content-center align-content-center align-items-center gap-1 align-content-center" *ngIf="marcador.body.show">
     <div class="w-5  mb-5 flex flex-column">
         <div class="text-center bg-pink-700 text-white font-bold text-2xl mb-1">
             {{marcador.body.tiempo|uppercase}}
@@ -16,6 +16,9 @@
 
                 <div>{{matchData.teams[1].name}}</div>
             </div>
+        </div>
+        <div class="flex justify-content-center font-bold font-italic bgTransparent">
+            {{matchData.match.location}}
         </div>
     </div>
     <div class="sombra flex align-content-center align-items-centerflex-wrap transition-all">

@@ -15,7 +15,7 @@ import { MatchDataResponse } from 'src/app/model/teamMatch';
 })
 export class StatisticsComponent {
 
-  constructor(private playersService: PlayersService, private activateRoute: ActivatedRoute, private fb: FormBuilder, private messageService: MessageService,private matchService:MatchServiceService) { }
+  constructor(private playersService: PlayersService, private activateRoute: ActivatedRoute, private fb: FormBuilder, private messageService: MessageService, private matchService: MatchServiceService) { }
 
   players: any[] = [];
   loading: boolean = false;
@@ -23,16 +23,17 @@ export class StatisticsComponent {
     player: [, [Validators.required]],
     matchId: [, [Validators.required]]
   });
-  @Input() scoreLocal:any;
-  @Input() scoreVisit:any;
+  @Input() scoreLocal: any;
+  @Input() scoreVisit: any;
+  @Input() match!: MatchDataResponse;
 
   ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
     console.log(changes);
-    if(changes['scoreLocal']){
+    if (changes['scoreLocal']) {
       this.statisticsFormLocal.controls['goles'].setValue(changes['scoreLocal'].currentValue)
-    }else if(changes['scoreVisit']){
+    } else if (changes['scoreVisit']) {
       this.statisticsFormVisit.controls['goles'].setValue(changes['scoreVisit'].currentValue)
     }
     console.log(this.statisticsFormLocal.value)
@@ -43,48 +44,48 @@ export class StatisticsComponent {
     yellow: [0, [Validators.required, Validators.min(0)]],
     red: [0, [Validators.required, Validators.min(0)]],
     tiros: [0, [Validators.required, Validators.min(0)]],
-    goles:[0,[Validators.required]],
-    showPosition:[false]
+    goles: [0, [Validators.required]],
+    showPosition: [false]
   });
   statisticsFormVisit = this.fb.group({
     position: [50, [Validators.required, Validators.min(0), Validators.max(100)]],
     yellow: [0, [Validators.required, Validators.min(0)]],
     red: [0, [Validators.required, Validators.min(0)]],
     tiros: [0, [Validators.required, Validators.min(0)]],
-    goles:[0,[Validators.required]],
-    showPosition:[false]
+    goles: [0, [Validators.required]],
+    showPosition: [false]
   });
-  @Input() matchData!:MatchDataResponse;
-  timeNames=[
+  @Input() matchData!: MatchDataResponse;
+  timeNames = [
     'Previa',
     'Entretiempo',
     'Final'
   ];
-  selectedTime:string='Previa';
+  selectedTime: string = 'Previa';
 
-  items:any[]=[
+  items: any[] = [
     {
-      name:'Goles',
-      type:'number',
-      key:'goles'
+      name: 'Goles',
+      type: 'number',
+      key: 'goles'
     },
     {
-      name:'Posición',
-      type:'number',
-      key:'position'
+      name: 'Posición',
+      type: 'number',
+      key: 'position'
     },
     {
-      name:'Rojas',
-      type:'number',
-      key:'red'
+      name: 'Rojas',
+      type: 'number',
+      key: 'red'
     },
     {
-      name:'Amarillas',
-      type:'number',
-      key:'yellow'
+      name: 'Amarillas',
+      type: 'number',
+      key: 'yellow'
     }
   ]
-  matchId!:any;
+  matchId!: any;
   ngOnInit(): void {
     this.activateRoute.params.subscribe(({ id }) => {
       this.playerForm.controls['matchId'].setValue(id);
@@ -92,7 +93,7 @@ export class StatisticsComponent {
         this.players = data;
         console.log('statiscsddadsds')
         console.log(this.players);
-        this.matchId=id;
+        this.matchId = id;
       });
     })
   }
@@ -116,56 +117,56 @@ export class StatisticsComponent {
     );
   }
 
-  showStatisticsBand:boolean=false;
-  showStatistics(){
+  showStatisticsBand: boolean = false;
+  showStatistics() {
     this.callShowStatics(false);
   }
 
-  showPosition(){
+  showPosition() {
     this.callShowStatics(true);
   }
 
-  callShowStatics(showOnlyPosition:boolean=false){
-    if(this.statisticsFormLocal.invalid || this.statisticsFormVisit.invalid){
+  callShowStatics(showOnlyPosition: boolean = false) {
+    if (this.statisticsFormLocal.invalid || this.statisticsFormVisit.invalid) {
       this.statisticsFormLocal.markAllAsTouched();
       this.statisticsFormVisit.markAllAsTouched();
       return;
     }
     this.matchService.postStatistics(
       {
-        local:this.statisticsFormLocal.value,
-        visit:this.statisticsFormVisit.value,
-        id:this.playerForm.controls['matchId'].value,
-        show:!this.showStatisticsBand,
+        local: this.statisticsFormLocal.value,
+        visit: this.statisticsFormVisit.value,
+        id: this.playerForm.controls['matchId'].value,
+        show: !this.showStatisticsBand,
         showOnlyPosition
       }
     ).subscribe(
-      data=>{
-        if(data.ok ){
-          if(!this.showStatisticsBand){
+      data => {
+        if (data.ok) {
+          if (!this.showStatisticsBand) {
             this.messageService.add(
               {
-                severity:'success',
-                summary:'Exito',
-                detail:'Estadisticas mostradas correctamente'
+                severity: 'success',
+                summary: 'Exito',
+                detail: 'Estadisticas mostradas correctamente'
               }
             )
-          }else{
+          } else {
             this.messageService.add(
               {
-                severity:'success',
-                summary:'Exito',
-                detail:'Estadisticas ocultadas correctamente'
+                severity: 'success',
+                summary: 'Exito',
+                detail: 'Estadisticas ocultadas correctamente'
               }
             )
           }
-          this.showStatisticsBand=!this.showStatisticsBand;
-        }else{
+          this.showStatisticsBand = !this.showStatisticsBand;
+        } else {
           this.messageService.add(
             {
-              severity:'error',
-              summary:'Error',
-              detail:'Estadisticas no mostradas'
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Estadisticas no mostradas'
             }
           )
         }
@@ -173,55 +174,56 @@ export class StatisticsComponent {
     );
   }
 
-  setPosition(event:any,local:boolean){
-    const value=event.value;
-    if(local){
+  setPosition(event: any, local: boolean) {
+    const value = event.value;
+    if (local) {
       this.statisticsFormLocal.controls['position'].setValue(value);
-      this.statisticsFormVisit.controls['position'].setValue(100-value);
-    }else{
-      this.statisticsFormVisit.controls['position'].setValue(100-value);
+      this.statisticsFormVisit.controls['position'].setValue(100 - value);
+    } else {
+      this.statisticsFormVisit.controls['position'].setValue(100 - value);
       this.statisticsFormLocal.controls['position'].setValue(value);
     }
   }
-  showMarcadorBand:boolean=true;
-  loadingStatistics:boolean=false;
-  showMarcador(){
-    this.loadingStatistics=true;
+  showMarcadorBand: boolean = true;
+  loadingStatistics: boolean = false;
+  showMarcador() {
+    this.loadingStatistics = true;
     this.matchService.showMarcador({
-      show:this.showMarcadorBand,
-      local:this.scoreLocal,
-    visit:this.scoreVisit,
-    tiempo:this.selectedTime,
-    id:this.matchId
+      show: this.showMarcadorBand,
+      local: this.scoreLocal,
+      visit: this.scoreVisit,
+      tiempo: this.selectedTime,
+      id: this.matchId,
+      place:this.match.match.location
     }).subscribe(
-      data=>{
-        this.loadingStatistics=false;
+      data => {
+        this.loadingStatistics = false;
         console.log(data)
-        if(data.ok==true ){
-          if(!this.showMarcadorBand){
+        if (data.ok == true) {
+          if (!this.showMarcadorBand) {
             this.messageService.add(
               {
-                severity:'success',
-                summary:'Exito',
-                detail:'Estadisticas mostradas correctamente'
+                severity: 'success',
+                summary: 'Exito',
+                detail: 'Estadisticas mostradas correctamente'
               }
             )
-          }else{
+          } else {
             this.messageService.add(
               {
-                severity:'success',
-                summary:'Exito',
-                detail:'Estadisticas ocultadas correctamente'
+                severity: 'success',
+                summary: 'Exito',
+                detail: 'Estadisticas ocultadas correctamente'
               }
             )
           }
-          this.showMarcadorBand=!this.showMarcadorBand;
-        }else{
+          this.showMarcadorBand = !this.showMarcadorBand;
+        } else {
           this.messageService.add(
             {
-              severity:'error',
-              summary:'Error',
-              detail:'Estadisticas no mostradas'
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Estadisticas no mostradas'
             }
           )
         }

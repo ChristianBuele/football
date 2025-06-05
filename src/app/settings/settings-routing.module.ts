@@ -4,6 +4,8 @@ import { HomeComponent } from "./home/home.component";
 import { MatchsComponent } from "./matchs/matchs.component";
 import { TeamsComponent } from "./teams/teams.component";
 import { MatchComponent } from "./match/match.component";
+import { BoxPanelComponent } from "./box-panel/box-panel.component";
+import { BoxDisplayComponent } from "./box-display/box-display.component";
 
 const routes: Routes = [
     {
@@ -22,10 +24,19 @@ const routes: Routes = [
                 path:'match/:id',
                 component:MatchComponent
             },
+            
+            {
+                path:'boxing',
+                component:BoxPanelComponent
+            },
+            {
+                path: 'boxing/:id',
+                component: BoxDisplayComponent
+            },
             {
                 path: '**',
                 redirectTo: 'matches'
-            }
+            },
         ]
     }
    

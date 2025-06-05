@@ -160,7 +160,7 @@
                 <i class="pi pi-chart-bar mr-2"></i>
                 <span>Estadisticas</span>
             </ng-template>
-            <app-statistics [scoreLocal]="scoreForm.controls['scoreLocal'].value" [scoreVisit]="scoreForm.controls['scoreVisit'].value" *ngIf="matchData" [matchData]="matchData"></app-statistics>
+            <app-statistics [scoreLocal]="scoreForm.controls['scoreLocal'].value" [match]="matchData" [scoreVisit]="scoreForm.controls['scoreVisit'].value" *ngIf="matchData" [matchData]="matchData"></app-statistics>
         </p-tabPanel>
         <p-tabPanel header="Header III">
             <ng-template pTemplate="header">

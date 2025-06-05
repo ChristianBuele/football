@@ -36,6 +36,7 @@ export class HalfTimescoreComponent {
     console.log('Llegan estadisticas:',changes);
     if(changes['marcador']){
       this.marcador=changes['marcador'].currentValue;
+      console.log('marcador:',this.marcador);
     }
   }
 

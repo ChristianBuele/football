@@ -23,7 +23,7 @@ export class MatchComponent {
     this.activateRoute.params.subscribe(({id})=>{
       this.matchService.getMatchTeamById(id).subscribe(
         data=>{
-          console.log(data);
+          console.log("Match data es:",data);
           this.matchData=data;
           this.selectedTeam=this.matchData.teams[0];
           this.getPlayers();

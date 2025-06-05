@@ -29,6 +29,11 @@ export class HomeComponent {
         label: 'Equipos',
         icon: 'pi pi-fw pi-users',
         routerLink:'teams'
+      },
+      {
+        label:'Boxeo',
+        icon: 'pi pi-fw pi-box',
+        routerLink:'boxing'
       }
     ];
   }
