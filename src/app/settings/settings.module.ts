@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlayersComponent } from './players/players.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { PenalesComponent } from './penales/penales.component';
+import { RadioComponent } from './radio/radio.component';
 import { BoxPanelComponent } from './box-panel/box-panel.component';
 import { BoxDisplayComponent } from './box-display/box-display.component';
 
@@ -22,6 +23,8 @@ import { BoxDisplayComponent } from './box-display/box-display.component';
     MatchComponent,
     PlayersComponent,
     StatisticsComponent,
+    PenalesComponent,
+    RadioComponent],
     PenalesComponent,
     BoxPanelComponent,
     BoxDisplayComponent],

@@ -4,6 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { MatchsComponent } from "./matchs/matchs.component";
 import { TeamsComponent } from "./teams/teams.component";
 import { MatchComponent } from "./match/match.component";
+import { RadioComponent } from "./radio/radio.component";
 import { BoxPanelComponent } from "./box-panel/box-panel.component";
 import { BoxDisplayComponent } from "./box-display/box-display.component";
 
@@ -24,7 +25,11 @@ const routes: Routes = [
                 path:'match/:id',
                 component:MatchComponent
             },
-            
+            {
+              path: 'radio',
+              component:RadioComponent
+            },
+
             {
                 path:'boxing',
                 component:BoxPanelComponent
@@ -39,7 +44,7 @@ const routes: Routes = [
             },
         ]
     }
-   
+
 ];
 
 @NgModule({
