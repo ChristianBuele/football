@@ -96,7 +96,11 @@
                 <small class="p-error" *ngIf="teamsForm.controls.name.errors && teamsForm.controls.name.touched">Name is
                     required.</small>
             </div>
-            
+            <div>
+                <label for="image_path">Image URL:</label>
+                <input type="text" pInputText id="image_path" formControlName="image_path" />
+                <small class="p-error" *ngIf="teamsForm.controls.image_path.errors && teamsForm.controls.image_path.touched">Image URL must be at least 5 characters long.</small>
+            </div>
             
         </ng-template>
         <ng-template pTemplate="footer">

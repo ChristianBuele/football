@@ -12,6 +12,7 @@ export interface Team {
     id:        number;
     name:      string;
     color:     string;
+    image_path: string;
 }
 
 export interface TeamMatch{

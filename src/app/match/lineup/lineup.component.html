@@ -39,11 +39,7 @@
         <div class="w-6 border-left-2 ">
             <div class="flex justify-content-center align-content-center flex-wrap " style="height: 100%">
                 <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-center " style="min-height: 500px; max-width: 500px;">
-                    <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="3000" [showItemNavigators]="false" [autoPlay]="true"  [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '500px' }">
-                        <ng-template pTemplate="item" let-item >
-                            <img [src]="item.name" style="width: 100%; display: block;" />
-                        </ng-template>
-                    </p-galleria>
+                    <p-image [src]="team?.image_path" [alt]="team?.name" width="300px"></p-image>
                 </div>
                
             </div>

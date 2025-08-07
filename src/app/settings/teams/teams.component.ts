@@ -27,7 +27,8 @@ export class TeamsComponent {
   teamsForm = this.fb.group({
     name: ['', [Validators.required]],
     color: ['', [Validators.required]],
-    idcategory:[,[Validators.required]]
+    idcategory: ['', [Validators.required]],
+    image_path: ['', [Validators.minLength(5)]],
   });
 
   clonedTeams: { [s: string]:Team } = {};
