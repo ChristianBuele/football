@@ -10,3 +10,7 @@ box-shadow: 7px 6px 18px -4px rgba(0,0,0,0.75);
 .vidrio{
     background: rgba(90, 90, 90, 0.73);
 }
+
+.drop-shadow {
+    filter: drop-shadow(7px 6px 18px rgba(0, 0, 0, 0.75));
+}

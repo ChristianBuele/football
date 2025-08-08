@@ -13,6 +13,7 @@
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
     height: 1080px;
+    width: 100%;
 }
 .centered-div {
   position: fixed;

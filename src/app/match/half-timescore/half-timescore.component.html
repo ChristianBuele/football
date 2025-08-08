@@ -1,10 +1,11 @@
 <div class="bottom-center w-12 flex justify-content-center align-content-center align-items-center gap-1 align-content-center" *ngIf="marcador.body.show">
     <div class="w-5  mb-5 flex flex-column">
-        <div class="text-center bg-pink-700 text-white font-bold text-2xl mb-1">
+        <div class="text-center bg-green-900 text-white font-bold text-2xl mb-1">
             {{marcador.body.tiempo|uppercase}}
         </div>
         <div class="flex justify-content-around flex-wrap surface-ground">
             <div class="flex justify-content-around font-bold text-3xl  h-full	">
+                <p-image src="{{'assets/teams/'+matchData.teams[0].image_path+'.png'}}" alt="" *ngIf="matchData.teams[0].image_path" width="50px" class="drop-shadow "></p-image>
                 <div class="flex align-content-center text-5xl">{{matchData.teams[0].name}}</div>
             </div>
             <div class="flex justify-content-center text-6xl font-bold " *ngIf="marcador.body.tiempo!='Previa'">
@@ -13,7 +14,7 @@
                 <div>{{marcador.body.visit}}</div>
             </div>
             <div class="flex justify-content-around font-bold text-3xl text-5xl">
-
+                <p-image src="{{'assets/teams/'+matchData.teams[1].image_path+'.png'}}" alt="" *ngIf="matchData.teams[1].image_path" width="50px" class="drop-shadow "></p-image>
                 <div>{{matchData.teams[1].name}}</div>
             </div>
         </div>
@@ -21,12 +22,12 @@
             {{matchData.match.location}}
         </div>
     </div>
-    <div class="sombra flex align-content-center align-items-centerflex-wrap transition-all">
-        <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="1000"
+    <div class="sombra flex align-content-center align-items-center flex-wrap transition-all h-auto">
+        <p-galleria [value]="auspiciantes" [numVisible]="5" [circular]="true" [transitionInterval]="1000" class="drop-shadow "
             [showIndicators]="false" [showItemNavigators]="false" [autoPlay]="true" [showThumbnails]="false"
-            [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '100px' }">
+            [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'width': '100px' }">
             <ng-template pTemplate="item" let-item>
-                <img [src]="item.name" style="width: 100%; display: block;" />
+                <img [src]="item.name" style="width: 100%; display: flex;" />
             </ng-template>
         </p-galleria>
     </div>
