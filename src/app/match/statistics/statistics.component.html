@@ -1,5 +1,5 @@
 <div class="flex w-12 flex-column" *ngIf="statistics.show && !statistics.showOnlyPosition">
-        <div class="flex w-full bg-green-900 text-white mb-1 py-2">
+        <div class="flex w-full bg-red-900 text-white mb-1 py-2">
             <div class="text-3xl font-bold  w-5 text-center"> {{matchData.teams[0].name}}</div>
             <div class="text-3xl font-bold border-500 w-2 text-center">{{statistics.local.goles}} -
                 {{statistics.visit.goles}}</div>
@@ -49,23 +49,23 @@
 <div class="w-5 flex text-white flex-column sombra bottom-center mb-5" *ngIf="statistics.show && statistics.showOnlyPosition">
     <div class="possession-container flex w-full">
       <!-- Equipo Local -->
-      <div 
-        class="possession team1" 
-        [style.width.%]="statistics.local.position" 
+      <div
+        class="possession team1"
+        [style.width.%]="statistics.local.position"
         [ngStyle]="{'background-color': matchData.teams[0].color}"
       >
         {{ statistics.local.position }}%
       </div>
       <!-- Equipo Visitante -->
-      <div 
-        class="possession team2" 
-        [style.width.%]="statistics.visit.position" 
+      <div
+        class="possession team2"
+        [style.width.%]="statistics.visit.position"
         [ngStyle]="{'background-color': matchData.teams[1].color}"
       >
         {{ statistics.visit.position }}%
       </div>
     </div>
-  
+
     <div class="flex justify-content-between px-2 w-full surface-ground">
       <!-- Nombre Equipo Local -->
       <div class="flex align-items-center w-6">
@@ -74,7 +74,7 @@
           {{matchData.teams[0].name}}
         </div>
       </div>
-      
+
       <!-- Nombre Equipo Visitante -->
       <div class="flex align-items-center w-6">
         <div class="circle" [ngStyle]="{'background-color': matchData.teams[1].color}"></div>
@@ -82,7 +82,7 @@
           {{matchData.teams[1].name}}
         </div>
       </div>
-      
+
     </div>
     <div class="flex justify-content-center font-bold">
         <span>Posesión de balón</span>

@@ -1,5 +1,5 @@
 <div  *ngIf="show" class="flex flex-column w-6"  >
-    <div class="col-12 bg-green-900 text-3xl font-bold text-center border-round-md mb-1">
+    <div class="col-12 bg-red-900 text-3xl font-bold text-center border-round-md mb-1">
         {{team?team.name:'' |uppercase}}
     </div>
     <div class="vidrio flex justify-content-center align-content-center flex-wrap shadow-8 border-round-md w-12">
@@ -13,7 +13,7 @@
                 </p-divider>
             </div>
             <div class="col-12">
-                <div *ngFor="let player of titulares" class="py-1 text-xl font-bold text-center" 
+                <div *ngFor="let player of titulares" class="py-1 text-xl font-bold text-center"
                     [ngClass]="{'titulares-enter-active': mostrarTitulares}">
                     <label class="">{{player.number!=0 ?player.number+". ":" "}}</label>
                     <span >{{player.name}}</span>
@@ -39,9 +39,9 @@
         <div class="w-6 border-left-2 ">
             <div class="flex justify-content-center align-content-center flex-wrap " style="height: 100%">
                 <div class="flex align-items-center justify-content-center font-bold border-round m-2 text-center " style="min-height: 500px; max-width: 500px;">
-                    <p-image [src]="'assets/teams/'+team?.image_path+'.png'" [alt]="team?.name" width="300px" class="drop-shadow"></p-image>
+                    <p-image [src]="(team.image_path?team.image_path:'assets/logos/logo.png')" [alt]="team?.name" width="450px" class="drop-shadow"></p-image>
                 </div>
-               
+
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 export class Auspiciantes{
     static getAuspiciantes():Auspiciante[]{
         return [
-            {name:'assets/teams/logo.png'}
+            {name:'assets/logos/logo.png'}
         ]
     }
 }
