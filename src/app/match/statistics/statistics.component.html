@@ -50,17 +50,17 @@
     <div class="possession-container flex w-full">
       <!-- Equipo Local -->
       <div
-        class="possession team1"
+        class="possession team1 bg-red-900"
         [style.width.%]="statistics.local.position"
-        [ngStyle]="{'background-color': matchData.teams[0].color}"
+        
       >
         {{ statistics.local.position }}%
       </div>
       <!-- Equipo Visitante -->
       <div
-        class="possession team2"
+        class="possession team2 bg-red-900"
         [style.width.%]="statistics.visit.position"
-        [ngStyle]="{'background-color': matchData.teams[1].color}"
+      
       >
         {{ statistics.visit.position }}%
       </div>
